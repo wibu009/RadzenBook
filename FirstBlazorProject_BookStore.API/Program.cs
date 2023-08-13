@@ -1,3 +1,6 @@
+using FirstBlazorProject_BookStore.API.Extensions;
+using FirstBlazorProject_BookStore.API.Middleware;
+
 namespace FirstBlazorProject_BookStore.API
 {
     public class Program
@@ -9,9 +12,7 @@ namespace FirstBlazorProject_BookStore.API
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddApplicationServices(builder.Configuration);
 
             var app = builder.Build();
 
@@ -21,6 +22,8 @@ namespace FirstBlazorProject_BookStore.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 

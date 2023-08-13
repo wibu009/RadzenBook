@@ -20,19 +20,19 @@ public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TK
 
     public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-    public Task DeleteAsync(TKey id, CancellationToken cancellationToken = default);
+    public Task DeleteByIdAsync(TKey id, CancellationToken cancellationToken = default);
 
     public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-    public Task DeleteAsync(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
+    public Task DeleteByPropsAsync(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
 
     public Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
-    public Task SoftDeleteAsync(TKey id, CancellationToken cancellationToken = default);
+    public Task SoftDeleteByIdAsync(TKey id, CancellationToken cancellationToken = default);
 
     public Task SoftDeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-    public Task SoftDeleteAsync(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
+    public Task SoftDeleteByPropsAsync(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
 
     public Task SoftDeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 

@@ -11,4 +11,10 @@
     <ProjectReference Include="..\FirstBlazorProject_BookStore.Repository\FirstBlazorProject_BookStore.Repository.csproj" />
   </ItemGroup>
 
+
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
 </Project>

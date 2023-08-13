@@ -2,7 +2,7 @@
 
 public abstract class BaseEntity<TKey>
 {
-    public TKey Id { get; set; }
+    public TKey Id { get; set; } = default!;
     public string CreatedBy { get; set; } = "System";
     public string ModifiedBy { get; set; } = "System";
     public DateTime CreatedAt { get; set; } = DateTime.Now;
