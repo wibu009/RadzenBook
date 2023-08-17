@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using FirstBlazorProject_BookStore.Common.Constants;
 using FirstBlazorProject_BookStore.Common.Core;
-using FirstBlazorProject_BookStore.Common.DTOs;
-using FirstBlazorProject_BookStore.Common.DTOs.Demo;
+using FirstBlazorProject_BookStore.Common.DTO.Demo;
 using FirstBlazorProject_BookStore.Repository.Unit;
 using Microsoft.Extensions.Logging;
 
@@ -27,7 +27,7 @@ public class DemoService : IDemoService
             var demo = await _unitOfWork.GetRepository<DataAccess.Entities.Demo, Guid>().GetByIdAsync(id);
             if (demo == null)
             {
-                return Result<DemoDto>.Failure(404, $"Demo with id {id} does not exist.");
+                return Result<DemoDto>.Failure(StatusCode.NotFound, $"Demo with id {id} does not exist.");
             }
             var demoDto = _mapper.Map<DemoDto>(demo);
             return Result<DemoDto>.Success(demoDto);

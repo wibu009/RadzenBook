@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FirstBlazorProject_BookStore.DataAccess.Context;
 
-public class DataContext : IdentityDbContext<AppUser>
+public class DataContext : IdentityDbContext<AppUser, AppRole, Guid>
 {
     public DataContext()
     {

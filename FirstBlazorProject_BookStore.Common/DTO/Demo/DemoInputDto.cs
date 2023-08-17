@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.Common.DTOs;
+﻿namespace FirstBlazorProject_BookStore.Common.DTO.Demo;
 
 public class DemoInputDto
 {

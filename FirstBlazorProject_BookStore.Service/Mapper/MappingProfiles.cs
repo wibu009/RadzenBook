@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using FirstBlazorProject_BookStore.Common.DTOs;
-using FirstBlazorProject_BookStore.Common.DTOs.Demo;
+using FirstBlazorProject_BookStore.Common.DTO.Demo;
 
 namespace FirstBlazorProject_BookStore.Service.Mapper;
 
