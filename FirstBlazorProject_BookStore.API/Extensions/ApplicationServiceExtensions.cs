@@ -1,6 +1,7 @@
 ﻿using FirstBlazorProject_BookStore.DataAccess.Context;
 using FirstBlazorProject_BookStore.Repository.Unit;
 using FirstBlazorProject_BookStore.Service.Demo;
+using FirstBlazorProject_BookStore.Service.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -16,6 +17,22 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
         {
             c.SwaggerDoc("v1", new OpenApiInfo {Title = "FirstBlazorProject_BookStore.API", Version = "v1"});
         });
+
+        //Add Cors
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy", policy =>
+            {
+                policy
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .WithExposedHeaders("WWW-Authenticate", "Pagination")
+                    .WithOrigins("http://localhost:5000", "https://localhost:5001");
+            });
+        });
+
+        services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
         //Context
         services.AddDbContext<DataContext>(options =>

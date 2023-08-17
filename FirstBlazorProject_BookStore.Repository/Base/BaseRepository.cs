@@ -8,12 +8,10 @@ namespace FirstBlazorProject_BookStore.Repository.Base;
 
 public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
 {
-    protected readonly DataContext Context;
     protected readonly DbSet<TEntity> DbSet;
 
     public BaseRepository(DataContext context)
     {
-        Context = context;
         DbSet = context.Set<TEntity>();
     }
 

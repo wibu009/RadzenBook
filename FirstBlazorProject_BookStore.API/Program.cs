@@ -23,12 +23,14 @@ namespace FirstBlazorProject_BookStore.API
                 app.UseSwaggerUI();
             }
 
-            app.UseMiddleware<ExceptionMiddleware>();
-
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseMiddleware<ExceptionMiddleware>();
 
+            app.UseCors("CorsPolicy");
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
 

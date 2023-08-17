@@ -27,5 +27,8 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, Guid>
         modelBuilder.ApplyConfiguration(new DemoConfig());
     }
 
-    public DbSet<Demo> Demos { get; set; }
+    public virtual DbSet<Demo> Demos { get; set; }
+    public virtual DbSet<Address> Addresses { get; set; }
+    public virtual DbSet<AppUser> AppUsers { get; set; }
+    public virtual DbSet<AppRole> AppRoles { get; set; }
 }
