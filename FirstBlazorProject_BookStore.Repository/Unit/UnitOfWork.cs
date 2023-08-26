@@ -1,18 +1,18 @@
 ﻿using FirstBlazorProject_BookStore.DataAccess.Context;
-using FirstBlazorProject_BookStore.DataAccess.Entities;
+using FirstBlazorProject_BookStore.Entity;
 using FirstBlazorProject_BookStore.Repository.Base;
 
 namespace FirstBlazorProject_BookStore.Repository.Unit;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly DataContext _dataContext;
+    private readonly BookStoreDataContext _bookStoreDataContext;
     private readonly Dictionary<Type, object> _repositories;
     private bool _disposed;
 
-    public UnitOfWork(DataContext dataContext)
+    public UnitOfWork(BookStoreDataContext bookStoreDataContext)
     {
-        _dataContext = dataContext;
+        _bookStoreDataContext = bookStoreDataContext;
         _repositories = new Dictionary<Type, object>();
     }
 
@@ -23,14 +23,14 @@ public class UnitOfWork : IUnitOfWork
             return (IBaseRepository<TEntity, TKey>)(_repositories[typeof(TEntity)]);
         }
 
-        var repository = new BaseRepository<TEntity, TKey>(_dataContext);
+        var repository = new BaseRepository<TEntity, TKey>(_bookStoreDataContext);
         _repositories.Add(typeof(TEntity), repository);
         return repository;
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return await _dataContext.SaveChangesAsync(cancellationToken);
+        return await _bookStoreDataContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DisposeAsync()
@@ -45,7 +45,7 @@ public class UnitOfWork : IUnitOfWork
         {
             if (disposing)
             {
-                await _dataContext.DisposeAsync();
+                await _bookStoreDataContext.DisposeAsync();
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FirstBlazorProject_BookStore.Common.DTO.Demo;
+using FirstBlazorProject_BookStore.Model.DTOs.Demo;
 
 namespace FirstBlazorProject_BookStore.Service.Mapper;
 
@@ -8,8 +8,8 @@ public class MappingProfiles : Profile
     public MappingProfiles ()
     {
         #region Demo
-        CreateMap<DataAccess.Entities.Demo, DemoDto>();
-        CreateMap<DemoInputDto, DataAccess.Entities.Demo>();
+        CreateMap<Entity.Demo, DemoDto>();
+        CreateMap<DemoInputDto, Entity.Demo>();
         #endregion
     }
 }

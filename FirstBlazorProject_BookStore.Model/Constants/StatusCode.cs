@@ -1,4 +1,4 @@
-namespace FirstBlazorProject_BookStore.Common.Constants;
+namespace FirstBlazorProject_BookStore.Model.Constants;
 
 public class StatusCode
 {

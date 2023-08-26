@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -17,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FirstBlazorProject_BookStore.Common\FirstBlazorProject_BookStore.Common.csproj" />
+    <ProjectReference Include="..\FirstBlazorProject_BookStore.Model\FirstBlazorProject_BookStore.Model.csproj" />
     <ProjectReference Include="..\FirstBlazorProject_BookStore.Service\FirstBlazorProject_BookStore.Service.csproj" />
   </ItemGroup>
 

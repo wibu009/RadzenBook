@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FirstBlazorProject_BookStore.Common\FirstBlazorProject_BookStore.Common.csproj" />
+    <ProjectReference Include="..\FirstBlazorProject_BookStore.Model\FirstBlazorProject_BookStore.Model.csproj" />
     <ProjectReference Include="..\FirstBlazorProject_BookStore.Repository\FirstBlazorProject_BookStore.Repository.csproj" />
   </ItemGroup>
 
@@ -16,5 +17,8 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
+
+
+
 
 </Project>

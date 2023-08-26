@@ -1,8 +1,7 @@
-﻿using FirstBlazorProject_BookStore.DataAccess.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FirstBlazorProject_BookStore.DataAccess.Config;
+namespace FirstBlazorProject_BookStore.Entity.Config;
 
 public class DemoConfig : IEntityTypeConfiguration<Demo>
 {

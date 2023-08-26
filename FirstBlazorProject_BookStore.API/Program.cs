@@ -1,5 +1,5 @@
 using FirstBlazorProject_BookStore.API.Extensions;
-using FirstBlazorProject_BookStore.API.Middleware;
+using FirstBlazorProject_BookStore.API.Middlewares;
 
 namespace FirstBlazorProject_BookStore.API
 {

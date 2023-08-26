@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
-using FirstBlazorProject_BookStore.Common.Core;
-using FirstBlazorProject_BookStore.DataAccess.Entities;
+using FirstBlazorProject_BookStore.Entity;
+using FirstBlazorProject_BookStore.Model.Cores;
 
 namespace FirstBlazorProject_BookStore.Repository.Base;
 

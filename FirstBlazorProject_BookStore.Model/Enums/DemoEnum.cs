@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.DataAccess.Enum;
+﻿namespace FirstBlazorProject_BookStore.Model.Enums;
 
 public enum DemoEnum
 {

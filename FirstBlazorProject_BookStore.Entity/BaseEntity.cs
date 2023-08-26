@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.DataAccess.Entities;
+﻿namespace FirstBlazorProject_BookStore.Entity;
 
 public abstract class BaseEntity<TKey>
 {

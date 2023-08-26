@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.Common.Core;
+﻿namespace FirstBlazorProject_BookStore.Model.Cores;
 
 public class AppException
 {

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using FirstBlazorProject_BookStore.Common.Core;
 using FirstBlazorProject_BookStore.DataAccess.Context;
-using FirstBlazorProject_BookStore.DataAccess.Entities;
+using FirstBlazorProject_BookStore.Entity;
+using FirstBlazorProject_BookStore.Model.Cores;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstBlazorProject_BookStore.Repository.Base;
@@ -10,7 +10,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
 {
     protected readonly DbSet<TEntity> DbSet;
 
-    public BaseRepository(DataContext context)
+    public BaseRepository(BookStoreDataContext context)
     {
         DbSet = context.Set<TEntity>();
     }
@@ -195,7 +195,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         try
         {
             var entities = await GetAsync(filter, cancellationToken: cancellationToken);
-            await DeleteRangeAsync(entities, cancellationToken);
+            await DeleteRangeAsync(entities!, cancellationToken);
         }
         catch (Exception e)
         {
@@ -246,7 +246,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         try
         {
             var entities = await GetAsync(filter, cancellationToken: cancellationToken);
-            await SoftDeleteRangeAsync(entities, cancellationToken);
+            await SoftDeleteRangeAsync(entities!, cancellationToken);
         }
         catch (Exception e)
         {

@@ -1,5 +1,5 @@
-﻿using FirstBlazorProject_BookStore.Common.Core;
-using FirstBlazorProject_BookStore.Common.DTO.Demo;
+﻿using FirstBlazorProject_BookStore.Model.Cores;
+using FirstBlazorProject_BookStore.Model.DTOs.Demo;
 
 namespace FirstBlazorProject_BookStore.Service.Demo;
 

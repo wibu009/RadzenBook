@@ -16,7 +16,35 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo {Title = "FirstBlazorProject_BookStore.API", Version = "v1"});
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+            {
+                In = ParameterLocation.Header,
+                Description = " Please enter token",
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                BearerFormat = "JWT",
+                Scheme = "bearer"
+            });
+            c.AddSecurityRequirement(
+                new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                                {Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                        },
+                        new string[] { }
+                    }
+                });
         });
+
+        services.AddLogging(
+            builder =>
+            {
+                builder.AddConsole();
+                builder.AddDebug();
+            });
 
         //Add Cors
         services.AddCors(options =>
@@ -35,7 +63,7 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
         services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
         //Context
-        services.AddDbContext<DataContext>(options =>
+        services.AddDbContext<BookStoreDataContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         });

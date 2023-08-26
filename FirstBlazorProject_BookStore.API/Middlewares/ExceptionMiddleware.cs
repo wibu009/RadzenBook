@@ -1,14 +1,14 @@
 ﻿using System.Net;
 using System.Text.Json;
-using FirstBlazorProject_BookStore.Common.Core;
+using FirstBlazorProject_BookStore.Model.Cores;
 
-namespace FirstBlazorProject_BookStore.API.Middleware;
+namespace FirstBlazorProject_BookStore.API.Middlewares;
 
 public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionMiddleware> _logger;
-    public readonly IHostEnvironment _env;
+    private readonly IHostEnvironment _env;
 
     public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
     {

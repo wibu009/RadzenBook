@@ -1,5 +1,5 @@
 ﻿using FirstBlazorProject_BookStore.API.Extensions;
-using FirstBlazorProject_BookStore.Common.Core;
+using FirstBlazorProject_BookStore.Model.Cores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstBlazorProject_BookStore.API.Controllers;

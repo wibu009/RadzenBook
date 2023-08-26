@@ -1,4 +1,4 @@
-﻿using FirstBlazorProject_BookStore.DataAccess.Entities;
+﻿using FirstBlazorProject_BookStore.Entity;
 using FirstBlazorProject_BookStore.Repository.Base;
 
 namespace FirstBlazorProject_BookStore.Repository.Unit;

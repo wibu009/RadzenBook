@@ -6,11 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FirstBlazorProject_BookStore.Model\FirstBlazorProject_BookStore.Model.csproj" />
-  </ItemGroup>
-
-
-
-
 </Project>

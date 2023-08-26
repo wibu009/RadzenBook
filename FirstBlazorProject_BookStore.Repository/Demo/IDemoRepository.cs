@@ -2,7 +2,7 @@
 
 namespace FirstBlazorProject_BookStore.Repository.Demo;
 
-public interface IDemoRepository : IBaseRepository<DataAccess.Entities.Demo, Guid>
+public interface IDemoRepository : IBaseRepository<Entity.Demo, Guid>
 {
     
 }
