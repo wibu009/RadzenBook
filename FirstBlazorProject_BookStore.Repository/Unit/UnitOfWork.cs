@@ -4,7 +4,7 @@ using FirstBlazorProject_BookStore.Repository.Base;
 
 namespace FirstBlazorProject_BookStore.Repository.Unit;
 
-public class UnitOfWork : IUnitOfWork
+public sealed class UnitOfWork : IUnitOfWork
 {
     private readonly BookStoreDataContext _bookStoreDataContext;
     private readonly Dictionary<Type, object> _repositories;
@@ -16,16 +16,18 @@ public class UnitOfWork : IUnitOfWork
         _repositories = new Dictionary<Type, object>();
     }
 
-    public IBaseRepository<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : BaseEntity<TKey>
+    public TRepository GetRepository<TRepository, TEntity, TKey>()
+        where TRepository : BaseRepository<TEntity, TKey>
+        where TEntity : BaseEntity<TKey>
     {
-        if (_repositories.Keys.Contains(typeof(TEntity)))
+        if (_repositories.ContainsKey(typeof(TEntity)))
         {
-            return (IBaseRepository<TEntity, TKey>)(_repositories[typeof(TEntity)]);
+            return (TRepository)(_repositories[typeof(TEntity)]);
         }
 
-        var repository = new BaseRepository<TEntity, TKey>(_bookStoreDataContext);
-        _repositories.Add(typeof(TEntity), repository);
-        return repository;
+        var repository = Activator.CreateInstance(typeof(TRepository), _bookStoreDataContext);
+        _repositories.Add(typeof(TEntity), repository!);
+        return ((TRepository)repository!)!;
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -39,7 +41,7 @@ public class UnitOfWork : IUnitOfWork
         GC.SuppressFinalize(this);
     }
 
-    protected virtual async Task DisposeAsync(bool disposing)
+    private async Task DisposeAsync(bool disposing)
     {
         if (!_disposed)
         {

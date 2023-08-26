@@ -2,6 +2,7 @@
 using FirstBlazorProject_BookStore.Model.Constants;
 using FirstBlazorProject_BookStore.Model.Cores;
 using FirstBlazorProject_BookStore.Model.DTOs.Demo;
+using FirstBlazorProject_BookStore.Repository.Demo;
 using FirstBlazorProject_BookStore.Repository.Unit;
 using Microsoft.Extensions.Logging;
 
@@ -10,12 +11,14 @@ namespace FirstBlazorProject_BookStore.Service.Demo;
 public class DemoService : IDemoService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDemoRepository _demoRepository;
     private readonly ILogger<DemoService> _logger;
     private readonly IMapper _mapper;
 
     public DemoService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<DemoService> logger)
     {
         _unitOfWork = unitOfWork;
+        _demoRepository = _unitOfWork.GetRepository<DemoRepository, Entity.Demo, Guid>();
         _mapper = mapper;
         _logger = logger;
     }
@@ -24,7 +27,7 @@ public class DemoService : IDemoService
     {
         try
         {
-            var demo = await _unitOfWork.GetRepository<Entity.Demo, Guid>().GetByIdAsync(id);
+            var demo = await _demoRepository.GetByIdAsync(id);
             if (demo == null)
             {
                 return Result<DemoDto>.Failure(StatusCode.NotFound, $"Demo with id {id} does not exist.");
@@ -44,7 +47,7 @@ public class DemoService : IDemoService
         try
         {
             var demo = _mapper.Map<Entity.Demo>(demoInputDto);
-            await _unitOfWork.GetRepository<Entity.Demo, Guid>().CreateAsync(demo);
+            await _demoRepository.DeleteAsync(demo);
             await _unitOfWork.SaveChangesAsync();
             demoInputDto = _mapper.Map<DemoInputDto>(demo);
             return Result<DemoInputDto>.Success(demoInputDto);
