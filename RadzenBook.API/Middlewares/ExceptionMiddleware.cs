@@ -1,20 +1,20 @@
 ﻿using System.Net;
 using System.Text.Json;
-using FirstBlazorProject_BookStore.Model.Cores;
+using FirstBlazorProject_BookStore.Common.Exceptions;
 
 namespace FirstBlazorProject_BookStore.API.Middlewares;
 
 public class ExceptionMiddleware
 {
-    private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionMiddleware> _logger;
     private readonly IHostEnvironment _env;
+    private readonly RequestDelegate _next;
 
-    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
+    public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger, IHostEnvironment env, RequestDelegate next)
     {
-        _next = next;
         _logger = logger;
         _env = env;
+        _next = next;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -23,20 +23,31 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            _logger.LogError(ex, ex.Message);
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
-
-            var response = _env.IsDevelopment()
-                ? new AppException(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
-                : new AppException(500, "Internal Server Error");
-
-            var options = new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
-            var json = JsonSerializer.Serialize(response, options);
-
-            await context.Response.WriteAsync(json);
+            await HandleExceptionAsync(context, exception);
         }
+    }
+
+    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
+    {
+        _logger.LogError(exception, exception.Message);
+
+        httpContext.Response.ContentType = "application/json";
+        httpContext.Response.StatusCode = exception switch
+        {
+            BadRequestException => StatusCodes.Status400BadRequest,
+            NotFoundException => StatusCodes.Status404NotFound,
+            RepositoryException => StatusCodes.Status500InternalServerError,
+            _ => StatusCodes.Status500InternalServerError
+        };
+
+        var response = _env.IsDevelopment()
+            ? new AppException(httpContext.Response.StatusCode, exception.Message, exception.InnerException?.Message,
+                exception.StackTrace!)
+            : new AppException(StatusCodes.Status500InternalServerError, "Internal Server Error",
+                "An internal error occurred. Please contact support for assistance.");
+
+        await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
     }
 }

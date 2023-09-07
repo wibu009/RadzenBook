@@ -1,11 +1,9 @@
-﻿using FirstBlazorProject_BookStore.DataAccess.Context;
+﻿using FirstBlazorProject_BookStore.DataAccess;
 using FirstBlazorProject_BookStore.Repository.Implements;
 using FirstBlazorProject_BookStore.Repository.Interfaces;
-using FirstBlazorProject_BookStore.Service.Implements;
 using FirstBlazorProject_BookStore.Service.Implements.Features;
-using FirstBlazorProject_BookStore.Service.Interfaces;
 using FirstBlazorProject_BookStore.Service.Interfaces.Features;
-using FirstBlazorProject_BookStore.Service.Mapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -19,7 +17,23 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
         services.AddHttpContextAccessor();
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo {Title = "RadzenBook.API", Version = "v1"});
+            c.SwaggerDoc("v1",
+                new OpenApiInfo
+                {
+                    Title = "RadzenBook.API",
+                    Version = "v1",
+                    Description = "RadzenBook.API Swagger Surface",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "AveTeam",
+                        Email = "kienct.work@gmail.com",
+                    },
+                    License = new OpenApiLicense()
+                    {
+                        Name = "MIT",
+                        Url = new Uri("https://opensource.org/licenses/MIT")
+                    }
+                });
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {
                 In = ParameterLocation.Header,
@@ -64,12 +78,16 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
             });
         });
 
-        services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+        //Add AutoMapper
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-        //Context
+        //Add FluentValidation with assembly
+        services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+        //Add DbContext
         services.AddDbContext<RadzenBookDataContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(configuration.GetConnectionString("ServerConnection"));
         });
 
         //Add Repositories

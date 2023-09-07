@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using FirstBlazorProject_BookStore.DataAccess.Context;
+using FirstBlazorProject_BookStore.DataAccess;
 using FirstBlazorProject_BookStore.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;

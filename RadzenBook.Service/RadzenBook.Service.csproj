@@ -9,24 +9,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RadzenBook.Common\RadzenBook.Common.csproj" />
-    <ProjectReference Include="..\RadzenBook.Model\RadzenBook.Model.csproj" />
-    <ProjectReference Include="..\RadzenBook.Repository\RadzenBook.Repository.csproj" />
+    <ProjectReference Include="..\RadzenBook.Model\RadzenBook.Contract.csproj" />
   </ItemGroup>
 
 
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-
-
-
-
-
-
-
-
-
-  </ItemGroup>
 
 
 

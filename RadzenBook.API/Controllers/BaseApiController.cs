@@ -1,6 +1,6 @@
-﻿using FirstBlazorProject_BookStore.API.Extensions;
+﻿using System.Net;
+using FirstBlazorProject_BookStore.API.Extensions;
 using FirstBlazorProject_BookStore.Model.Core;
-using FirstBlazorProject_BookStore.Model.Cores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstBlazorProject_BookStore.API.Controllers;
@@ -9,20 +9,32 @@ namespace FirstBlazorProject_BookStore.API.Controllers;
 [Route("api/[controller]")]
 public class BaseApiController : ControllerBase
 {
-    protected IActionResult PaginatedResponse<TDto>(PaginatedList<TDto> paginatedList) where TDto : class
+    protected IActionResult HandleResult<T>(Result<T> result) where T : class
     {
-        Response.AddPaginationHeader(paginatedList.PageNumber, paginatedList.PageSize, paginatedList.Count, paginatedList.TotalPages);
-        return new ObjectResult(paginatedList) { StatusCode = StatusCodes.Status200OK };
-    }
-    
-    protected IActionResult HandleResult<TDto>(Result<TDto> result) where TDto : class
-    {
-        return result.IsSuccess switch
+        return result switch
         {
-            true when result.Value != null => Ok(result.Value),
-            true when result.Value == null => NoContent(),
-            false when result.Error != null => BadRequest(result.Error),
-            _ => BadRequest()
+            { IsSuccess: false, Error: not null } => new BadRequestObjectResult(result.Error),
+            { IsSuccess: true, Value: not null } => new OkObjectResult(result.Value),
+            { IsSuccess: true, Value: null } => new NoContentResult(),
+            _ => new StatusCodeResult((int)HttpStatusCode.InternalServerError)
         };
+    }
+
+    protected IActionResult HandlePagedResult<T>(Result<PaginatedList<T>> result) where T : class
+    {
+        switch (result)
+        {
+            case { IsSuccess: false, Error: not null }:
+                return new BadRequestObjectResult(result.Error);
+            case { IsSuccess: true, Value: not null, Value: { TotalCount: > 0 } }:
+                Response.AddPaginationHeader(result.Value.PageNumber, result.Value.PageSize, result.Value.TotalCount, result.Value.TotalPages);
+                return new OkObjectResult(result.Value);
+            case { IsSuccess: true, Value: not null, Value: { TotalCount: 0 } }:
+                return new NoContentResult();
+            case { IsSuccess: true, Value: null }:
+                return new NoContentResult();
+            default:
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
+        }
     }
 }

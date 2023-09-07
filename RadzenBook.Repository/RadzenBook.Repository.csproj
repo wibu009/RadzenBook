@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\RadzenBook.Common\RadzenBook.Common.csproj" />
     <ProjectReference Include="..\RadzenBook.Database\RadzenBook.Database.csproj" />
-    <ProjectReference Include="..\RadzenBook.Model\RadzenBook.Model.csproj" />
 
 
   </ItemGroup>

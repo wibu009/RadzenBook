@@ -1,20 +1,15 @@
-﻿using FirstBlazorProject_BookStore.Entity;
-using FirstBlazorProject_BookStore.Entity.Config;
+﻿using System.Reflection;
+using FirstBlazorProject_BookStore.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FirstBlazorProject_BookStore.DataAccess.Context;
+namespace FirstBlazorProject_BookStore.DataAccess;
 
 public class RadzenBookDataContext : IdentityDbContext<AppUser, AppRole, Guid>
 {
-    public RadzenBookDataContext()
-    {
-
-    }
-
     public RadzenBookDataContext(DbContextOptions<RadzenBookDataContext> options) : base(options)
     {
-        Database.Migrate();
+
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,7 +19,7 @@ public class RadzenBookDataContext : IdentityDbContext<AppUser, AppRole, Guid>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(RadzenBookDataContext).Assembly);
 
         //config
-        modelBuilder.ApplyConfiguration(new DemoConfig());
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     public virtual DbSet<Demo> Demos { get; set; } = null!;

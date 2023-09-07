@@ -10,4 +10,6 @@ public class PagingParams
         get => _pageSize;
         set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
     }
+    public string? SearchValue { get; set; }
+    public string? SortOrder { get; set; }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
+using System.Reflection;
+using FirstBlazorProject_BookStore.Common.Exceptions;
 using FirstBlazorProject_BookStore.Entity;
-using FirstBlazorProject_BookStore.Model.Core;
-using FirstBlazorProject_BookStore.Model.Cores;
 using FirstBlazorProject_BookStore.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,17 +9,19 @@ namespace FirstBlazorProject_BookStore.Repository.Implements;
 
 public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
 {
+    #region Properties
     protected readonly DbSet<TEntity> DbSet;
+    #endregion
 
+    #region Constructors
     protected BaseRepository(DbContext context)
     {
         DbSet = context.Set<TEntity>();
     }
+    #endregion
 
     #region Query Methods
-
-    public virtual async Task<IEnumerable<TEntity?>> GetAsync(
-        Expression<Func<TEntity, bool>>? filter = null,
+    public virtual async Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         string? includeProperties = null,
         bool isTracking = true,
@@ -36,15 +38,16 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
 
             if (includeProperties != null)
             {
-                foreach (var includeProperty in includeProperties.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProperty);
-                }
+                query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
             }
 
             if (orderBy != null)
             {
                 query = await Task.FromResult(orderBy(query));
+            }
+            else
+            {
+                query = query.OrderBy(e => e.CreatedAt);
             }
 
             if (!isTracking)
@@ -56,7 +59,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -69,21 +72,38 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
 
             if (includeProperties != null)
             {
-                foreach (var includeProperty in includeProperties.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProperty);
-                }
+                query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
             }
 
             return await query.FirstOrDefaultAsync(e => e.IsDeleted == false && e.Id!.Equals(id), cancellationToken);
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
-    public virtual async Task<PaginatedList<TEntity>> GetPagedAsync(
+    public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>>? filter = null,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            IQueryable<TEntity> query = DbSet;
+
+            if (filter != null)
+            {
+                query = await Task.FromResult(query.Where(filter));
+            }
+
+            return await query.CountAsync(cancellationToken);
+        }
+        catch (Exception e)
+        {
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
+        }
+    }
+
+    public virtual async Task<List<TEntity>> GetPagedAsync(
         int pageNumber,
         int pageSize,
         Expression<Func<TEntity, bool>>? filter = null,
@@ -119,15 +139,14 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
                 query = query.AsNoTracking();
             }
 
-            var count = await query.Where(e => !e.IsDeleted).CountAsync(cancellationToken);
-            var items = await query.Where(e => !e.IsDeleted).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
-
-            return new PaginatedList<TEntity>(items, count, pageNumber, pageSize);
+            return await query.Where(e => e.IsDeleted == false)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -143,7 +162,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -156,7 +175,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -168,7 +187,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -181,7 +200,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -190,15 +209,15 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         try
         {
             var entities = await GetAsync(filter, cancellationToken: cancellationToken);
-            await DeleteRangeAsync(entities!, cancellationToken);
+            await DeleteRangeAsync(entities, cancellationToken);
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
-    public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteRangeAsync(IList<TEntity> entities, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -206,7 +225,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -215,11 +234,12 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         try
         {
             entity.IsDeleted = true;
+            entity.ModifiedAt = DateTime.UtcNow;
             await Task.Run(() => DbSet.Update(entity), cancellationToken);
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -232,7 +252,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
         }
     }
 
@@ -241,7 +261,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         try
         {
             var entities = await GetAsync(filter, cancellationToken: cancellationToken);
-            await SoftDeleteRangeAsync(entities!, cancellationToken);
+            await SoftDeleteRangeAsync(entities, cancellationToken);
         }
         catch (Exception e)
         {
@@ -249,7 +269,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
     }
 
-    public virtual async Task SoftDeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+    public virtual async Task SoftDeleteRangeAsync(IList<TEntity> entities, CancellationToken cancellationToken = default)
     {
         try
         {

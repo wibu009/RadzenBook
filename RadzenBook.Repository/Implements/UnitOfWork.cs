@@ -1,38 +1,65 @@
-﻿using FirstBlazorProject_BookStore.DataAccess.Context;
+﻿using FirstBlazorProject_BookStore.DataAccess;
 using FirstBlazorProject_BookStore.Entity;
 using FirstBlazorProject_BookStore.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstBlazorProject_BookStore.Repository.Implements;
 
 public sealed class UnitOfWork : IUnitOfWork
 {
-    private readonly RadzenBookDataContext _radzenBookDataContext;
+    private readonly DbContext _context;
     private readonly Dictionary<Type, object> _repositories;
     private bool _disposed;
 
     public UnitOfWork(RadzenBookDataContext radzenBookDataContext)
     {
-        _radzenBookDataContext = radzenBookDataContext;
+        _context = radzenBookDataContext;
         _repositories = new Dictionary<Type, object>();
     }
 
-    public TRepository GetRepository<TRepository, TEntity, TKey>()
-        where TRepository : BaseRepository<TEntity, TKey>
+    public TIRepository GetRepository<TIRepository, TEntity, TKey>()
+        where TIRepository : IBaseRepository<TEntity, TKey>
         where TEntity : BaseEntity<TKey>
     {
-        if (_repositories.ContainsKey(typeof(TEntity)))
+        var type = typeof(TIRepository);
+
+        //check if the repository is already in the dictionary
+        if (_repositories.TryGetValue(type, out var repository))
         {
-            return (TRepository)(_repositories[typeof(TEntity)]);
+            return (TIRepository) repository;
         }
 
-        var repository = Activator.CreateInstance(typeof(TRepository), _radzenBookDataContext);
-        _repositories.Add(typeof(TEntity), repository!);
-        return ((TRepository)repository!)!;
+        //get class implementing BaseRepository<TEntity, TKey>
+        var baseRepositoryType = typeof(BaseRepository<TEntity, TKey>);
+
+        //get class implementing TRepository with DbContext as constructor parameter
+        var repositoryType = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(s => s.GetTypes())
+            .FirstOrDefault(t => type.IsAssignableFrom(t) && t.BaseType == baseRepositoryType && t.GetConstructors().Any(c => c.GetParameters().Any(p => p.ParameterType == typeof(DbContext))));
+
+        var repositoryInstance = Activator.CreateInstance(repositoryType ?? throw new InvalidOperationException("Repository not found"), _context);
+        _repositories.TryAdd(type, repositoryInstance ?? throw new InvalidOperationException("Repository not found"));
+        return (TIRepository) repositoryInstance;
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return await _radzenBookDataContext.SaveChangesAsync(cancellationToken);
+        return await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
+    {
+        await _context.Database.BeginTransactionAsync(cancellationToken);
+    }
+
+    public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
+    {
+        await _context.Database.CommitTransactionAsync(cancellationToken);
+    }
+
+    public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
+    {
+        await _context.Database.RollbackTransactionAsync(cancellationToken);
     }
 
     public async Task DisposeAsync()
@@ -47,7 +74,7 @@ public sealed class UnitOfWork : IUnitOfWork
         {
             if (disposing)
             {
-                await _radzenBookDataContext.DisposeAsync();
+                await _context.DisposeAsync();
             }
         }
 

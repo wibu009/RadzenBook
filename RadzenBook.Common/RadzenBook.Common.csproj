@@ -5,11 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>FirstBlazorProject_BookStore.Common</RootNamespace>
+
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RadzenBook.Model\RadzenBook.Model.csproj" />
-  </ItemGroup>
 
 
 
