@@ -1,7 +1,12 @@
-﻿namespace FirstBlazorProject_BookStore.Model.Core;
+﻿namespace RadzenBook.Contract.Core;
 
-public class PaginatedList<T> : List<T>
+public class PaginatedList<T> : List<T> where T : class
 {
+    public int PageNumber { get; }
+    public int PageSize { get; }
+    public int TotalPages { get; }
+    public int TotalCount { get; }
+
     public PaginatedList(IEnumerable<T> items, int count, int pageNumber, int pageSize)
     {
         PageNumber = pageNumber;
@@ -10,11 +15,6 @@ public class PaginatedList<T> : List<T>
         TotalCount = count;
         AddRange(items);
     }
-
-    public int PageNumber { get; }
-    public int PageSize { get; }
-    public int TotalPages { get; }
-    public int TotalCount { get; }
 
     public static async Task<PaginatedList<T>> CreateAsync(
         IEnumerable<T> source,

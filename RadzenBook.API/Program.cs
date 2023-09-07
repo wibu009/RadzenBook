@@ -1,7 +1,7 @@
-using FirstBlazorProject_BookStore.API.Extensions;
-using FirstBlazorProject_BookStore.API.Middlewares;
+using RadzenBook.Api.Extensions;
+using RadzenBook.Api.Middlewares;
 
-namespace FirstBlazorProject_BookStore.API
+namespace FirstBlazorProject_RadzenBook.API
 {
     public class Program
     {

@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using FirstBlazorProject_BookStore.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RadzenBook.Entity;
 
-namespace FirstBlazorProject_BookStore.DataAccess;
+namespace RadzenBook.Database;
 
 public class RadzenBookDataContext : IdentityDbContext<AppUser, AppRole, Guid>
 {

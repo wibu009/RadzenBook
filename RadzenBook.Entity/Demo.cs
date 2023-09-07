@@ -1,6 +1,6 @@
-﻿using FirstBlazorProject_BookStore.Common.Enums;
+﻿using RadzenBook.Common.Enums;
 
-namespace FirstBlazorProject_BookStore.Entity;
+namespace RadzenBook.Entity;
 
 public class Demo : BaseEntity<Guid>
 {

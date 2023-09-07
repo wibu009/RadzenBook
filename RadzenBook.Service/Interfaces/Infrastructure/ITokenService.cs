@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.Service.Interfaces.Infrastructure;
+﻿namespace RadzenBook.Service.Interfaces.Infrastructure;
 
 public interface ITokenService
 {

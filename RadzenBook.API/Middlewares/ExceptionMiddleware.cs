@@ -1,8 +1,7 @@
-﻿using System.Net;
-using System.Text.Json;
-using FirstBlazorProject_BookStore.Common.Exceptions;
+﻿using System.Text.Json;
+using RadzenBook.Common.Exceptions;
 
-namespace FirstBlazorProject_BookStore.API.Middlewares;
+namespace RadzenBook.Api.Middlewares;
 
 public class ExceptionMiddleware
 {

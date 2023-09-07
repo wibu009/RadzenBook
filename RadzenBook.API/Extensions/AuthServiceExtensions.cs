@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FirstBlazorProject_BookStore.API.Extensions;
+namespace RadzenBook.Api.Extensions;
 
 public static class AuthServiceExtensions
 {

@@ -1,10 +1,8 @@
-﻿using System.Text;
-using FirstBlazorProject_BookStore.DataAccess;
-using FirstBlazorProject_BookStore.Entity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Identity;
+using RadzenBook.Database;
+using RadzenBook.Entity;
 
-namespace FirstBlazorProject_BookStore.API.Extensions;
+namespace RadzenBook.Api.Extensions;
 
 public static class IdentityServiceExtensions
 {

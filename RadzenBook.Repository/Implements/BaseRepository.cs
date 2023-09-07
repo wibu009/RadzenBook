@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
-using FirstBlazorProject_BookStore.Common.Exceptions;
-using FirstBlazorProject_BookStore.Entity;
-using FirstBlazorProject_BookStore.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using RadzenBook.Common.Exceptions;
+using RadzenBook.Entity;
+using RadzenBook.Repository.Interfaces;
 
-namespace FirstBlazorProject_BookStore.Repository.Implements;
+namespace RadzenBook.Repository.Implements;
 
 public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
 {

@@ -1,7 +1,7 @@
-﻿using FirstBlazorProject_BookStore.DataAccess;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using RadzenBook.Database;
 
-namespace FirstBlazorProject_BookStore.API.Extensions;
+namespace RadzenBook.Api.Extensions;
 
 public static class DatabaseExtensions
 {

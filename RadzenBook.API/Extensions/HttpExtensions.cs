@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace FirstBlazorProject_BookStore.API.Extensions;
+namespace RadzenBook.Api.Extensions;
 
 public static class HttpExtensions
 {

@@ -1,13 +1,13 @@
-﻿using FirstBlazorProject_BookStore.DataAccess;
-using FirstBlazorProject_BookStore.Repository.Implements;
-using FirstBlazorProject_BookStore.Repository.Interfaces;
-using FirstBlazorProject_BookStore.Service.Implements.Features;
-using FirstBlazorProject_BookStore.Service.Interfaces.Features;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RadzenBook.Database;
+using RadzenBook.Repository.Implements;
+using RadzenBook.Repository.Interfaces;
+using RadzenBook.Service.Implements.Features;
+using RadzenBook.Service.Interfaces.Features;
 
-namespace FirstBlazorProject_BookStore.API.Extensions;
+namespace RadzenBook.Api.Extensions;
 
 public static class ApplicationServiceExtensions
 {

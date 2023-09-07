@@ -1,8 +1,7 @@
-using FirstBlazorProject_BookStore.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-namespace FirstBlazorProject_BookStore.Client
+namespace RadzenBook.Client.Client
 {
     public class Program
     {

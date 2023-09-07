@@ -8,19 +8,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RadzenBook.Common\RadzenBook.Common.csproj" />
-    <ProjectReference Include="..\RadzenBook.Contract\RadzenBook.Contract.csproj" />
+    <ProjectReference Include="..\RadzenBook.Repository\RadzenBook.Repository.csproj" />
   </ItemGroup>
 
-
-
-
-
-
-
-
-
-
-
-
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
+  </ItemGroup>
 
 </Project>

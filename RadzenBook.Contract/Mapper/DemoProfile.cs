@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using FirstBlazorProject_BookStore.Entity;
-using FirstBlazorProject_BookStore.Model.DTOs;
+using RadzenBook.Contract.DTO;
+using RadzenBook.Entity;
 
-namespace FirstBlazorProject_BookStore.Model.Mappers;
+namespace RadzenBook.Contract.Mapper;
 
 public class DemoProfile : Profile
 {

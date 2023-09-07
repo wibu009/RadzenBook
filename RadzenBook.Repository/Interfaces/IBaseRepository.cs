@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using FirstBlazorProject_BookStore.Entity;
+using RadzenBook.Entity;
 
-namespace FirstBlazorProject_BookStore.Repository.Interfaces;
+namespace RadzenBook.Repository.Interfaces;
 
 public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TKey>
 {

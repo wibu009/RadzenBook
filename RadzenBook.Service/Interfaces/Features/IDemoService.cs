@@ -1,7 +1,7 @@
-﻿using FirstBlazorProject_BookStore.Model.Core;
-using FirstBlazorProject_BookStore.Model.DTOs;
+﻿using RadzenBook.Contract.Core;
+using RadzenBook.Contract.DTO;
 
-namespace FirstBlazorProject_BookStore.Service.Interfaces.Features;
+namespace RadzenBook.Service.Interfaces.Features;
 
 public interface IDemoService
 {

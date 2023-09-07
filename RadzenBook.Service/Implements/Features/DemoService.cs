@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
-using FirstBlazorProject_BookStore.Model.Core;
-using FirstBlazorProject_BookStore.Model.DTOs;
-using FirstBlazorProject_BookStore.Repository.Implements;
-using FirstBlazorProject_BookStore.Repository.Interfaces;
-using FirstBlazorProject_BookStore.Service.Interfaces.Features;
 using Microsoft.Extensions.Logging;
+using RadzenBook.Contract.Core;
+using RadzenBook.Contract.DTO;
+using RadzenBook.Entity;
+using RadzenBook.Repository.Implements;
+using RadzenBook.Repository.Interfaces;
+using RadzenBook.Service.Interfaces.Features;
 
-namespace FirstBlazorProject_BookStore.Service.Implements.Features;
+namespace RadzenBook.Service.Implements.Features;
 
 public class DemoService : IDemoService
 {
@@ -18,7 +19,7 @@ public class DemoService : IDemoService
     public DemoService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<DemoService> logger)
     {
         _unitOfWork = unitOfWork;
-        _demoRepository = _unitOfWork.GetRepository<DemoRepository, Entity.Demo, Guid>();
+        _demoRepository = _unitOfWork.GetRepository<DemoRepository, Demo, Guid>();
         _mapper = mapper;
         _logger = logger;
     }
@@ -46,7 +47,7 @@ public class DemoService : IDemoService
     {
         try
         {
-            var demo = _mapper.Map<Entity.Demo>(demoInputDto);
+            var demo = _mapper.Map<Demo>(demoInputDto);
             await _demoRepository.DeleteAsync(demo);
             await _unitOfWork.SaveChangesAsync();
             demoInputDto = _mapper.Map<DemoInputDto>(demo);

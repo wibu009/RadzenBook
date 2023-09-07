@@ -1,8 +1,8 @@
-﻿using FirstBlazorProject_BookStore.Entity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RadzenBook.Entity;
 
-namespace FirstBlazorProject_BookStore.DataAccess.Configs;
+namespace RadzenBook.Database.Configs;
 
 public class DemoConfig : IEntityTypeConfiguration<Demo>
 {

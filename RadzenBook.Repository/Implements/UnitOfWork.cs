@@ -1,9 +1,9 @@
-﻿using FirstBlazorProject_BookStore.DataAccess;
-using FirstBlazorProject_BookStore.Entity;
-using FirstBlazorProject_BookStore.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using RadzenBook.Database;
+using RadzenBook.Entity;
+using RadzenBook.Repository.Interfaces;
 
-namespace FirstBlazorProject_BookStore.Repository.Implements;
+namespace RadzenBook.Repository.Implements;
 
 public sealed class UnitOfWork : IUnitOfWork
 {

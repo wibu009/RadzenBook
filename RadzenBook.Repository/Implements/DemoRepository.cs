@@ -1,10 +1,10 @@
-﻿using FirstBlazorProject_BookStore.DataAccess;
-using FirstBlazorProject_BookStore.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using RadzenBook.Entity;
+using RadzenBook.Repository.Interfaces;
 
-namespace FirstBlazorProject_BookStore.Repository.Implements;
+namespace RadzenBook.Repository.Implements;
 
-public class DemoRepository: BaseRepository<Entity.Demo, Guid>, IDemoRepository
+public class DemoRepository: BaseRepository<Demo, Guid>, IDemoRepository
 {
     protected DemoRepository(DbContext context) : base(context)
     {

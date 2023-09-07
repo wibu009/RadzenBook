@@ -1,7 +1,6 @@
-﻿using FirstBlazorProject_BookStore.Entity;
-using FirstBlazorProject_BookStore.Repository.Implements;
+﻿using RadzenBook.Entity;
 
-namespace FirstBlazorProject_BookStore.Repository.Interfaces;
+namespace RadzenBook.Repository.Interfaces;
 
 public interface IUnitOfWork
 {

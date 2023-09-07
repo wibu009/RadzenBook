@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace FirstBlazorProject_BookStore.Entity;
+namespace RadzenBook.Entity;
 
 public class AppRole : IdentityRole<Guid>
 {

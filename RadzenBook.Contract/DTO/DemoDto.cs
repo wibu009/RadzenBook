@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.Model.DTOs;
+﻿namespace RadzenBook.Contract.DTO;
 
 public class DemoDto
 {

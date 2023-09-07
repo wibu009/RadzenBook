@@ -1,8 +1,8 @@
 ﻿using Bogus;
-using FirstBlazorProject_BookStore.Common.Enums;
-using FirstBlazorProject_BookStore.Entity;
+using RadzenBook.Common.Enums;
+using RadzenBook.Entity;
 
-namespace FirstBlazorProject_BookStore.DataAccess;
+namespace RadzenBook.Database;
 
 public static class Seed
 {

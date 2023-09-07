@@ -1,6 +1,8 @@
-﻿namespace FirstBlazorProject_BookStore.Repository.Interfaces;
+﻿using RadzenBook.Entity;
 
-public interface IDemoRepository : IBaseRepository<Entity.Demo, Guid>
+namespace RadzenBook.Repository.Interfaces;
+
+public interface IDemoRepository : IBaseRepository<Demo, Guid>
 {
     
 }

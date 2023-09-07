@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.Common.Exceptions;
+﻿namespace RadzenBook.Common.Exceptions;
 
 public class NotFoundException : Exception
 {

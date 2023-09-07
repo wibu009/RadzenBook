@@ -4,12 +4,5 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>FirstBlazorProject_BookStore.Common</RootNamespace>
-
   </PropertyGroup>
-
-
-
-
-
 </Project>

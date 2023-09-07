@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.Entity;
+﻿namespace RadzenBook.Entity;
 
 public class Address : BaseEntity<Guid>
 {

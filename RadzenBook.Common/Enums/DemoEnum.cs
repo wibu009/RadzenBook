@@ -1,4 +1,4 @@
-﻿namespace FirstBlazorProject_BookStore.Common.Enums;
+﻿namespace RadzenBook.Common.Enums;
 
 public enum DemoEnum
 {

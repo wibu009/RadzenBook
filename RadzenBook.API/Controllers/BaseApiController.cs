@@ -1,9 +1,9 @@
 ﻿using System.Net;
-using FirstBlazorProject_BookStore.API.Extensions;
-using FirstBlazorProject_BookStore.Model.Core;
 using Microsoft.AspNetCore.Mvc;
+using RadzenBook.Api.Extensions;
+using RadzenBook.Contract.Core;
 
-namespace FirstBlazorProject_BookStore.API.Controllers;
+namespace RadzenBook.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
