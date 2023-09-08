@@ -13,8 +13,15 @@ public static class ApplicationServiceExtensions
 {
 public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
+        //Add basic services
+        services.AddControllers();
+        services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
         services.AddEndpointsApiExplorer();
+        
+        //Add HTTP services
         services.AddHttpContextAccessor();
+        
+        //Add Swagger
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1",
@@ -57,6 +64,7 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
                 });
         });
 
+        //Add Logging
         services.AddLogging(
             builder =>
             {
@@ -78,14 +86,8 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
             });
         });
 
-        //Add AutoMapper
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-        //Add FluentValidation with assembly
-        services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-
         //Add DbContext
-        services.AddDbContext<RadzenBookDataContext>(options =>
+        services.AddDbContextPool<RadzenBookDbContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("ServerConnection"));
         });
@@ -95,6 +97,9 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
 
         //Add Services
         services.AddScoped<IDemoService, DemoService>();
+        
+        //Add AutoMapper
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         return services;
     }

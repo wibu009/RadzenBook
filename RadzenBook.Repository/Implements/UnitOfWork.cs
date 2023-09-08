@@ -11,9 +11,9 @@ public sealed class UnitOfWork : IUnitOfWork
     private readonly Dictionary<Type, object> _repositories;
     private bool _disposed;
 
-    public UnitOfWork(RadzenBookDataContext radzenBookDataContext)
+    public UnitOfWork(RadzenBookDbContext radzenBookDbContext)
     {
-        _context = radzenBookDataContext;
+        _context = radzenBookDbContext;
         _repositories = new Dictionary<Type, object>();
     }
 

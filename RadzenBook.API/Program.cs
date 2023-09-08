@@ -1,7 +1,7 @@
 using RadzenBook.Api.Extensions;
 using RadzenBook.Api.Middlewares;
 
-namespace FirstBlazorProject_RadzenBook.API
+namespace RadzenBook.Api
 {
     public class Program
     {
@@ -10,9 +10,9 @@ namespace FirstBlazorProject_RadzenBook.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
-            builder.Services.AddControllers();
             builder.Services.AddApplicationServices(builder.Configuration);
+            builder.Services.AddIdentityServices(builder.Configuration);
+            builder.Services.AddAuthServices(builder.Configuration);
 
             var app = builder.Build();
 
@@ -33,7 +33,9 @@ namespace FirstBlazorProject_RadzenBook.API
             app.UseAuthorization();
 
             app.MapControllers();
-
+            
+            app.ApplyMigrations().Wait();
+            
             app.Run();
         }
     }

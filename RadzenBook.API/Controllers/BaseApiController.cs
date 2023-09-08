@@ -6,7 +6,7 @@ using RadzenBook.Contract.Core;
 namespace RadzenBook.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]s")]
 public class BaseApiController : ControllerBase
 {
     protected IActionResult HandleResult<T>(Result<T> result) where T : class

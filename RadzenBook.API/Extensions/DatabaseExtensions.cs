@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RadzenBook.Database;
+using RadzenBook.Entity;
 
 namespace RadzenBook.Api.Extensions;
 
@@ -10,12 +12,14 @@ public static class DatabaseExtensions
         using var scope = host.Services.CreateScope();
         var services = scope.ServiceProvider;
         var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
         var logger = loggerFactory.CreateLogger("Migrations");
         try
         {
-            var context = services.GetRequiredService<RadzenBookDataContext>();
+            var context = services.GetRequiredService<RadzenBookDbContext>();
             await context.Database.MigrateAsync();
-            await context.SeedData();
+            await context.SeedData(userManager, roleManager);
             logger.LogInformation("Migrated successfully");
         }
         catch (Exception e)

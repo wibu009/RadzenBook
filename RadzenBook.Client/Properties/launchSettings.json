@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "FirstBlazorProject_BookStore.Client": {
+    "RadzenBook.Client": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

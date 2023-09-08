@@ -21,7 +21,8 @@ public static class IdentityServiceExtensions
             .AddRoleManager<RoleManager<AppRole>>()
             .AddSignInManager<SignInManager<AppUser>>()
             .AddRoleValidator<RoleValidator<AppRole>>()
-            .AddEntityFrameworkStores<RadzenBookDataContext>();
+            .AddEntityFrameworkStores<RadzenBookDbContext>()
+            .AddDefaultTokenProviders();
 
         return services;
     }
