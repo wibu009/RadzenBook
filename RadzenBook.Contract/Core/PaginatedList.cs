@@ -17,10 +17,10 @@ public class PaginatedList<T> : List<T> where T : class
     }
 
     public static async Task<PaginatedList<T>> CreateAsync(
-        IEnumerable<T> source,
+        ICollection<T> source,
         int pageNumber,
-        int pageSize,
-        CancellationToken cancellationToken = default)
+        int pageSize
+        )
     {
         var count = source.Count();
         var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();

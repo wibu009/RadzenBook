@@ -10,6 +10,12 @@
     <ProjectReference Include="..\RadzenBook.Common\RadzenBook.Common.csproj" />
     <ProjectReference Include="..\RadzenBook.Contract\RadzenBook.Contract.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Implements\Infrastructure\Security\" />
+  </ItemGroup>
 
 
 

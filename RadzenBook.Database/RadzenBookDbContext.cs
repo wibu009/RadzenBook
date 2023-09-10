@@ -14,17 +14,7 @@ public class RadzenBookDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //find all IEntityTypeConfiguration and apply
-        var configurationTypes = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(t => t is { IsClass: true, IsAbstract: false, ContainsGenericParameters: false })
-            .Where(t => t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)));
-        
-        //apply all configurations
-        foreach (var configurationType in configurationTypes)
-        {
-            dynamic configuration = Activator.CreateInstance(configurationType) ?? throw new InvalidOperationException($"Can not create instance of {configurationType}");
-            modelBuilder.ApplyConfiguration(configuration);
-        }
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         
         base.OnModelCreating(modelBuilder);
     }

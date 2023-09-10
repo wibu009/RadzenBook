@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace RadzenBook.Api.Extensions;
+namespace RadzenBook.API.Extensions;
 
 public static class HttpExtensions
 {

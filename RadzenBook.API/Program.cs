@@ -1,5 +1,5 @@
-using RadzenBook.Api.Extensions;
-using RadzenBook.Api.Middlewares;
+using RadzenBook.API.Extensions;
+using RadzenBook.API.Middlewares;
 
 namespace RadzenBook.Api
 {

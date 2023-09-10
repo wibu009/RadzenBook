@@ -1,20 +1,24 @@
-﻿using FluentValidation;
+﻿using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RadzenBook.Common.Settings;
 using RadzenBook.Database;
 using RadzenBook.Repository.Implements;
 using RadzenBook.Repository.Interfaces;
 using RadzenBook.Service.Implements.Features;
+using RadzenBook.Service.Implements.Infrastructure;
 using RadzenBook.Service.Interfaces.Features;
+using RadzenBook.Service.Interfaces.Infrastructure;
 
-namespace RadzenBook.Api.Extensions;
+namespace RadzenBook.API.Extensions;
 
 public static class ApplicationServiceExtensions
 {
-public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         //Add basic services
-        services.AddControllers();
         services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
         services.AddEndpointsApiExplorer();
         
@@ -24,31 +28,34 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
         //Add Swagger
         services.AddSwaggerGen(c =>
         {
+            var openApiSettings = configuration.GetSection("OpenApiSettings").Get<OpenApiSettings>();
             c.SwaggerDoc("v1",
                 new OpenApiInfo
                 {
-                    Title = "RadzenBook.API",
-                    Version = "v1",
-                    Description = "RadzenBook.API Swagger Surface",
+                    Title = openApiSettings.Info.Title,
+                    Version = openApiSettings.Info.Version,
+                    Description = openApiSettings.Info.Description,
                     Contact = new OpenApiContact
                     {
-                        Name = "AveTeam",
-                        Email = "kienct.work@gmail.com",
+                        Name = openApiSettings.Info.Contact.Name,
+                        Email = openApiSettings.Info.Contact.Email,
                     },
                     License = new OpenApiLicense()
                     {
-                        Name = "MIT",
-                        Url = new Uri("https://opensource.org/licenses/MIT")
-                    }
+                        Name = openApiSettings.Info.License.Name,
+                        Url = new Uri(openApiSettings.Info.License.Url),
+                    },
+                    TermsOfService = new Uri(openApiSettings.Info.TermsOfService),
                 });
+            c.EnableAnnotations();
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
             {
                 In = ParameterLocation.Header,
-                Description = " Please enter token",
-                Name = "Authorization",
+                Description = openApiSettings.Security.Description,
+                Name = openApiSettings.Security.Name,
                 Type = SecuritySchemeType.Http,
-                BearerFormat = "JWT",
-                Scheme = "bearer"
+                BearerFormat = openApiSettings.Security.BearerFormat,
+                Scheme = openApiSettings.Security.Scheme,
             });
             c.AddSecurityRequirement(
                 new OpenApiSecurityRequirement
@@ -71,20 +78,7 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
                 builder.AddConsole();
                 builder.AddDebug();
             });
-
-        //Add Cors
-        services.AddCors(options =>
-        {
-            options.AddPolicy("CorsPolicy", policy =>
-            {
-                policy
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials()
-                    .WithExposedHeaders("WWW-Authenticate", "Pagination")
-                    .WithOrigins("http://localhost:5000", "https://localhost:5001");
-            });
-        });
+        services.AddSingleton<ILoggerFactory, LoggerFactory>();
 
         //Add DbContext
         services.AddDbContextPool<RadzenBookDbContext>(options =>
@@ -92,14 +86,19 @@ public static IServiceCollection AddApplicationServices(this IServiceCollection 
             options.UseSqlServer(configuration.GetConnectionString("ServerConnection"));
         });
 
+        //Add AutoMapper
+        services.AddAutoMapper(Assembly.Load("RadzenBook.Contract"));
+
+        //Add FluentValidation
+        services.AddFluentValidationAutoValidation();
+        services.AddValidatorsFromAssembly(Assembly.Load("RadzenBook.Contract"));
+
         //Add Repositories
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         //Add Services
-        services.AddScoped<IDemoService, DemoService>();
-        
-        //Add AutoMapper
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddScoped<IInfrastructureServiceManager, InfrastructureServiceManager>();
+        services.AddScoped<IFeaturesServiceManager, FeaturesServiceManager>();
 
         return services;
     }

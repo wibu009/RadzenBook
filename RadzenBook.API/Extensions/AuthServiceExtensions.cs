@@ -1,20 +1,46 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using RadzenBook.Service.Implements.Infrastructure.Encrypt;
+using RadzenBook.Service.Interfaces.Infrastructure.Encrypt;
 
-namespace RadzenBook.Api.Extensions;
+namespace RadzenBook.API.Extensions;
 
 public static class AuthServiceExtensions
 {
-    public static IServiceCollection AddAuthServices (this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddAuthServices(this IServiceCollection services, IConfiguration config)
     {
-        var jwtSettings = config.GetSection("JwtSettings");
+        //Add controllers with authorize
+        services.AddControllers(options =>
+        {
+            var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+            options.Filters.Add(new AuthorizeFilter(policy));
+        });
+
+        //Add Cors
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy", policy =>
+            {
+                policy
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .WithExposedHeaders("WWW-Authenticate", "Pagination")
+                    .WithOrigins("http://localhost:5000", "https://localhost:5001");
+            });
+        });
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(opt =>
             {
                 opt.TokenValidationParameters = new TokenValidationParameters
                 {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("JwtSettings:Key").Value)),
                     ValidateIssuerSigningKey = true,
                     ValidateAudience = false,
                     ValidateIssuer = false,
@@ -25,8 +51,10 @@ public static class AuthServiceExtensions
 
         services.AddAuthorization(opt =>
         {
-            opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+            opt.AddPolicy("RequireManagerRole", policy => policy.RequireRole("manager"));
         });
+
+        services.AddTransient<ITokenService, TokenService>();
 
         return services;
     }

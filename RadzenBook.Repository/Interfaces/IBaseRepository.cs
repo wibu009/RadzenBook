@@ -8,7 +8,7 @@ public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TK
     Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         string? includeProperties = null,
-        bool isTracking = true,
+        bool isTracking = false,
         CancellationToken cancellationToken = default);
 
     Task<List<TEntity>> GetPagedAsync(
@@ -17,7 +17,7 @@ public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TK
         Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         string? includeProperties = null,
-        bool isTracking = true,
+        bool isTracking = false,
         CancellationToken cancellationToken = default);
 
     Task<TEntity?> GetByIdAsync(TKey id, string? includeProperties = null,

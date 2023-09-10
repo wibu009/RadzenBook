@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RadzenBook.Entity;
 
-namespace RadzenBook.Database.Configs;
+namespace RadzenBook.Database.Configurations;
 
 public class DemoConfig : IEntityTypeConfiguration<Demo>
 {

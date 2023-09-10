@@ -6,7 +6,7 @@ namespace RadzenBook.Repository.Implements;
 
 public class DemoRepository: BaseRepository<Demo, Guid>, IDemoRepository
 {
-    protected DemoRepository(DbContext context) : base(context)
+    public DemoRepository(DbContext context) : base(context)
     {
     }
 }

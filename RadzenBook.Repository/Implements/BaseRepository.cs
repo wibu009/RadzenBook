@@ -95,7 +95,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
                 query = await Task.FromResult(query.Where(filter));
             }
 
-            return await query.CountAsync(cancellationToken);
+            return await query.Where(e => e.IsDeleted == false).CountAsync(cancellationToken);
         }
         catch (Exception e)
         {
@@ -123,15 +123,16 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
 
             if (includeProperties != null)
             {
-                foreach (var includeProperty in includeProperties.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProperty);
-                }
+                query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
             }
 
             if (orderBy != null)
             {
                 query = await Task.FromResult(orderBy(query));
+            }
+            else
+            {
+                query = query.OrderBy(e => e.CreatedAt);
             }
 
             if (!isTracking)

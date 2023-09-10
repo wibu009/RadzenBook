@@ -2,7 +2,7 @@
 using RadzenBook.Database;
 using RadzenBook.Entity;
 
-namespace RadzenBook.Api.Extensions;
+namespace RadzenBook.API.Extensions;
 
 public static class IdentityServiceExtensions
 {

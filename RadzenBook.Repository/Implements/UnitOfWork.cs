@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using RadzenBook.Database;
 using RadzenBook.Entity;
 using RadzenBook.Repository.Interfaces;
@@ -33,9 +34,8 @@ public sealed class UnitOfWork : IUnitOfWork
         var baseRepositoryType = typeof(BaseRepository<TEntity, TKey>);
 
         //get class implementing TRepository with DbContext as constructor parameter
-        var repositoryType = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(s => s.GetTypes())
-            .FirstOrDefault(t => type.IsAssignableFrom(t) && t.BaseType == baseRepositoryType && t.GetConstructors().Any(c => c.GetParameters().Any(p => p.ParameterType == typeof(DbContext))));
+        var repositoryType = Assembly.GetAssembly(baseRepositoryType)?.GetTypes()
+            .FirstOrDefault(t => t.GetConstructors().Any(c => c.GetParameters().Any(p => p.ParameterType == typeof(DbContext))));
 
         var repositoryInstance = Activator.CreateInstance(repositoryType ?? throw new InvalidOperationException("Repository not found"), _context);
         _repositories.TryAdd(type, repositoryInstance ?? throw new InvalidOperationException("Repository not found"));
