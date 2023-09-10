@@ -9,7 +9,7 @@ public abstract class BaseEntity<TKey>
     public string CreatedBy { get; set; } = "System";
     [MaxLength(100)]
     public string ModifiedBy { get; set; } = "System";
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime ModifiedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
     public bool IsDeleted { get; set; } = false;
 }

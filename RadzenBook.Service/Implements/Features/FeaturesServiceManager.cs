@@ -23,7 +23,7 @@ public class FeaturesServiceManager : IFeaturesServiceManager
         _accountService = new Lazy<IAccountService>(() =>
             new AccountService(userManager, signInManager, infrastructureServiceManager, loggerFactory.CreateLogger<AccountService>()));
         _demoService = new Lazy<IDemoService>(() =>
-            new DemoService(unitOfWork, mapper, loggerFactory.CreateLogger<DemoService>()));
+            new DemoService(unitOfWork, mapper, loggerFactory.CreateLogger<DemoService>(), infrastructureServiceManager));
     }
 
     public IAccountService AccountService => _accountService.Value;

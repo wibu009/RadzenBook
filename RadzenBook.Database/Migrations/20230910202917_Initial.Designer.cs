@@ -12,7 +12,7 @@ using RadzenBook.Database;
 namespace RadzenBook.Database.Migrations
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    [Migration("20230909141752_Initial")]
+    [Migration("20230910202917_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

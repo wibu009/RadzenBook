@@ -7,6 +7,8 @@ using RadzenBook.Contract.DTO.Demo;
 using RadzenBook.Entity;
 using RadzenBook.Repository.Interfaces;
 using RadzenBook.Service.Interfaces.Features;
+using RadzenBook.Service.Interfaces.Infrastructure;
+using RadzenBook.Service.Interfaces.Infrastructure.Security;
 
 namespace RadzenBook.Service.Implements.Features;
 
@@ -16,13 +18,18 @@ public class DemoService : IDemoService
     private readonly IDemoRepository _demoRepository;
     private readonly ILogger<DemoService> _logger;
     private readonly IMapper _mapper;
+    private readonly IUserAccessor _userAccessor;
 
-    public DemoService(IUnitOfWork unitOfWork, IMapper mapper, ILogger<DemoService> logger)
+    public DemoService(IUnitOfWork unitOfWork,
+        IMapper mapper,
+        ILogger<DemoService> logger,
+        IInfrastructureServiceManager infrastructureServiceManager)
     {
         _unitOfWork = unitOfWork;
         _demoRepository = _unitOfWork.GetRepository<IDemoRepository, Demo, Guid>();
         _mapper = mapper;
         _logger = logger;
+        _userAccessor = infrastructureServiceManager.UserAccessor;
     }
 
     public async Task<Result<PaginatedList<DemoDto>>> GetAllDemosAsync()
@@ -83,7 +90,9 @@ public class DemoService : IDemoService
         try
         {
             var demo = _mapper.Map<Demo>(demoCreateDto);
-            await _demoRepository.DeleteAsync(demo);
+            demo.CreatedBy = _userAccessor.GetUsername();
+            demo.ModifiedBy = _userAccessor.GetUsername();
+            await _demoRepository.CreateAsync(demo);
             await _unitOfWork.SaveChangesAsync();
             return Result<Unit>.Success("Create demo successfully.");
         }
@@ -104,6 +113,7 @@ public class DemoService : IDemoService
                 return Result<Unit>.Failure($"Demo with id {id} does not exist.", (int)HttpStatusCode.NotFound);
             }
             _mapper.Map(demoUpdateDto, demo);
+            demo.ModifiedBy = _userAccessor.GetUsername();
             await _demoRepository.UpdateAsync(demo);
             await _unitOfWork.SaveChangesAsync();
             return Result<Unit>.Success("Update demo successfully.");

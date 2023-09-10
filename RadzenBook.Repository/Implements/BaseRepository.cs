@@ -277,6 +277,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
             foreach (var entity in entities)
             {
                 entity.IsDeleted = true;
+                entity.ModifiedAt = DateTime.UtcNow;
             }
             await Task.Run(() => DbSet.UpdateRange(entities), cancellationToken);
         }

@@ -25,7 +25,7 @@ public static class Seed
             // Create a manager account
             var managerUser = new AppUser
             {
-                UserName = "manager@example.com", Email = "manager@example.com",
+                UserName = "manager", Email = "manager@example.com",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true
             };
@@ -35,7 +35,7 @@ public static class Seed
             // Create 3 employee accounts
             for (var i = 1; i <= 3; i++)
             {
-                var employeeUser = new AppUser { UserName = $"employee{i}@example.com", Email = $"employee{i}@example.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
+                var employeeUser = new AppUser { UserName = $"employee{i}", Email = $"employee{i}@example.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
                 await userManager.CreateAsync(employeeUser, "123456@Abc"); // Set a secure password
                 await userManager.AddToRoleAsync(employeeUser, "employee");
             }
@@ -43,7 +43,7 @@ public static class Seed
             // Create 5 customer accounts
             for (var i = 1; i <= 5; i++)
             {
-                var customerUser = new AppUser { UserName = $"customer{i}@example.com", Email = $"customer{i}@example.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
+                var customerUser = new AppUser { UserName = $"customer{i}", Email = $"customer{i}@example.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
                 await userManager.CreateAsync(customerUser, "123456@Abc"); // Set a secure password
                 await userManager.AddToRoleAsync(customerUser, "customer");
             }
