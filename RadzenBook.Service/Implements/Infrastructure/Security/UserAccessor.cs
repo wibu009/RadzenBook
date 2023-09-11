@@ -28,4 +28,9 @@ public class UserAccessor : IUserAccessor
     {
         return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier)!;
     }
+
+    public string GetUserRole()
+    {
+        return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Role)!;
+    }
 }

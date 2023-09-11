@@ -50,7 +50,7 @@ public class AccountService : IAccountService
             //check email confirmed
             if (!user.EmailConfirmed) return Result<UserAuthDto>.Failure("Email not confirmed", (int)HttpStatusCode.Unauthorized);
 
-            var userAuthDto = CreateUserAuthDto(user);
+            var userAuthDto = await CreateUserAuthDto(user);
             
             //add role is customer
             var role = await _roleManager.FindByNameAsync("customer");
@@ -89,7 +89,7 @@ public class AccountService : IAccountService
                 return Result<UserAuthDto>.Failure(errors.ToString()!);
             }
             
-            var userAuthDto = CreateUserAuthDto(user);
+            var userAuthDto = await CreateUserAuthDto(user);
 
             _logger.LogInformation("User {UserUserName} registered successfully", user.UserName);
 
@@ -102,14 +102,15 @@ public class AccountService : IAccountService
         }
     }
     
-    private UserAuthDto CreateUserAuthDto(AppUser user)
+    private async Task<UserAuthDto> CreateUserAuthDto(AppUser user)
     {
-        return new UserAuthDto
+        var userAuthDto = new UserAuthDto
         {
             Username = user.UserName,
             Email = user.Email,
-            Avatar = string.Empty,
-            Token = _tokenService.CreateTokenAsync(user).Result
+            Token = await _tokenService.CreateTokenAsync(user),
         };
+
+        return userAuthDto;
     }
 }

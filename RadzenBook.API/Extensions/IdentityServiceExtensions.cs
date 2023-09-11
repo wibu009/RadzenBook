@@ -15,7 +15,8 @@ public static class IdentityServiceExtensions
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireLowercase = false;
                 opt.User.RequireUniqueEmail = true;
-                opt.SignIn.RequireConfirmedEmail = true;
+                opt.SignIn.RequireConfirmedEmail = false;
+                opt.SignIn.RequireConfirmedPhoneNumber = false;
             })
             .AddRoles<AppRole>()
             .AddUserManager<UserManager<AppUser>>()

@@ -47,11 +47,6 @@ public static class AuthServiceExtensions
                 };
             });
 
-        services.AddAuthorization(opt =>
-        {
-            opt.AddPolicy("RequireManagerRole", policy => policy.RequireRole("manager"));
-        });
-
         services.AddTransient<ITokenService, TokenService>();
 
         return services;
