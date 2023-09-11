@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Text;
-using FluentValidation.AspNetCore;
+﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;

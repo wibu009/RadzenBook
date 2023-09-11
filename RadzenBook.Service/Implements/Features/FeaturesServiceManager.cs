@@ -14,14 +14,12 @@ public class FeaturesServiceManager : IFeaturesServiceManager
     private readonly Lazy<IDemoService> _demoService;
 
     public FeaturesServiceManager(
-        ILoggerFactory loggerFactory,
-        IMapper mapper, IUnitOfWork unitOfWork,
+        ILoggerFactory loggerFactory, IMapper mapper, IUnitOfWork unitOfWork,
         IInfrastructureServiceManager infrastructureServiceManager,
-        UserManager<AppUser> userManager,
-        SignInManager<AppUser> signInManager)
+        UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
     {
         _accountService = new Lazy<IAccountService>(() =>
-            new AccountService(userManager, signInManager, infrastructureServiceManager, loggerFactory.CreateLogger<AccountService>()));
+            new AccountService(userManager, signInManager, roleManager, infrastructureServiceManager, loggerFactory.CreateLogger<AccountService>()));
         _demoService = new Lazy<IDemoService>(() =>
             new DemoService(unitOfWork, mapper, loggerFactory.CreateLogger<DemoService>(), infrastructureServiceManager));
     }

@@ -16,17 +16,20 @@ public class AccountService : IAccountService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
+    private readonly RoleManager<AppRole> _roleManager;
     private readonly ITokenService _tokenService;
     private readonly ILogger<AccountService> _logger;
 
     public AccountService(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
+        RoleManager<AppRole> roleManager,
         IInfrastructureServiceManager infrastructureServiceManager,
         ILogger<AccountService> logger)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _roleManager = roleManager;
         _tokenService = infrastructureServiceManager.TokenService;
         _logger = logger;
     }
@@ -43,14 +46,18 @@ public class AccountService : IAccountService
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginRequestDto.Password, false);
 
             if (!result.Succeeded) return Result<UserAuthDto>.Failure("Invalid username or password", (int)HttpStatusCode.Unauthorized);
+            
+            //check email confirmed
+            if (!user.EmailConfirmed) return Result<UserAuthDto>.Failure("Email not confirmed", (int)HttpStatusCode.Unauthorized);
 
-            var userAuthDto = new UserAuthDto
+            var userAuthDto = CreateUserAuthDto(user);
+            
+            //add role is customer
+            var role = await _roleManager.FindByNameAsync("customer");
+            if (role != null)
             {
-                Username = user.UserName,
-                Email = user.Email,
-                Avatar = string.Empty,
-                Token = await _tokenService.CreateTokenAsync(user)
-            };
+                await _userManager.AddToRoleAsync(user, role.Name);
+            }
 
             _logger.LogInformation("User {UserUserName} logged in successfully", user.UserName);
 
@@ -58,8 +65,51 @@ public class AccountService : IAccountService
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Message when login");
+            _logger.LogError(e, "Title when login");
             throw ServiceException.Create(nameof(LoginAsync), nameof(AccountService), e.Message, e);
         }
+    }
+    
+    public async Task<Result<UserAuthDto>> RegisterAsync(RegisterRequestDto registerRequestDto)
+    {
+        try
+        {
+            var user = new AppUser
+            {
+                UserName = registerRequestDto.Username,
+                Email = registerRequestDto.Email,
+                PhoneNumber = registerRequestDto.PhoneNumber
+            };
+
+            var result = await _userManager.CreateAsync(user, registerRequestDto.Password);
+
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(x => x.Description);
+                return Result<UserAuthDto>.Failure(errors.ToString()!);
+            }
+            
+            var userAuthDto = CreateUserAuthDto(user);
+
+            _logger.LogInformation("User {UserUserName} registered successfully", user.UserName);
+
+            return Result<UserAuthDto>.Success(userAuthDto);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Title when register");
+            throw ServiceException.Create(nameof(RegisterAsync), nameof(AccountService), e.Message, e);
+        }
+    }
+    
+    private UserAuthDto CreateUserAuthDto(AppUser user)
+    {
+        return new UserAuthDto
+        {
+            Username = user.UserName,
+            Email = user.Email,
+            Avatar = string.Empty,
+            Token = _tokenService.CreateTokenAsync(user).Result
+        };
     }
 }

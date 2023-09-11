@@ -14,13 +14,13 @@ public class DemoProfile : Profile
             .ForMember(dest => dest.DemoEnum, opt => opt.MapFrom(src => src.DemoEnum.ToString()))
             .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToLocalTime()))
             .ForMember(dest => dest.ModifiedAt, opt => opt.MapFrom(src => src.ModifiedAt.ToLocalTime()))
-            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null || !srcMember!.Equals(string.Empty)));
         CreateMap<DemoCreateDto, Demo>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.DemoEnum, opt => opt.MapFrom(src => Enum.Parse<DemoEnum>(src.DemoEnum)))
-            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null || !srcMember!.Equals(string.Empty)));
         CreateMap<DemoUpdateDto, Demo>()
             .ForMember(dest => dest.DemoEnum, opt => opt.MapFrom(src => Enum.Parse<DemoEnum>(src.DemoEnum)))
-            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null || !srcMember!.Equals(string.Empty)));
     }
 }

@@ -2,16 +2,18 @@
 
 public class AppException
 {
-    public AppException(int statusCode, string message, string? details = "", string stackTrace = "")
+    public AppException(int statusCode, string title, string? details = "", string? type = "", string? traceId = "")
     {
         StatusCode = statusCode;
-        Message = message;
+        Title = title;
         Details = details;
-        StackTrace = stackTrace;
+        Type = type;
+        TraceId = traceId;
     }
-
+    
+    public string? TraceId { get; set; }
+    public string? Type { get; set; }
     public int StatusCode { get; set; }
-    public string Message { get; set; }
+    public string Title { get; set; }
     public string? Details { get; set; }
-    public string? StackTrace { get; set; }
 }

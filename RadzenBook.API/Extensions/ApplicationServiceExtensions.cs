@@ -29,7 +29,7 @@ public static class ApplicationServiceExtensions
         services.AddSwaggerGen(c =>
         {
             var openApiSettings = configuration.GetSection("OpenApiSettings").Get<OpenApiSettings>();
-            c.SwaggerDoc("v1",
+            c.SwaggerDoc( openApiSettings.Info.Version,
                 new OpenApiInfo
                 {
                     Title = openApiSettings.Info.Title,
@@ -83,7 +83,13 @@ public static class ApplicationServiceExtensions
         //Add DbContext
         services.AddDbContextPool<RadzenBookDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("ServerConnection"));
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            
+            var connectionString = env == "Development"
+                ? configuration.GetConnectionString("LocalConnection")
+                : configuration.GetConnectionString("RemoteConnection");
+            
+            options.UseSqlServer(connectionString);
         });
 
         //Add AutoMapper

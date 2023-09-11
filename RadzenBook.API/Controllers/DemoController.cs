@@ -43,7 +43,7 @@ public class DemoController : BaseApiController
 
     [HttpPost]
     [SwaggerOperation(Summary = "Create demo")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Create demo successfully", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Create demo successfully")]
     public async Task<IActionResult> CreateDemo(
         [FromBody]
         [SwaggerParameter("Demo create dto (DemoEnum: Demo1, Demo2, Demo3, Demo 4)")]
@@ -54,7 +54,7 @@ public class DemoController : BaseApiController
 
     [HttpPut("{id:guid}")]
     [SwaggerOperation(Summary = "Update demo")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Update demo successfully", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Update demo successfully")]
     public async Task<IActionResult> UpdateDemo(
         [FromRoute]
         [SwaggerParameter("Demo id")]
@@ -68,7 +68,7 @@ public class DemoController : BaseApiController
 
     [HttpDelete("{id:guid}")]
     [SwaggerOperation(Summary = "Delete demo")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Delete demo successfully", typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Delete demo successfully")]
     public async Task<IActionResult> DeleteDemo(
         [FromRoute]
         [SwaggerParameter("Demo id")]

@@ -16,18 +16,12 @@ namespace RadzenBook.Api
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseMiddleware<ExceptionMiddleware>();
-
-            app.UseCors("CorsPolicy");
+            
+            app.UseSecurityHeaders();
 
             app.UseAuthentication();
             app.UseAuthorization();
