@@ -100,7 +100,8 @@ public static class ApplicationServiceExtensions
         services.AddValidatorsFromAssembly(Assembly.Load("RadzenBook.Contract"));
 
         //Add Repositories
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>(provider =>
+            new UnitOfWork(provider.GetRequiredService<RadzenBookDbContext>()));
 
         //Add Services
         services.AddScoped<IInfrastructureServiceManager, InfrastructureServiceManager>();

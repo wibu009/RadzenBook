@@ -14,7 +14,7 @@ public class BaseApiController : ControllerBase
     private IFeaturesServiceManager? _featureServiceManager;
     
     protected IFeaturesServiceManager FeatureServiceManager => _featureServiceManager ??= 
-        (HttpContext.RequestServices.GetService(typeof(IFeaturesServiceManager)) as IFeaturesServiceManager)!;
+        (HttpContext.RequestServices.GetService<IFeaturesServiceManager>() ?? throw new NullReferenceException(nameof(IFeaturesServiceManager)));
     
     protected IActionResult HandleResult<T>(Result<T> result)
     {
