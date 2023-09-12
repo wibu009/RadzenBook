@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RadzenBook.API.Extensions;
 using RadzenBook.Contract.Core;
+using RadzenBook.Service.Interfaces.Features;
 
 namespace RadzenBook.API.Controllers;
 
@@ -10,6 +11,11 @@ namespace RadzenBook.API.Controllers;
 [Produces("application/json")]
 public class BaseApiController : ControllerBase
 {
+    private IFeaturesServiceManager? _featureServiceManager;
+    
+    protected IFeaturesServiceManager FeatureServiceManager => _featureServiceManager ??= 
+        (HttpContext.RequestServices.GetService(typeof(IFeaturesServiceManager)) as IFeaturesServiceManager)!;
+    
     protected IActionResult HandleResult<T>(Result<T> result)
     {
         return result switch

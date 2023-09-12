@@ -18,7 +18,10 @@ public class InfrastructureServiceManager : IInfrastructureServiceManager
     private readonly Lazy<IUserAccessor> _userAccessor;
     private readonly Lazy<IPhotoAccessor> _photoAccessor;
 
-    public InfrastructureServiceManager(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager)
+    public InfrastructureServiceManager(
+        IConfiguration configuration, 
+        IHttpContextAccessor httpContextAccessor, 
+        UserManager<AppUser> userManager)
     {
         _tokenService = new Lazy<ITokenService>(() => new TokenService(configuration, userManager));
         _userAccessor = new Lazy<IUserAccessor>(() => new UserAccessor(httpContextAccessor));

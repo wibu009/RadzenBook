@@ -5,7 +5,8 @@ namespace RadzenBook.Repository.Interfaces;
 
 public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TKey>
 {
-    Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null,
+    Task<List<TEntity>> GetAsync(
+        Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         string? includeProperties = null,
         bool isTracking = false,
@@ -20,7 +21,7 @@ public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TK
         bool isTracking = false,
         CancellationToken cancellationToken = default);
 
-    Task<TEntity?> GetByIdAsync(TKey id, string? includeProperties = null,
+    Task<TEntity?> GetByIdAsync(TKey id, string? includeProperties = null, bool isTracking = false,
         CancellationToken cancellationToken = default);
 
     Task<int> CountAsync(Expression<Func<TEntity, bool>>? filter = null,

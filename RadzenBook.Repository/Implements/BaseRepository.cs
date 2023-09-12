@@ -21,10 +21,11 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
     #endregion
 
     #region Query Methods
-    public virtual async Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null,
+    public virtual async Task<List<TEntity>> GetAsync(
+        Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         string? includeProperties = null,
-        bool isTracking = true,
+        bool isTracking = false,
         CancellationToken cancellationToken = default)
     {
         try
@@ -63,19 +64,27 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
     }
 
-    public virtual async Task<TEntity?> GetByIdAsync(TKey id, string? includeProperties = null,
+    public virtual async Task<TEntity?> GetByIdAsync(
+        TKey id, 
+        string? includeProperties = null, 
+        bool isTracking = false,
         CancellationToken cancellationToken = default)
     {
         try
         {
             IQueryable<TEntity> query = DbSet;
-
+            
             if (includeProperties != null)
             {
                 query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
             }
-
-            return await query.FirstOrDefaultAsync(e => e.IsDeleted == false && e.Id!.Equals(id), cancellationToken);
+            
+            if (!isTracking)
+            {
+                query = query.AsNoTracking();
+            }
+            
+            return await query.Where(e => e.IsDeleted == false).FirstOrDefaultAsync(e => e.Id!.Equals(id), cancellationToken);
         }
         catch (Exception e)
         {
@@ -83,7 +92,8 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
     }
 
-    public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>>? filter = null,
+    public virtual async Task<int> CountAsync(
+        Expression<Func<TEntity, bool>>? filter = null,
         CancellationToken cancellationToken = default)
     {
         try
@@ -109,7 +119,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         string? includeProperties = null,
-        bool isTracking = true,
+        bool isTracking = false,
         CancellationToken cancellationToken = default)
     {
         try

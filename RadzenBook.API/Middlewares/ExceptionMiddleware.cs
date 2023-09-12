@@ -43,8 +43,16 @@ public class ExceptionMiddleware
         };
 
         var response = _env.IsDevelopment()
-            ? new AppException(httpContext.Response.StatusCode, exception.Message, exception.StackTrace!.Trim(), exception.GetType().ToString(), httpContext.TraceIdentifier)
-            : new AppException(StatusCodes.Status500InternalServerError, "Internal Server Title", "An internal error occurred. Please contact support for assistance.", traceId: httpContext.TraceIdentifier, type: "https://tools.ietf.org/html/rfc7231#section-6.6.1");
+            ? new AppException(httpContext.Response.StatusCode, 
+                exception.Message, exception.StackTrace!.Trim(), 
+                exception.GetType().ToString(), 
+                httpContext.TraceIdentifier, 
+                exception.InnerException?.Message)
+            : new AppException(StatusCodes.Status500InternalServerError, 
+                "Internal Server Title", 
+                "An internal error occurred. Please contact support for assistance.", 
+                traceId: httpContext.TraceIdentifier, 
+                type: "https://tools.ietf.org/html/rfc7231#section-6.6.1");
 
         await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
     }

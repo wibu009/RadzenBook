@@ -47,6 +47,8 @@ public static class AuthServiceExtensions
                 };
             });
 
+        services.AddAuthorization();
+
         services.AddTransient<ITokenService, TokenService>();
 
         return services;

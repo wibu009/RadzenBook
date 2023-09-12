@@ -14,23 +14,11 @@ public class UserAccessor : IUserAccessor
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string GetUsername()
-    {
-        return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name)!;
-    }
+    public string GetUsername() => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name)!;
 
-    public string GetUserEmail()
-    {
-        return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email)!;
-    }
+    public string GetUserEmail() => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email)!;
 
-    public string GetUserId()
-    {
-        return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier)!;
-    }
+    public string GetUserId() => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-    public string GetUserRole()
-    {
-        return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Role)!;
-    }
+    public string GetUserRole() => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Role)!;
 }

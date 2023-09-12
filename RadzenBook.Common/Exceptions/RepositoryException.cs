@@ -14,8 +14,6 @@ public class RepositoryException : Exception
     {
     }
 
-    public static RepositoryException Create(string methodName, string className, string message, Exception innerException)
-    {
-        return new RepositoryException($"Error in {className}.{methodName}: {message}", innerException);
-    }
+    public static RepositoryException Create(string methodName, string className, string message, Exception innerException) 
+        => new RepositoryException($"Error in {className}.{methodName}: {message}", innerException);
 }

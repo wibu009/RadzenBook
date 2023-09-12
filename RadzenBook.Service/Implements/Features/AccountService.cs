@@ -16,20 +16,17 @@ public class AccountService : IAccountService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly RoleManager<AppRole> _roleManager;
     private readonly ITokenService _tokenService;
     private readonly ILogger<AccountService> _logger;
 
     public AccountService(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
-        RoleManager<AppRole> roleManager,
         IInfrastructureServiceManager infrastructureServiceManager,
         ILogger<AccountService> logger)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _roleManager = roleManager;
         _tokenService = infrastructureServiceManager.TokenService;
         _logger = logger;
     }
@@ -47,17 +44,9 @@ public class AccountService : IAccountService
 
             if (!result.Succeeded) return Result<UserAuthDto>.Failure("Invalid username or password", (int)HttpStatusCode.Unauthorized);
             
-            //check email confirmed
-            if (!user.EmailConfirmed) return Result<UserAuthDto>.Failure("Email not confirmed", (int)HttpStatusCode.Unauthorized);
+            // if (!user.EmailConfirmed) return Result<UserAuthDto>.Failure("Email not confirmed", (int)HttpStatusCode.Unauthorized);
 
             var userAuthDto = await CreateUserAuthDto(user);
-            
-            //add role is customer
-            var role = await _roleManager.FindByNameAsync("customer");
-            if (role != null)
-            {
-                await _userManager.AddToRoleAsync(user, role.Name);
-            }
 
             _logger.LogInformation("User {UserUserName} logged in successfully", user.UserName);
 
@@ -74,6 +63,10 @@ public class AccountService : IAccountService
     {
         try
         {
+            //check username exist
+            var userExist = await _userManager.FindByNameAsync(registerRequestDto.Username);
+            if (userExist != null) return Result<UserAuthDto>.Failure("Username already exists");
+            
             var user = new AppUser
             {
                 UserName = registerRequestDto.Username,
@@ -81,13 +74,9 @@ public class AccountService : IAccountService
                 PhoneNumber = registerRequestDto.PhoneNumber
             };
 
-            var result = await _userManager.CreateAsync(user, registerRequestDto.Password);
-
-            if (!result.Succeeded)
-            {
-                var errors = result.Errors.Select(x => x.Description);
-                return Result<UserAuthDto>.Failure(errors.ToString()!);
-            }
+            await _userManager.CreateAsync(user, registerRequestDto.Password);
+            
+            await _userManager.AddToRoleAsync(user, "customer");
             
             var userAuthDto = await CreateUserAuthDto(user);
 
