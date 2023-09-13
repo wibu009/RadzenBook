@@ -11,6 +11,7 @@ using RadzenBook.Service.Implements.Features;
 using RadzenBook.Service.Implements.Infrastructure;
 using RadzenBook.Service.Interfaces.Features;
 using RadzenBook.Service.Interfaces.Infrastructure;
+using Serilog;
 
 namespace RadzenBook.API.Extensions;
 
@@ -29,7 +30,7 @@ public static class ApplicationServiceExtensions
         services.AddSwaggerGen(c =>
         {
             var openApiSettings = configuration.GetSection("OpenApiSettings").Get<OpenApiSettings>();
-            c.SwaggerDoc( openApiSettings.Info.Version,
+            c.SwaggerDoc( openApiSettings!.Info.Version,
                 new OpenApiInfo
                 {
                     Title = openApiSettings.Info.Title,
@@ -72,12 +73,7 @@ public static class ApplicationServiceExtensions
         });
 
         //Add Logging
-        services.AddLogging(
-            builder =>
-            {
-                builder.AddConsole();
-                builder.AddDebug();
-            });
+        services.AddLogging();
         services.AddSingleton<ILoggerFactory, LoggerFactory>();
 
         //Add DbContext
@@ -88,7 +84,10 @@ public static class ApplicationServiceExtensions
             var connectionString = env == "Development"
                 ? configuration.GetConnectionString("LocalConnection")
                 : configuration.GetConnectionString("RemoteConnection");
-            
+
+            if (string.IsNullOrEmpty(connectionString))
+                throw new NullReferenceException("Connection string is missing");
+
             options.UseSqlServer(connectionString);
         });
 

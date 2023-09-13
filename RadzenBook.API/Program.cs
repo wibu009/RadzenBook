@@ -9,11 +9,11 @@ namespace RadzenBook.Api
         {
             try
             {
-                Log.Information("Starting application");
-                
                 var builder = WebApplication.CreateBuilder(args);
-            
+
                 builder.UseLogging();
+
+                Log.Information("Starting application...");
                 
                 builder.Services.AddApplicationServices(builder.Configuration);
                 builder.Services.AddIdentityServices(builder.Configuration);
@@ -39,7 +39,7 @@ namespace RadzenBook.Api
             }
             catch (Exception e)
             {
-                Log.Fatal(e, "Application failed to start");
+                Log.Fatal(e, "Application failed to start!!!");
             }
             finally
             {
