@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RadzenBook.Common.Settings;
 using RadzenBook.Database;
+using RadzenBook.Persistence;
 using RadzenBook.Repository.Implements;
 using RadzenBook.Repository.Interfaces;
 using RadzenBook.Service.Implements.Features;
@@ -99,7 +100,7 @@ public static class ApplicationServiceExtensions
         services.AddValidatorsFromAssembly(Assembly.Load("RadzenBook.Contract"));
 
         //Add Repositories
-        services.AddScoped<IUnitOfWork, UnitOfWork>(provider =>
+        services.AddScoped<IUnitOfWork>(provider =>
             new UnitOfWork(provider.GetRequiredService<RadzenBookDbContext>()));
 
         //Add Services

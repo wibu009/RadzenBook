@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using RadzenBook.Common.Enums;
 using RadzenBook.Entity;
 
-namespace RadzenBook.Database;
+namespace RadzenBook.Persistence;
 
 public static class Seed
 {

@@ -6,10 +6,10 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace RadzenBook.API.Controllers;
 
+[Authorize(Roles = "manager")]
 public class DemoController : BaseApiController
 {
     [HttpGet]
-    [Authorize(Roles = "manager")]
     [SwaggerOperation(Summary = "Get all demos")]
     [SwaggerResponse(StatusCodes.Status200OK, "Get all demos", typeof(PaginatedList<DemoDto>))]
     public async Task<IActionResult> GetDemos() 

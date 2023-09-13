@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RadzenBook.Database;
 using RadzenBook.Entity;
+using RadzenBook.Persistence;
 
 namespace RadzenBook.API.Extensions;
 

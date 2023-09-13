@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RadzenBook.Common\RadzenBook.Common.csproj" />
-    <ProjectReference Include="..\RadzenBook.Database\RadzenBook.Database.csproj" />
+    <ProjectReference Include="..\RadzenBook.Persistence\RadzenBook.Persistence.csproj" />
 
 
   </ItemGroup>

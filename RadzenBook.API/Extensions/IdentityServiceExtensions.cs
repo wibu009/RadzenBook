@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RadzenBook.Database;
 using RadzenBook.Entity;
+using RadzenBook.Persistence;
 
 namespace RadzenBook.API.Extensions;
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RadzenBook.Entity;
 
-namespace RadzenBook.Database;
+namespace RadzenBook.Persistence;
 
 public class RadzenBookDbContext : IdentityDbContext<AppUser, AppRole, Guid>
 {

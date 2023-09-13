@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.API", "RadzenBook.API\RadzenBook.API.csproj", "{9492F668-9149-4CD2-94CD-B6261F9B4B9E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Database", "RadzenBook.Database\RadzenBook.Database.csproj", "{550865DC-0B82-4851-9123-43BA2553ED34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Persistence", "RadzenBook.Persistence\RadzenBook.Persistence.csproj", "{550865DC-0B82-4851-9123-43BA2553ED34}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Repository", "RadzenBook.Repository\RadzenBook.Repository.csproj", "{32627660-92C4-41C5-A8A7-3205D2DA9B41}"
 EndProject

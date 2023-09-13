@@ -14,8 +14,8 @@ public class DemoCreateValidator : AbstractValidator<DemoCreateDto>
         RuleFor(x => x.Name)
             .MinimumLength(3).WithMessage("Name must be at least 3 characters")
             .MaximumLength(200).WithMessage("Description must not exceed 200 characters");
-        // RuleFor(x => x.DemoEnum)
-        //     .Must(x => Enum.TryParse<DemoEnum>(x, out _))
-        //     .WithMessage("DemoEnum is not valid");
+        RuleFor(x => x.DemoEnum)
+            .Must(x => Enum.TryParse<DemoEnum>(x, out _))
+            .WithMessage("DemoEnum is not valid");
     }
 }
