@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadzenBook.Database;
 
@@ -11,9 +12,10 @@ using RadzenBook.Database;
 namespace RadzenBook.Database.Migrations
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    partial class RadzenBookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230913100901_AddPhotoEntity")]
+    partial class AddPhotoEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

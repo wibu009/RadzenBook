@@ -5,7 +5,7 @@ using RadzenBook.Entity;
 
 namespace RadzenBook.API.Extensions;
 
-public static class DatabaseExtensions
+public static class StartupExtensions
 {
     public static async Task ApplyMigrations(this IHost host)
     {

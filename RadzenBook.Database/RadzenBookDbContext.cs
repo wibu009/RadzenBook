@@ -22,4 +22,5 @@ public class RadzenBookDbContext : IdentityDbContext<AppUser, AppRole, Guid>
 
     public virtual DbSet<Demo> Demos { get; set; } = null!;
     public virtual DbSet<Address> Addresses { get; set; } = null!;
+    public virtual DbSet<Photo> Photos { get; set; } = null!;
 }

@@ -1,5 +1,5 @@
 using RadzenBook.API.Extensions;
-using RadzenBook.API.Middlewares;
+using Serilog;
 
 namespace RadzenBook.Api
 {
@@ -7,30 +7,44 @@ namespace RadzenBook.Api
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.AddApplicationServices(builder.Configuration);
-            builder.Services.AddIdentityServices(builder.Configuration);
-            builder.Services.AddAuthServices(builder.Configuration);
-
-            var app = builder.Build();
-
-            app.UseSwagger();
-            app.UseSwaggerUI();
-
-            app.UseMiddleware<ExceptionMiddleware>();
+            try
+            {
+                Log.Information("Starting application");
+                
+                var builder = WebApplication.CreateBuilder(args);
             
-            app.UseSecurityHeaders();
+                builder.UseLogging();
+                
+                builder.Services.AddApplicationServices(builder.Configuration);
+                builder.Services.AddIdentityServices(builder.Configuration);
+                builder.Services.AddAuthServices(builder.Configuration);
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+                var app = builder.Build();
+            
+                app.UseSwagger();
+                app.UseSwaggerUI();
 
-            app.MapControllers();
+                app.UseCustomMiddleware();
             
-            app.ApplyMigrations().Wait();
+                app.UseSecurityHeaders();
+
+                app.UseAuthentication();
+                app.UseAuthorization();
+
+                app.MapControllers();
             
-            app.Run();
+                app.ApplyMigrations().Wait();
+            
+                app.Run();
+            }
+            catch (Exception e)
+            {
+                Log.Fatal(e, "Application failed to start");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
     }
 }

@@ -20,16 +20,26 @@ public class BaseApiController : ControllerBase
     {
         return result switch
         {
-            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.BadRequest } => new BadRequestObjectResult(result.Message),
-            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.Unauthorized } => new UnauthorizedObjectResult(result.Message),
-            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.Forbidden } => new ForbidResult(result.Message),
-            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.NotFound } => new NotFoundObjectResult(result.Message),
-            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.Conflict } => new ConflictObjectResult(result.Message),
-            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.InternalServerError } => new ObjectResult(result.Message) { StatusCode = (int)HttpStatusCode.InternalServerError },
-            { IsSuccess: false, Message: not null } => new BadRequestObjectResult(result.Message),
-            { IsSuccess: true, Value: not null } => new OkObjectResult(result.Value),
-            { IsSuccess: true, Value: null, Message: not null } => new OkObjectResult(result.Message),
-            { IsSuccess: true, Value: null, StatusCode: (int)HttpStatusCode.NoContent } => new NoContentResult(),
+            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.BadRequest } 
+                => BadRequest(result.Message),
+            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.Unauthorized }
+                => Unauthorized(result.Message),
+            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.Forbidden } 
+                => Forbid(result.Message),
+            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.NotFound } 
+                => NotFound(result.Message),
+            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.Conflict } 
+                => Conflict(result.Message),
+            { IsSuccess: false, Message: not null, StatusCode: (int)HttpStatusCode.InternalServerError } 
+                => StatusCode((int)HttpStatusCode.InternalServerError, result.Message),
+            { IsSuccess: false, Message: not null } 
+                => BadRequest(result.Message),
+            { IsSuccess: true, Value: not null } 
+                => Ok(result.Value),
+            { IsSuccess: true, Value: null, Message: not null } 
+                => Ok(result.Message),
+            { IsSuccess: true, Value: null, StatusCode: (int)HttpStatusCode.NoContent } 
+                => NoContent(),
             _ => throw new ArgumentOutOfRangeException(nameof(result), result, null)
         };
     }
@@ -39,14 +49,14 @@ public class BaseApiController : ControllerBase
         switch (result)
         {
             case { IsSuccess: false, Message: not null }:
-                return new BadRequestObjectResult(result.Message);
+                return BadRequest(result.Message);
             case { IsSuccess: true, Value: not null, Value: { TotalCount: > 0 } }:
                 Response.AddPaginationHeader(result.Value.PageNumber, result.Value.PageSize, result.Value.TotalCount, result.Value.TotalPages);
-                return new OkObjectResult(result.Value);
+                return Ok(result.Value);
             case { IsSuccess: true, Value: not null, Value: { TotalCount: 0 } }:
-                return new NoContentResult();
+                return NoContent();
             case { IsSuccess: true, Value: null }:
-                return new NoContentResult();
+                return NotFound();
             default:
                 throw new ArgumentOutOfRangeException(nameof(result), result, null);
         }

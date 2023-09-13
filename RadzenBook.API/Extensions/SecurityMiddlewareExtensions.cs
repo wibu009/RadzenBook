@@ -1,9 +1,11 @@
-﻿namespace RadzenBook.API.Extensions;
+﻿using RadzenBook.API.Middlewares;
 
-public static class SecurityExtensions
+namespace RadzenBook.API.Extensions;
+
+public static class SecurityMiddlewareExtensions
 {
     //add security headers
-    public static void UseSecurityHeaders(this IApplicationBuilder app)
+    public static IApplicationBuilder UseSecurityHeaders(this IApplicationBuilder app)
     {
         app.UseXContentTypeOptions();
         app.UseReferrerPolicy(opt => opt.NoReferrer());
@@ -35,5 +37,14 @@ public static class SecurityExtensions
         });
         
         app.UseCors("CorsPolicy");
+
+        return app;
+    }
+    
+    public static IApplicationBuilder UseCustomMiddleware(this IApplicationBuilder app)
+    {
+        app.UseMiddleware<ExceptionMiddleware>();
+        
+        return app;
     }
 }

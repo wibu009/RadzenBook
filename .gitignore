@@ -8,6 +8,10 @@
 .idea/
 appsettings.json
 
+#Log files
+.Logs/
+*.log
+
 # User-specific files
 *.rsuser
 *.suo
