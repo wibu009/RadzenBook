@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using RadzenBook.Common.Settings;
 using RadzenBook.Entity;
 using RadzenBook.Service.Interfaces.Infrastructure.Encrypt;
 
@@ -22,6 +23,8 @@ public class TokenService : ITokenService
 
     public async Task<string> CreateTokenAsync(AppUser user)
     {
+        var jwtSettings = _config.GetSection("JwtSettings").Get<JwtSettings>();
+        
         var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
@@ -33,16 +36,16 @@ public class TokenService : ITokenService
 
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("JwtSettings:Key").Value));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddDays(7),
+            Expires = DateTime.UtcNow.AddDays(jwtSettings.ExpireDays),
             SigningCredentials = creds,
-            Issuer = _config.GetSection("JwtSettings:Issuer").Value,
+            Issuer = jwtSettings.Issuer,
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
