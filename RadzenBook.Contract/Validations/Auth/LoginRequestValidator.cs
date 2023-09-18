@@ -1,17 +1,16 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 using RadzenBook.Contract.DTO.Auth;
 
 namespace RadzenBook.Contract.Validations.Auth;
 
 public class LoginRequestValidator : AbstractValidator<LoginRequestDto>
 {
-    public LoginRequestValidator()
+    public LoginRequestValidator(IStringLocalizer<LoginRequestValidator> t)
     {
         RuleFor(x => x.Username)
-            .NotEmpty().WithMessage("Username is required")
-            .MaximumLength(50).WithMessage("Username must not exceed 50 characters");
+            .NotEmpty().WithMessage(t["Username is required"]);
         RuleFor(x => x.Password)
-            .NotEmpty().WithMessage("Password is required")
-            .MaximumLength(50).WithMessage("Password must not exceed 50 characters");
+            .NotEmpty().WithMessage(t["Password is required"]);
     }
 }

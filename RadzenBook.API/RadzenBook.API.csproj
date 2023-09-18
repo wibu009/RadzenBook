@@ -30,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RadzenBook.Common\RadzenBook.Common.csproj" />
     <ProjectReference Include="..\RadzenBook.Service\RadzenBook.Service.csproj" />
+
   </ItemGroup>
 
 

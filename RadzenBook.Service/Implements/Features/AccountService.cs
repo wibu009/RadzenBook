@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using RadzenBook.Common.Exceptions;
 using RadzenBook.Contract.Core;
@@ -18,17 +19,21 @@ public class AccountService : IAccountService
     private readonly SignInManager<AppUser> _signInManager;
     private readonly ITokenService _tokenService;
     private readonly ILogger<AccountService> _logger;
+    private readonly IStringLocalizer _t;
 
     public AccountService(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
         IInfrastructureServiceManager infrastructureServiceManager,
-        ILogger<AccountService> logger)
+        ILoggerFactory loggerFactory,
+        IStringLocalizerFactory t
+        )
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenService = infrastructureServiceManager.TokenService;
-        _logger = logger;
+        _logger = loggerFactory.CreateLogger<AccountService>();
+        _t = t.Create(typeof(AccountService));
     }
 
     public async Task<Result<UserAuthDto>> LoginAsync(LoginRequestDto loginRequestDto)
@@ -38,11 +43,11 @@ public class AccountService : IAccountService
             var user = await _userManager.Users
                 .SingleOrDefaultAsync(x => x.UserName == loginRequestDto.Username || x.Email == loginRequestDto.Username);
 
-            if (user == null) return Result<UserAuthDto>.Failure("Invalid username or password", (int)HttpStatusCode.Unauthorized);
+            if (user == null) return Result<UserAuthDto>.Failure(_t["Incorrect username or password"], (int)HttpStatusCode.Unauthorized);
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginRequestDto.Password, false);
-
-            if (!result.Succeeded) return Result<UserAuthDto>.Failure("Invalid username or password", (int)HttpStatusCode.Unauthorized);
+            
+            if (!result.Succeeded) return Result<UserAuthDto>.Failure(_t["Incorrect username or password"], (int)HttpStatusCode.Unauthorized);
             
             // if (!user.EmailConfirmed) return Result<UserAuthDto>.Failure("Email not confirmed", (int)HttpStatusCode.Unauthorized);
 
@@ -65,7 +70,7 @@ public class AccountService : IAccountService
         {
             //check username exist
             var userExist = await _userManager.FindByNameAsync(registerRequestDto.Username);
-            if (userExist != null) return Result<UserAuthDto>.Failure("Username already exists");
+            if (userExist != null) return Result<UserAuthDto>.Failure(_t["Username already exists"], (int)HttpStatusCode.BadRequest);
             
             var user = new AppUser
             {

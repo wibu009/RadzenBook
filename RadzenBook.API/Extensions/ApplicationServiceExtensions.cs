@@ -1,8 +1,11 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using OrchardCore.Localization;
 using RadzenBook.Common.Settings;
 using RadzenBook.Database;
 using RadzenBook.Persistence;
@@ -10,6 +13,7 @@ using RadzenBook.Repository.Implements;
 using RadzenBook.Repository.Interfaces;
 using RadzenBook.Service.Implements.Features;
 using RadzenBook.Service.Implements.Infrastructure;
+using RadzenBook.Service.Implements.Infrastructure.Localization;
 using RadzenBook.Service.Interfaces.Features;
 using RadzenBook.Service.Interfaces.Infrastructure;
 using Serilog;
@@ -98,6 +102,34 @@ public static class ApplicationServiceExtensions
         //Add FluentValidation
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssembly(Assembly.Load("RadzenBook.Contract"));
+        
+        //Add Cache
+        services.AddMemoryCache();
+        
+        //Add Localization
+        services.AddPortableObjectLocalization();
+        services.Configure<RequestLocalizationOptions>(options =>
+        {
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("vi-VN"),
+            };
+            
+            options.SetDefaultCulture("vi");
+            options.DefaultRequestCulture = new RequestCulture("vi-VN");
+            options.SupportedCultures = supportedCultures;
+            options.SupportedUICultures = supportedCultures;
+            options.FallBackToParentCultures = true;
+            options.FallBackToParentUICultures = true;
+            options.RequestCultureProviders = new List<IRequestCultureProvider>
+            {
+                new QueryStringRequestCultureProvider(),
+                new CookieRequestCultureProvider(),
+                new AcceptLanguageHeaderRequestCultureProvider()
+            };
+        });
+        services.AddSingleton<ILocalizationFileLocationProvider, PoFileLocationProvider>();
 
         //Add Repositories
         services.AddScoped<IUnitOfWork>(provider =>

@@ -19,13 +19,13 @@ public class AddressService : IAddressService
     public AddressService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        ILogger<AddressService> logger,
+        ILoggerFactory logger,
         IInfrastructureServiceManager infrastructureServiceManager)
     {
         _unitOfWork = unitOfWork;
         _addressRepository = _unitOfWork.GetRepository<IAddressRepository, Address, Guid>();
         _mapper = mapper;
-        _logger = logger;
+        _logger = logger.CreateLogger<AddressService>();
         _userAccessor = infrastructureServiceManager.UserAccessor;
     }
 }

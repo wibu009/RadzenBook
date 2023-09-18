@@ -30,6 +30,9 @@ namespace RadzenBook.Api
 
                 app.UseAuthentication();
                 app.UseAuthorization();
+                
+                //use localization
+                app.UseRequestLocalization();
 
                 app.MapControllers();
             
@@ -43,6 +46,7 @@ namespace RadzenBook.Api
             }
             finally
             {
+                Log.Information("Application shutting down...");
                 Log.CloseAndFlush();
             }
         }

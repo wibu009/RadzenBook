@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using RadzenBook.Entity;
 using RadzenBook.Repository.Interfaces;
@@ -17,6 +18,7 @@ public class FeaturesServiceManager : IFeaturesServiceManager
 
     public FeaturesServiceManager(
         ILoggerFactory loggerFactory, 
+        IStringLocalizerFactory stringLocalizerFactory,
         IMapper mapper, 
         IUnitOfWork unitOfWork,
         IInfrastructureServiceManager infrastructureServiceManager,
@@ -25,13 +27,13 @@ public class FeaturesServiceManager : IFeaturesServiceManager
         RoleManager<AppRole> roleManager)
     {
         _accountService = new Lazy<IAccountService>(() =>
-            new AccountService(userManager, signInManager, infrastructureServiceManager, loggerFactory.CreateLogger<AccountService>()));
+            new AccountService(userManager, signInManager, infrastructureServiceManager, loggerFactory, stringLocalizerFactory));
         _demoService = new Lazy<IDemoService>(() =>
-            new DemoService(unitOfWork, mapper, loggerFactory.CreateLogger<DemoService>(), infrastructureServiceManager));
+            new DemoService(unitOfWork, mapper, loggerFactory, infrastructureServiceManager));
         _addressService = new Lazy<IAddressService>(() =>
-            new AddressService(unitOfWork, mapper, loggerFactory.CreateLogger<AddressService>(), infrastructureServiceManager));
+            new AddressService(unitOfWork, mapper, loggerFactory, infrastructureServiceManager));
         _photoService = new Lazy<IPhotoService>(() =>
-            new PhotoService(unitOfWork, mapper, loggerFactory.CreateLogger<PhotoService>(), infrastructureServiceManager));
+            new PhotoService(unitOfWork, mapper, loggerFactory, infrastructureServiceManager));
     }
 
     public IAccountService AccountService => _accountService.Value;

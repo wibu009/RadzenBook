@@ -1,34 +1,33 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 using RadzenBook.Contract.DTO.Auth;
 
 namespace RadzenBook.Contract.Validations.Auth;
 
 public class RegisterRequestValidator : AbstractValidator<RegisterRequestDto>
 {
-    public RegisterRequestValidator()
+    public RegisterRequestValidator(IStringLocalizer<RegisterRequestValidator> t)
     {
         RuleFor(x => x.Username)
-            .NotEmpty().WithMessage("Username is required")
-            .MaximumLength(50).WithMessage("Username must not exceed 50 characters");
+            .NotEmpty().WithMessage(t["Username is required"])
+            .MinimumLength(3).WithMessage(t["Username must be at least {0} characters long", 3])
+            .MaximumLength(50).WithMessage(t["Username must not exceed {0} characters", 50]);
         RuleFor(x => x.Password)
-            .NotEmpty().WithMessage("Password is required")
+            .NotEmpty().WithMessage(t["Password is required"])
             .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$").WithMessage(
-                "Password must be at least 8 characters, contain a lowercase letter, an uppercase letter, a number, and a special character");
+                t["Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character"]);
         RuleFor(x => x.ConfirmPassword)
-            .NotEmpty().WithMessage("Confirm Password is required")
-            .Equal(x => x.Password).WithMessage("Password and Confirm Password must match");
+            .NotEmpty().WithMessage(t["Confirm Password is required"])
+            .Equal(x => x.Password).WithMessage(t["Confirm Password must match Password"]);
         RuleFor(x => x.Email)
-            .NotEmpty().WithMessage("Email is required")
-            .EmailAddress().WithMessage("Email is not valid")
-            .MaximumLength(50).WithMessage("Email must not exceed 50 characters");
-        RuleFor(x => x.FirstName)
-            .NotEmpty().WithMessage("First Name is required")
-            .MaximumLength(50).WithMessage("First Name must not exceed 50 characters");
-        RuleFor(x => x.LastName)
-            .NotEmpty().WithMessage("Last Name is required")
-            .MaximumLength(50).WithMessage("Last Name must not exceed 50 characters");
+            .NotEmpty().WithMessage(t["Email is required"])
+            .EmailAddress().WithMessage(t["Email is not valid"])
+            .MaximumLength(50).WithMessage(t["Email must not exceed {0} characters", 50]);
+        RuleFor(x => x.DisplayName)
+            .NotEmpty().WithMessage(t["Display Name is required"])
+            .MinimumLength(3).WithMessage(t["Display Name must be at least {0} characters long", 3])
+            .MaximumLength(50).WithMessage(t["Display Name must not exceed {0} characters", 50]);
         RuleFor(x => x.PhoneNumber)
-            .MaximumLength(20).WithMessage("Phone Number must not exceed 20 characters")
-            .Matches(@"^(0[1-9]{1}[0-9]{8}|0[1-9]{1}[0-9]{9})$").WithMessage("Phone Number is not valid");
+            .Matches(@"^(0[1-9]{1}[0-9]{8}|0[1-9]{1}[0-9]{9})$").WithMessage(t["Phone Number is not valid"]);
     }
 }

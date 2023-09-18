@@ -22,13 +22,13 @@ public class DemoService : IDemoService
 
     public DemoService(IUnitOfWork unitOfWork,
         IMapper mapper,
-        ILogger<DemoService> logger,
+        ILoggerFactory loggerFactory,
         IInfrastructureServiceManager infrastructureServiceManager)
     {
         _unitOfWork = unitOfWork;
         _demoRepository = _unitOfWork.GetRepository<IDemoRepository, Demo, Guid>();
         _mapper = mapper;
-        _logger = logger;
+        _logger = loggerFactory.CreateLogger<DemoService>();
         _userAccessor = infrastructureServiceManager.UserAccessor;
     }
 

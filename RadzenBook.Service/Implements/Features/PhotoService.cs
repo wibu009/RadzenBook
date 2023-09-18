@@ -21,13 +21,13 @@ public class PhotoService : IPhotoService
     public PhotoService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        ILogger<PhotoService> logger,
+        ILoggerFactory logger,
         IInfrastructureServiceManager infrastructureServiceManager)
     {
         _unitOfWork = unitOfWork;
         _photoRepository = _unitOfWork.GetRepository<IPhotoRepository, Photo, string>();
         _mapper = mapper;
-        _logger = logger;
+        _logger = logger.CreateLogger<PhotoService>();
         _userAccessor = infrastructureServiceManager.UserAccessor;
         _photoAccessor = infrastructureServiceManager.PhotoAccessor;
     }
