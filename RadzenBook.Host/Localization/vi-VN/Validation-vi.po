@@ -1,0 +1,85 @@
+#: Login and Register validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, username) => T["Username is required"])
+msgid "Username is required"
+msgstr "Tên đăng nhập là bắt buộc"
+
+#: WithMessage((_, password) => T["Password is required"])
+msgid "Password is required"
+msgstr "Mật khẩu là bắt buộc"
+
+#: WithMessage((_, username) => T["Username must not exceed {0} characters"])
+msgid "Username must not exceed {0} characters"
+msgstr "Tên đăng nhập không được vượt quá {0} ký tự"
+
+#: WithMessage((_, username) => T["Username must be at least {0} characters long"])
+msgid "Username must be at least {0} characters long"
+msgstr "Tên đăng nhập phải dài ít nhất {0} ký tự"
+
+#: WithMessage((_, password) => T["Password must not exceed {0} characters"])
+msgid "Password must not exceed 50 characters"
+msgstr "Mật khẩu không được vượt quá 50 ký tự"
+
+#: WithMessage((_, password) => T["Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character"])
+msgid "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character"
+msgstr "Mật khẩu phải dài ít nhất 8 ký tự, chứa ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt"
+
+#: WithMessage((_, confirmPassword) => T["Confirm Password is required"])
+msgid "Confirm Password is required"
+msgstr "Xác nhận mật khẩu là bắt buộc"
+
+#: WithMessage((_, confirmPassword) => T["Confirm Password must match Password"])
+msgid "Confirm Password must match Password"
+msgstr "Xác nhận mật khẩu phải khớp với mật khẩu"
+
+#: WithMessage((_, email) => T["Email is required"])
+msgid "Email is required"
+msgstr "Email là bắt buộc"
+
+#: WithMessage((_, email) => T["Email must not exceed {0} characters"])
+msgid "Email must not exceed {0} characters"
+msgstr "Email không được vượt quá {0} ký tự"
+
+#: WithMessage((_, email) => T["Email is not valid"])
+msgid "Email is not valid"
+msgstr "Email không hợp lệ"
+
+#: WithMessage((_, displayName) => T["Display Name is required"])
+msgid "Display Name is required"
+msgstr "Tên hiển thị là bắt buộc"
+
+#: WithMessage((_, displayName) => T["Display Name must not exceed {0} characters"])
+msgid "Display Name must not exceed {0} characters"
+msgstr "Tên hiển thị không được vượt quá {0} ký tự"
+
+#: WithMessage((_, displayName) => T["Display Name must be at least {0} characters long"])
+msgid "Display Name must be at least {0} characters long"
+msgstr "Tên hiển thị phải dài ít nhất {0} ký tự"
+
+#: WithMessage((_, phoneNumber) => T["Phone Number is required"])
+msgid "Phone Number is not valid"
+msgstr "Số điện thoại không hợp lệ"
+
+#: Demo validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, name) => T["Name is required"])
+msgid "Name is required"
+msgstr "Tên là bắt buộc"
+
+#: WithMessage((_, name) => T["Name must be at least {0} characters"])
+msgid "Name must be at least {0} characters"
+msgstr "Tên phải dài ít nhất {0} ký tự"
+
+#: WithMessage((_, name) => T["Name must not exceed {0} characters"])
+msgid "Name must not exceed {0} characters"
+msgstr "Tên không được vượt quá {0} ký tự"
+
+#: WithMessage((_, description) => T["Description must not exceed {0} characters"])
+msgid "Description must not exceed {0} characters"
+msgstr "Mô tả không được vượt quá {0} ký tự"
+
+#: WithMessage((_, demoEnum) => T["DemoEnum is not valid"])
+msgid "DemoEnum is not valid"
+msgstr "DemoEnum không hợp lệ"

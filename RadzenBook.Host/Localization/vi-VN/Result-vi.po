@@ -1,0 +1,29 @@
+#: Result<T>.Message("Incorrect username or password")
+#: Service\Implementation\Features\AccountService.cs
+msgid "Incorrect username or password"
+msgstr "Tài khoản hoặc mật khẩu không chính xác"
+
+#: Result<T>.Message("Username already exists")
+#: Service\Implementation\Features\AccountService.cs
+msgid "Username already exists"
+msgstr "Tên tài khoản đã tồn tại"
+
+#: Result<T>.Message("Demo with id {0} does not exist.")
+#: Service\Implementation\Features\DemosService.cs
+msgid "Demo with id {0} does not exist"
+msgstr "Demo với id {0} không tồn tại"
+
+#: Result<T>.Message("Create demo successfully")
+#: Service\Implementation\Features\DemosService.cs
+msgid "Create demo successfully"
+msgstr "Tạo demo thành công"
+
+#: Result<T>.Message("Update demo successfully")
+#: Service\Implementation\Features\DemosService.cs
+msgid "Update demo successfully"
+msgstr "Cập nhật demo thành công"
+
+#: Result<T>.Message("Delete demo successfully")
+#: Service\Implementation\Features\DemosService.cs
+msgid "Delete demo successfully"
+msgstr "Xóa demo thành công"

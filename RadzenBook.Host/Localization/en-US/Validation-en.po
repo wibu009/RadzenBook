@@ -1,0 +1,85 @@
+#: Login and Register validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, username) => T["Username is required"])
+msgid "Username is required"
+msgstr "Username is required"
+
+#: WithMessage((_, password) => T["Password is required"])
+msgid "Password is required"
+msgstr "Password is required"
+
+#: WithMessage((_, username) => T["Username must not exceed {0} characters"])
+msgid "Username must not exceed {0} characters"
+msgstr "Username must not exceed {0} characters"
+
+#: WithMessage((_, username) => T["Username must be at least {0} characters long"])
+msgid "Username must be at least {0} characters long"
+msgstr "Username must be at least {0} characters long"
+
+#: WithMessage((_, password) => T["Password must not exceed {0} characters"])
+msgid "Password must not exceed 50 characters"
+msgstr "Password must not exceed 50 characters"
+
+#: WithMessage((_, password) => T["Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character"])
+msgid "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character"
+msgstr "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character"
+
+#: WithMessage((_, confirmPassword) => T["Confirm Password is required"])
+msgid "Confirm Password is required"
+msgstr "Confirm Password is required"
+
+#: WithMessage((_, confirmPassword) => T["Confirm Password must match Password"])
+msgid "Confirm Password must match Password"
+msgstr "Confirm Password must match Password"
+
+#: WithMessage((_, email) => T["Email is required"])
+msgid "Email is required"
+msgstr "Email is required"
+
+#: WithMessage((_, email) => T["Email must not exceed {0} characters"])
+msgid "Email must not exceed {0} characters"
+msgstr "Email must not exceed {0} characters"
+
+#: WithMessage((_, email) => T["Email is not valid"])
+msgid "Email is not valid"
+msgstr "Email is not valid"
+
+#: WithMessage((_, displayName) => T["Display Name is required"])
+msgid "Display Name is required"
+msgstr "Display Name is required"
+
+#: WithMessage((_, displayName) => T["Display Name must not exceed {0} characters"])
+msgid "Display Name must not exceed {0} characters"
+msgstr "Display Name must not exceed {0} characters"
+
+#: WithMessage((_, displayName) => T["Display Name must be at least {0} characters long"])
+msgid "Display Name must be at least {0} characters long"
+msgstr "Display Name must be at least {0} characters long"
+
+#: WithMessage((_, phoneNumber) => T["Phone Number is required"])
+msgid "Phone Number is not valid"
+msgstr "Phone Number is not valid"
+
+#: Demo validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, name) => T["Name is required"])
+msgid "Name is required"
+msgstr "Name is required"
+
+#: WithMessage((_, name) => T["Name must be at least {0} characters"])
+msgid "Name must be at least {0} characters"
+msgstr "Name must be at least {0} characters"
+
+#: WithMessage((_, name) => T["Name must not exceed {0} characters"])
+msgid "Name must not exceed {0} characters"
+msgstr "Name must not exceed {0} characters"
+
+#: WithMessage((_, description) => T["Description must not exceed {0} characters"])
+msgid "Description must not exceed {0} characters"
+msgstr "Description must not exceed {0} characters"
+
+#: WithMessage((_, demoEnum) => T["DemoEnum is not valid"])
+msgid "DemoEnum is not valid"
+msgstr "DemoEnum is not valid"

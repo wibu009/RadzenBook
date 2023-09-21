@@ -1,0 +1,29 @@
+#: Login and register result message
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: Result<T>.Message("Incorrect username or password")
+msgid "Incorrect username or password"
+msgstr "Incorrect username or password"
+
+#: Result<T>.Message("Username already exists")
+msgid "Username already exists"
+msgstr "Username already exists"
+
+#: Demo result message
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: Result<T>.Message("Demo with id {0} does not exist.")
+msgid "Demo with id {0} does not exist"
+msgstr "Demo with id {0} does not exist"
+
+#: Result<T>.Message("Create demo successfully")
+msgid "Create demo successfully"
+msgstr "Create demo successfully"
+
+#: Result<T>.Message("Update demo successfully")
+msgid "Update demo successfully"
+msgstr "Update demo successfully"
+
+#: Result<T>.Message("Delete demo successfully")
+msgid "Delete demo successfully"
+msgstr "Delete demo successfully"
