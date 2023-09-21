@@ -23,5 +23,110 @@
     "date": "2018-05-10",
     "temperatureC": -2,
     "summary": "Chilly"
-  }
+  },
+  {
+    "date": "2018-05-11",
+    "temperatureC": 1,
+    "summary": "Freezing"
+  },
+  {
+    "date": "2018-05-12",
+    "temperatureC": 14,
+    "summary": "Bracing"
+  },
+  {
+    "date": "2018-05-13",
+    "temperatureC": -13,
+    "summary": "Freezing"
+  },
+  {
+    "date": "2018-05-14",
+    "temperatureC": -16,
+    "summary": "Balmy"
+  },
+  {
+    "date": "2018-05-15",
+    "temperatureC": -2,
+    "summary": "Chilly"
+  },
+    {
+        "date": "2018-05-16",
+        "temperatureC": 1,
+        "summary": "Freezing"
+    },
+    {
+        "date": "2018-05-17",
+        "temperatureC": 14,
+        "summary": "Bracing"
+    },
+    {
+        "date": "2018-05-18",
+        "temperatureC": -13,
+        "summary": "Freezing"
+    },
+    {
+        "date": "2018-05-19",
+        "temperatureC": -16,
+        "summary": "Balmy"
+    },
+    {
+        "date": "2018-05-20",
+        "temperatureC": -2,
+        "summary": "Chilly"
+    },
+    {
+        "date": "2018-05-21",
+        "temperatureC": 1,
+        "summary": "Freezing"
+    },
+    {
+        "date": "2018-05-22",
+        "temperatureC": 14,
+        "summary": "Bracing"
+    },
+    {
+        "date": "2018-05-23",
+        "temperatureC": -13,
+        "summary": "Freezing"
+    },
+    {
+        "date": "2018-05-24",
+        "temperatureC": -16,
+        "summary": "Balmy"
+    },
+    {
+        "date": "2018-05-25",
+        "temperatureC": -2,
+        "summary": "Chilly"
+    },
+    {
+        "date": "2018-05-26",
+        "temperatureC": 1,
+        "summary": "Freezing"
+    },
+    {
+        "date": "2018-05-27",
+        "temperatureC": 14,
+        "summary": "Bracing"
+    },
+    {
+        "date": "2018-05-28",
+        "temperatureC": -13,
+        "summary": "Freezing"
+    },
+    {
+        "date": "2018-05-29",
+        "temperatureC": -16,
+        "summary": "Balmy"
+    },
+    {
+        "date": "2018-05-30",
+        "temperatureC": -2,
+        "summary": "Chilly"
+    },
+    {
+        "date": "2018-05-31",
+        "temperatureC": 1,
+        "summary": "Freezing"
+    }
 ]

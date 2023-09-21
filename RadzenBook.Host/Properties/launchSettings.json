@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Dev LocalDb": {
+    "Dev": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -19,7 +19,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Dev RemoteDb": {
+    "Prod": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
