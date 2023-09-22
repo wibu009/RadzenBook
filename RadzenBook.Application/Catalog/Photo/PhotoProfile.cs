@@ -4,6 +4,6 @@ public class PhotoProfile : Profile
 {
     public PhotoProfile()
     {
-        CreateMap<Domain.Entities.Photo, PhotoDto>();
+        CreateMap<Domain.Catalog.Photo, PhotoDto>();
     }
 }

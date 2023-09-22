@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RadzenBook.Application.Common.Persistence.Repositories;
-using RadzenBook.Domain.Entities;
+using RadzenBook.Domain.Catalog;
 
 namespace RadzenBook.Infrastructure.Persistence.Repositories;
 

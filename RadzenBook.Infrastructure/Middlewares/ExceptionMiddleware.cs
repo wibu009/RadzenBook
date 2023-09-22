@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using RadzenBook.Domain.Exceptions;
+using RadzenBook.Application.Common.Exceptions;
 
 namespace RadzenBook.Infrastructure.Middlewares;
 

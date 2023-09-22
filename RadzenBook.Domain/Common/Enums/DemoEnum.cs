@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Domain.Enums;
+﻿namespace RadzenBook.Domain.Common.Enums;
 
 public enum DemoEnum
 {

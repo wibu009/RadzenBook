@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Domain.Exceptions;
+﻿namespace RadzenBook.Application.Common.Exceptions;
 
 public class NotFoundException : Exception
 {

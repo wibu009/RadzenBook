@@ -1,4 +1,6 @@
-﻿namespace RadzenBook.Application.Common.Persistence;
+﻿using RadzenBook.Domain.Common.Contracts;
+
+namespace RadzenBook.Application.Common.Persistence;
 
 public interface IUnitOfWork
 {

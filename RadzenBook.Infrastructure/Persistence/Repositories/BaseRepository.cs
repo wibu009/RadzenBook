@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using RadzenBook.Application.Common.Exceptions;
 using RadzenBook.Application.Common.Persistence.Repositories;
-using RadzenBook.Domain.Entities;
-using RadzenBook.Domain.Exceptions;
+using RadzenBook.Domain.Common.Contracts;
 
 namespace RadzenBook.Infrastructure.Persistence.Repositories;
 

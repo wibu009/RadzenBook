@@ -1,4 +1,6 @@
-﻿namespace RadzenBook.Application.Catalog.Demo.Command;
+﻿using RadzenBook.Application.Common.Exceptions;
+
+namespace RadzenBook.Application.Catalog.Demo.Command;
 
 public class DeleteDemoRequest : IRequest<Result<Unit>>
 {
@@ -31,13 +33,13 @@ public class DeleteDemoRequestHandler : IRequestHandler<DeleteDemoRequest, Resul
     {
         try
         {
-            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Entities.Demo, Guid>().GetByIdAsync(request.Id, cancellationToken: cancellationToken);
+            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().GetByIdAsync(request.Id, cancellationToken: cancellationToken);
             if (demo is null)
             {
                 return Result<Unit>.Failure(_t["Demo not found."]);
             }
 
-            await _unitOfWork.GetRepository<IDemoRepository, Domain.Entities.Demo, Guid>().DeleteAsync(demo, cancellationToken);
+            await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().DeleteAsync(demo, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result<Unit>.Success(Unit.Value);
         }

@@ -1,4 +1,6 @@
-﻿namespace RadzenBook.Application.Catalog.Demo.Query;
+﻿using RadzenBook.Application.Common.Exceptions;
+
+namespace RadzenBook.Application.Catalog.Demo.Query;
 
 public class GetAllDemoRequest : IRequest<Result<PaginatedList<DemoDto>>>
 {
@@ -24,7 +26,7 @@ public class GetAllDemoRequestHandler : IRequestHandler<GetAllDemoRequest, Resul
     {
         try
         {
-            var demos = await _unitOfWork.GetRepository<IDemoRepository, Domain.Entities.Demo, Guid>().GetAsync(cancellationToken: cancellationToken);
+            var demos = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().GetAsync(cancellationToken: cancellationToken);
             var size = demos.Count;
             var demosDto = _mapper.Map<List<DemoDto>>(demos);
             var demosDtoPaginated = await PaginatedList<DemoDto>.CreateAsync(demosDto, 1, size);

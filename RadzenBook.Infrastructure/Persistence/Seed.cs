@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Microsoft.AspNetCore.Identity;
-using RadzenBook.Domain.Entities;
-using RadzenBook.Domain.Enums;
+using RadzenBook.Domain.Catalog;
+using RadzenBook.Domain.Common.Enums;
 using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
@@ -92,7 +92,7 @@ public static class Seed
         // Create 20 photos
         if (!context.Photos.Any())
         {
-            var photoFakers = new Faker<Domain.Entities.Photo>()
+            var photoFakers = new Faker<Domain.Catalog.Photo>()
                 .RuleFor(p => p.Url, f => f.Image.PicsumUrl())
                 .RuleFor(p => p.IsMain, false)
                 .RuleFor(p => p.Id, f => f.Random.AlphaNumeric(8))

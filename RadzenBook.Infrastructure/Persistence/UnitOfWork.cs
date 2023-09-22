@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RadzenBook.Application.Common.Persistence;
 using RadzenBook.Application.Common.Persistence.Repositories;
-using RadzenBook.Domain.Entities;
+using RadzenBook.Domain.Common.Contracts;
 using RadzenBook.Infrastructure.Persistence.Repositories;
 
 namespace RadzenBook.Infrastructure.Persistence;

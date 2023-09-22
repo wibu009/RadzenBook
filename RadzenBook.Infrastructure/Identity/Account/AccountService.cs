@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using RadzenBook.Application.Common.Auth;
+using RadzenBook.Application.Common.Exceptions;
 using RadzenBook.Application.Common.Models;
 using RadzenBook.Application.Identity;
 using RadzenBook.Application.Identity.Account;
-using RadzenBook.Domain.Exceptions;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
 

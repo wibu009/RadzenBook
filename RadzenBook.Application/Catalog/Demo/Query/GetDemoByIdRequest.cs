@@ -1,4 +1,6 @@
-﻿namespace RadzenBook.Application.Catalog.Demo.Query;
+﻿using RadzenBook.Application.Common.Exceptions;
+
+namespace RadzenBook.Application.Catalog.Demo.Query;
 
 public class GetDemoByIdRequest : IRequest<Result<DemoDto>>
 {
@@ -28,7 +30,7 @@ public class GetDemoByIdRequestHandler : IRequestHandler<GetDemoByIdRequest, Res
     {
         try
         {
-            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Entities.Demo, Guid>().GetByIdAsync(request.Id, cancellationToken: cancellationToken);
+            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().GetByIdAsync(request.Id, cancellationToken: cancellationToken);
             if (demo is null)
             {
                 return Result<DemoDto>.Failure("Demo not found.");

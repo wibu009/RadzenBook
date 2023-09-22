@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RadzenBook.Domain.Entities;
+using RadzenBook.Domain.Catalog;
 using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
@@ -25,5 +25,5 @@ public class RadzenBookDbContext : IdentityDbContext<AppUser, AppRole, Guid>
 
     public virtual DbSet<Demo> Demos { get; set; } = null!;
     public virtual DbSet<Address> Addresses { get; set; } = null!;
-    public virtual DbSet<Domain.Entities.Photo> Photos { get; set; } = null!;
+    public virtual DbSet<Domain.Catalog.Photo> Photos { get; set; } = null!;
 }

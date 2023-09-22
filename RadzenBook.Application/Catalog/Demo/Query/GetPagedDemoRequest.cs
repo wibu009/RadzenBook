@@ -1,4 +1,6 @@
-﻿namespace RadzenBook.Application.Catalog.Demo.Query;
+﻿using RadzenBook.Application.Common.Exceptions;
+
+namespace RadzenBook.Application.Catalog.Demo.Query;
 
 public class GetPagedDemoRequest : IRequest<Result<PaginatedList<DemoDto>>>
 {
@@ -24,8 +26,8 @@ public class GetPagedDemoRequestHandler : IRequestHandler<GetPagedDemoRequest, R
     {
         try
         {
-            var demos = await _unitOfWork.GetRepository<IDemoRepository, Domain.Entities.Demo, Guid>().GetPagedAsync(pageNumber: request.PagingParams.PageNumber, pageSize: request.PagingParams.PageSize, cancellationToken: cancellationToken);
-            var count = await _unitOfWork.GetRepository<IDemoRepository, Domain.Entities.Demo, Guid>().CountAsync(cancellationToken: cancellationToken);
+            var demos = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().GetPagedAsync(pageNumber: request.PagingParams.PageNumber, pageSize: request.PagingParams.PageSize, cancellationToken: cancellationToken);
+            var count = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().CountAsync(cancellationToken: cancellationToken);
             var demosDto = _mapper.Map<List<DemoDto>>(demos);
             var demosDtoPaginated = new PaginatedList<DemoDto>(demosDto, count, request.PagingParams.PageNumber, request.PagingParams.PageSize);
             return Result<PaginatedList<DemoDto>>.Success(demosDtoPaginated);

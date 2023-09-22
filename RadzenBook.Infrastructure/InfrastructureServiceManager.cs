@@ -9,7 +9,6 @@ using RadzenBook.Application.Common.Email;
 using RadzenBook.Application.Common.Photo;
 using RadzenBook.Application.Identity;
 using RadzenBook.Application.Identity.Account;
-using RadzenBook.Domain.Entities;
 using RadzenBook.Infrastructure.Auth;
 using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Identity.Account;

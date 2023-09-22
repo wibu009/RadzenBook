@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RadzenBook.Domain.Entities;
+namespace RadzenBook.Domain.Common.Contracts;
 
 public abstract class BaseEntity<TKey>
 {

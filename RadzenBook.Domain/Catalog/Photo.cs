@@ -1,4 +1,6 @@
-﻿namespace RadzenBook.Domain.Entities;
+﻿using RadzenBook.Domain.Common.Contracts;
+
+namespace RadzenBook.Domain.Catalog;
 
 public class Photo : BaseEntity<string>
 {

@@ -1,6 +1,8 @@
-﻿namespace RadzenBook.Application.Common.Persistence.Repositories;
+﻿using RadzenBook.Domain.Catalog;
 
-public interface IAddressRepository : IBaseRepository<Domain.Entities.Address, Guid>
+namespace RadzenBook.Application.Common.Persistence.Repositories;
+
+public interface IAddressRepository : IBaseRepository<Address, Guid>
 {
     
 }

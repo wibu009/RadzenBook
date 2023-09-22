@@ -1,6 +1,8 @@
-﻿namespace RadzenBook.Application.Common.Persistence.Repositories;
+﻿using RadzenBook.Domain.Catalog;
 
-public interface IDemoRepository : IBaseRepository<Domain.Entities.Demo, Guid>
+namespace RadzenBook.Application.Common.Persistence.Repositories;
+
+public interface IDemoRepository : IBaseRepository<Demo, Guid>
 {
     
 }

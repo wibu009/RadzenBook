@@ -1,4 +1,7 @@
-﻿namespace RadzenBook.Application.Catalog.Demo.Command;
+﻿using RadzenBook.Application.Common.Exceptions;
+using RadzenBook.Domain.Common.Enums;
+
+namespace RadzenBook.Application.Catalog.Demo.Command;
 
 public class CreateDemoRequest : IRequest<Result<Unit>>
 {
@@ -49,10 +52,10 @@ public class CreateDemoRequestHandler : IRequestHandler<CreateDemoRequest, Resul
     {
         try
         {
-            var demo = _mapper.Map<Domain.Entities.Demo>(request);
+            var demo = _mapper.Map<Domain.Catalog.Demo>(request);
             demo.CreatedBy = _userAccessor.GetUsername();
             demo.ModifiedBy = _userAccessor.GetUsername();
-            await _unitOfWork.GetRepository<IDemoRepository, Domain.Entities.Demo, Guid>().CreateAsync(demo, cancellationToken);
+            await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().CreateAsync(demo, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result<Unit>.Success(_t["Create demo successfully"]);
         }
