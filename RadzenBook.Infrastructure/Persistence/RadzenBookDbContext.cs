@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using RadzenBook.Domain.Catalog;
 using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Identity.Role;

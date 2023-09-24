@@ -1,27 +1,24 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using RadzenBook.Application.Auth;
 using RadzenBook.Application.Common.Auth;
 using RadzenBook.Application.Common.Exceptions;
 using RadzenBook.Application.Common.Models;
-using RadzenBook.Application.Identity;
-using RadzenBook.Application.Identity.Account;
-using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
 
-namespace RadzenBook.Infrastructure.Identity.Account;
+namespace RadzenBook.Infrastructure.Auth;
 
-public class AccountService : IAccountService
+public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly ITokenService _tokenService;
-    private readonly ILogger<AccountService> _logger;
+    private readonly ILogger<AuthService> _logger;
     private readonly IStringLocalizer _t;
 
-    public AccountService(
+    public AuthService(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
         ITokenService tokenService,
@@ -32,8 +29,8 @@ public class AccountService : IAccountService
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenService = tokenService;
-        _logger = loggerFactory.CreateLogger<AccountService>();
-        _t = t.Create(typeof(AccountService));
+        _logger = loggerFactory.CreateLogger<AuthService>();
+        _t = t.Create(typeof(AuthService));
     }
 
     public async Task<Result<UserAuthDto>> LoginAsync(LoginRequest loginRequest)
@@ -60,7 +57,7 @@ public class AccountService : IAccountService
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(LoginAsync), nameof(AccountService), e.Message, e);
+            throw ServiceException.Create(nameof(LoginAsync), nameof(AuthService), e.Message, e);
         }
     }
     
@@ -92,7 +89,7 @@ public class AccountService : IAccountService
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(RegisterAsync), nameof(AccountService), e.Message, e);
+            throw ServiceException.Create(nameof(RegisterAsync), nameof(AuthService), e.Message, e);
         }
     }
     

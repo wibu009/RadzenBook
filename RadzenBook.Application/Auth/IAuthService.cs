@@ -1,8 +1,6 @@
-﻿using RadzenBook.Application.Common.Models;
+﻿namespace RadzenBook.Application.Auth;
 
-namespace RadzenBook.Application.Identity.Account;
-
-public interface IAccountService
+public interface IAuthService
 {
     Task<Result<UserAuthDto>> LoginAsync(LoginRequest loginRequest);
     Task<Result<UserAuthDto>> RegisterAsync(RegisterRequest registerRequest);

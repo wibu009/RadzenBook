@@ -27,3 +27,10 @@ msgstr "Cập nhật demo thành công"
 #: Service\Implementation\Features\DemosService.cs
 msgid "Delete demo successfully"
 msgstr "Xóa demo thành công"
+
+#: Address result message
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: Result<T>.Message("Address with id {0} does not exist")
+msgid "Address with id {0} does not exist"
+msgstr "Địa chỉ với id {0} không tồn tại"

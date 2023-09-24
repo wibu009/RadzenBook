@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RadzenBook.Domain.Catalog;
+﻿using RadzenBook.Domain.Catalog;
 
 namespace RadzenBook.Infrastructure.Persistence.Configurations;
 

@@ -1,8 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.Localization;
-using RadzenBook.Application.Common.Validation;
-
-namespace RadzenBook.Application.Identity.Account;
+﻿namespace RadzenBook.Application.Auth;
 
 public class LoginRequest
 {

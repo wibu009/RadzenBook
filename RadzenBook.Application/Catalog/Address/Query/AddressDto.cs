@@ -1,7 +1,8 @@
-﻿namespace RadzenBook.Domain.Catalog;
+﻿namespace RadzenBook.Application.Catalog.Address.Query;
 
-public class Address : BaseEntity<Guid>
+public class AddressDto
 {
+    public Guid Id { get; set; }
     public string FullName { get; set; } = default!;
     public string Street { get; set; } = default!;
     public string City { get; set; } = default!;

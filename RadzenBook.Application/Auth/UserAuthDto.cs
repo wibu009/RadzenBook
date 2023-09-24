@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Application.Identity;
+﻿namespace RadzenBook.Application.Auth;
 
 public class UserAuthDto
 {

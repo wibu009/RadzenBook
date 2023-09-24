@@ -1,10 +1,4 @@
-﻿using System.Net;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using RadzenBook.Application;
-using RadzenBook.Application.Common;
-using RadzenBook.Application.Common.Models;
-using RadzenBook.Infrastructure.Common.Extensions;
+﻿using MediatR;
 
 namespace RadzenBook.Host.Controllers;
 

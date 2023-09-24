@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 using RadzenBook.Application.Common.Exceptions;
 using RadzenBook.Application.Common.Persistence.Repositories;
 using RadzenBook.Domain.Common.Contracts;

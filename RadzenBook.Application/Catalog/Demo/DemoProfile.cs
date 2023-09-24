@@ -1,4 +1,5 @@
 ﻿using RadzenBook.Application.Catalog.Demo.Command;
+using RadzenBook.Application.Catalog.Demo.Query;
 using RadzenBook.Domain.Common.Enums;
 
 namespace RadzenBook.Application.Catalog.Demo;

@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 using RadzenBook.Application.Common.Persistence;
 using RadzenBook.Application.Common.Persistence.Repositories;
 using RadzenBook.Domain.Common.Contracts;

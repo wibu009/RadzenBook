@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadzenBook.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using RadzenBook.Infrastructure.Persistence;
 namespace RadzenBook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    partial class RadzenBookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230924145138_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -461,8 +463,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("RadzenBook.Infrastructure.Identity.User.AppUser", null)
                         .WithMany("Photos")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("RadzenBook.Infrastructure.Identity.User.AppUser", b =>

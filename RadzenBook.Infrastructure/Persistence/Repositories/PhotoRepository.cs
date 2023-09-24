@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RadzenBook.Application.Common.Persistence.Repositories;
+﻿using RadzenBook.Application.Common.Persistence.Repositories;
 
 namespace RadzenBook.Infrastructure.Persistence.Repositories;
 

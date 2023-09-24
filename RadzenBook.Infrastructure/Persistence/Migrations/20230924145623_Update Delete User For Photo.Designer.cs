@@ -12,8 +12,8 @@ using RadzenBook.Infrastructure.Persistence;
 namespace RadzenBook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    [Migration("20230921080356_Initial")]
-    partial class Initial
+    [Migration("20230924145623_Update Delete User For Photo")]
+    partial class UpdateDeleteUserForPhoto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,10 +127,13 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RadzenBook.Domain.Entities.Address", b =>
+            modelBuilder.Entity("RadzenBook.Domain.Catalog.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
@@ -193,10 +196,12 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("RadzenBook.Domain.Entities.Demo", b =>
+            modelBuilder.Entity("RadzenBook.Domain.Catalog.Demo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -238,10 +243,13 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                     b.ToTable("Demos");
                 });
 
-            modelBuilder.Entity("RadzenBook.Domain.Entities.Photo", b =>
+            modelBuilder.Entity("RadzenBook.Domain.Catalog.Photo", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid?>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -270,6 +278,8 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Photos");
                 });
@@ -315,6 +325,16 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -322,11 +342,24 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsGuest")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -417,6 +450,28 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RadzenBook.Domain.Catalog.Address", b =>
+                {
+                    b.HasOne("RadzenBook.Infrastructure.Identity.User.AppUser", null)
+                        .WithMany("Addresses")
+                        .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("RadzenBook.Domain.Catalog.Photo", b =>
+                {
+                    b.HasOne("RadzenBook.Infrastructure.Identity.User.AppUser", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("RadzenBook.Infrastructure.Identity.User.AppUser", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

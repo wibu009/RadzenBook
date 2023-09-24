@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Application.Catalog.Demo;
+﻿namespace RadzenBook.Application.Catalog.Demo.Query;
 
 public class DemoDto
 {

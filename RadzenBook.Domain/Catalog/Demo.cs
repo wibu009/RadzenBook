@@ -1,7 +1,4 @@
-﻿using RadzenBook.Domain.Common.Contracts;
-using RadzenBook.Domain.Common.Enums;
-
-namespace RadzenBook.Domain.Catalog;
+﻿namespace RadzenBook.Domain.Catalog;
 
 public class Demo : BaseEntity<Guid>
 {

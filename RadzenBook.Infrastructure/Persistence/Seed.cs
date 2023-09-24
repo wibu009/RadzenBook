@@ -84,6 +84,7 @@ public static class Seed
                 .RuleFor(a => a.CreatedAt, DateTime.UtcNow)
                 .RuleFor(a => a.ModifiedBy, "System")
                 .RuleFor(a => a.ModifiedAt, DateTime.UtcNow)
+                .RuleFor(a => a.AppUserId, f => f.PickRandom(userManager.GetUsersInRoleAsync("customer").Result).Id)
                 .Generate(20);
 
             await context.Addresses.AddRangeAsync(addressFakers);
@@ -100,6 +101,7 @@ public static class Seed
                 .RuleFor(p => p.CreatedAt, DateTime.UtcNow)
                 .RuleFor(p => p.ModifiedBy, "System")
                 .RuleFor(p => p.ModifiedAt, DateTime.UtcNow)
+                .RuleFor(p => p.AppUserId, f => f.PickRandom(userManager.Users.ToList()).Id)
                 .Generate(20);
 
             await context.Photos.AddRangeAsync(photoFakers);
