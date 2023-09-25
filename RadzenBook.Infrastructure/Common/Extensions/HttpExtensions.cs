@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using Microsoft.AspNetCore.Http;
 
 namespace RadzenBook.Infrastructure.Common.Extensions;
 

@@ -1,4 +1,4 @@
-﻿using RadzenBook.Application.Auth;
+﻿using RadzenBook.Application.Identity.Auth;
 
 namespace RadzenBook.Host.Controllers;
 
@@ -18,4 +18,10 @@ public class AuthController : BaseApiController
     [SwaggerResponse(StatusCodes.Status200OK, "Register", typeof(UserAuthDto))]
     public async Task<IActionResult> Register(RegisterRequest registerRequest) 
         => HandleResult(await InfrastructureServiceManager.AuthService.RegisterAsync(registerRequest));
+    
+    [HttpPost("refresh-token")]
+    [SwaggerOperation(Summary = "Refresh token")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Refresh token", typeof(UserAuthDto))]
+    public async Task<IActionResult> RefreshToken() 
+        => HandleResult(await InfrastructureServiceManager.AuthService.RefreshTokenAsync());
 }

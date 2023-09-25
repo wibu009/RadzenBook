@@ -18,7 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Catalog\Address\Command\" />
-    <Folder Include="Identity\" />
   </ItemGroup>
 
 </Project>

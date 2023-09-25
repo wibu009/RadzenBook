@@ -1,8 +1,7 @@
 ﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using RadzenBook.Application.Common.Auth;
+using RadzenBook.Application.Common.Security;
 
-namespace RadzenBook.Infrastructure.Auth;
+namespace RadzenBook.Infrastructure.Security;
 
 public class UserAccessor : IUserAccessor
 {
@@ -14,8 +13,6 @@ public class UserAccessor : IUserAccessor
     }
 
     public string GetUsername() => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name)!;
-    
-    public string GetUserEmail() => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email)!;
 
     public string GetUserId() => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier)!;
 

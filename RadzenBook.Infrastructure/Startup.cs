@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
 using RadzenBook.Application.Common;
-using RadzenBook.Infrastructure.Auth;
 using RadzenBook.Infrastructure.Cache;
 using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Localization;
@@ -13,7 +11,7 @@ using RadzenBook.Infrastructure.Mapper;
 using RadzenBook.Infrastructure.Middlewares;
 using RadzenBook.Infrastructure.OpenApi;
 using RadzenBook.Infrastructure.Persistence;
-using RadzenBook.Infrastructure.SecurityHeaders;
+using RadzenBook.Infrastructure.Security;
 using RadzenBook.Infrastructure.Validations;
 
 namespace RadzenBook.Infrastructure;

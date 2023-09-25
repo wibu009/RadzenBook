@@ -1,8 +1,6 @@
 ﻿using Bogus;
-using Microsoft.AspNetCore.Identity;
 using RadzenBook.Domain.Catalog;
 using RadzenBook.Domain.Common.Enums;
-using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
 
@@ -101,7 +99,6 @@ public static class Seed
                 .RuleFor(p => p.CreatedAt, DateTime.UtcNow)
                 .RuleFor(p => p.ModifiedBy, "System")
                 .RuleFor(p => p.ModifiedAt, DateTime.UtcNow)
-                .RuleFor(p => p.AppUserId, f => f.PickRandom(userManager.Users.ToList()).Id)
                 .Generate(20);
 
             await context.Photos.AddRangeAsync(photoFakers);

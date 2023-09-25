@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Application.Auth;
+﻿namespace RadzenBook.Application.Identity.Auth;
 
 public class RegisterRequest
 {

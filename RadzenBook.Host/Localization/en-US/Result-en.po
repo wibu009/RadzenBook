@@ -9,6 +9,10 @@ msgstr "Incorrect username or password"
 msgid "Username already exists"
 msgstr "Username already exists"
 
+#: Result<T>.Message("Invalid refresh token")
+msgid "Invalid refresh token"
+msgstr "Invalid refresh token"
+
 #: Demo result message
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

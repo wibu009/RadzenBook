@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Configuration;
 using OrchardCore.Localization;
 
 namespace RadzenBook.Infrastructure.Localization;

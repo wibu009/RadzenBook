@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using RadzenBook.Application.Common.Email;
+﻿using RadzenBook.Application.Common.Email;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 

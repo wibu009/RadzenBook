@@ -1,9 +1,8 @@
-﻿namespace RadzenBook.Application.Common.Auth;
+﻿namespace RadzenBook.Application.Common.Security;
 
 public interface IUserAccessor
 {
     string GetUsername();
-    string GetUserEmail();
     string GetUserId();
     string GetUserRole();
 }

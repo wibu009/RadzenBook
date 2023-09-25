@@ -11,10 +11,8 @@ public class AppUserConfig : IEntityTypeConfiguration<AppUser>
             .HasForeignKey(x => x.AppUserId)
             .IsRequired(false);
 
-        builder.HasMany(x => x.Photos)
-            .WithOne()
-            .HasForeignKey(x => x.AppUserId)
-            .IsRequired(false)
-            .OnDelete(DeleteBehavior.SetNull);
+        builder.HasMany(x => x.RefreshTokens)
+            .WithOne(x => x.AppUser)
+            .HasForeignKey(x => x.AppUserId);
     }
 }

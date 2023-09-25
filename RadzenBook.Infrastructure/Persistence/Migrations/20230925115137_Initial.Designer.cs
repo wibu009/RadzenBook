@@ -12,8 +12,8 @@ using RadzenBook.Infrastructure.Persistence;
 namespace RadzenBook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    [Migration("20230924145623_Update Delete User For Photo")]
-    partial class UpdateDeleteUserForPhoto
+    [Migration("20230925115137_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -133,7 +133,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AppUserId")
+                    b.Property<Guid?>("AppUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
@@ -248,9 +248,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("AppUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -278,8 +275,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
 
                     b.ToTable("Photos");
                 });
@@ -312,6 +307,34 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
+            modelBuilder.Entity("RadzenBook.Infrastructure.Identity.Token.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid>("AppUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("RadzenBook.Infrastructure.Identity.User.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -320,6 +343,9 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -459,19 +485,22 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                         .HasForeignKey("AppUserId");
                 });
 
-            modelBuilder.Entity("RadzenBook.Domain.Catalog.Photo", b =>
+            modelBuilder.Entity("RadzenBook.Infrastructure.Identity.Token.RefreshToken", b =>
                 {
-                    b.HasOne("RadzenBook.Infrastructure.Identity.User.AppUser", null)
-                        .WithMany("Photos")
+                    b.HasOne("RadzenBook.Infrastructure.Identity.User.AppUser", "AppUser")
+                        .WithMany("RefreshTokens")
                         .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("RadzenBook.Infrastructure.Identity.User.AppUser", b =>
                 {
                     b.Navigation("Addresses");
 
-                    b.Navigation("Photos");
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using RadzenBook.Application.Common.Exceptions;
+using RadzenBook.Application.Common.Security;
 
 namespace RadzenBook.Application.Catalog.Demo.Command;
 

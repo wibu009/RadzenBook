@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
-using RadzenBook.Application.Auth;
+﻿using RadzenBook.Application;
 using RadzenBook.Application.Common;
-using RadzenBook.Application.Common.Auth;
 using RadzenBook.Application.Common.Email;
 using RadzenBook.Application.Common.Photo;
-using RadzenBook.Infrastructure.Auth;
+using RadzenBook.Application.Common.Security;
+using RadzenBook.Application.Identity.Auth;
+using RadzenBook.Application.Identity.Token;
+using RadzenBook.Infrastructure.Identity.Auth;
 using RadzenBook.Infrastructure.Identity.Token;
 using RadzenBook.Infrastructure.Identity.User;
 using RadzenBook.Infrastructure.Mail;
 using RadzenBook.Infrastructure.Photo;
+using RadzenBook.Infrastructure.Security;
 
 namespace RadzenBook.Infrastructure;
 
@@ -37,7 +35,7 @@ public class InfrastructureServiceManager : IInfrastructureServiceManager
         _userAccessor = new Lazy<IUserAccessor>(() => new UserAccessor(httpContextAccessor));
         _photoAccessor = new Lazy<IPhotoAccessor>(() => new PhotoAccessor(configuration));
         _emailSender = new Lazy<IEmailSender>(() => new EmailSender(configuration));
-        _authService = new Lazy<IAuthService>(() => new AuthService(userManager, signInManager, TokenService, loggerFactory, t));
+        _authService = new Lazy<IAuthService>(() => new AuthService(userManager, signInManager, TokenService, loggerFactory, t, configuration, httpContextAccessor));
     }
 
     public ITokenService TokenService => _tokenService.Value;

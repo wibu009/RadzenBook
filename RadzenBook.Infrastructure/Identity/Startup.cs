@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using RadzenBook.Infrastructure.Identity.Role;
+﻿using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
 using RadzenBook.Infrastructure.Persistence;
 
