@@ -1,5 +1,4 @@
-﻿using RadzenBook.Application.Common.Exceptions;
-using RadzenBook.Application.Common.Security;
+﻿using RadzenBook.Application.Common.Security;
 
 namespace RadzenBook.Application.Catalog.Demo.Command;
 
@@ -47,7 +46,7 @@ public class DeleteDemoRequestHandler : IRequestHandler<DeleteDemoRequest, Resul
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(DeleteDemoRequest), nameof(DeleteDemoRequestHandler), e.Message, e);
+            throw HandleRequestException.Create(nameof(DeleteDemoRequest), nameof(DeleteDemoRequestHandler), e.Message, e);
         }
     }
 }

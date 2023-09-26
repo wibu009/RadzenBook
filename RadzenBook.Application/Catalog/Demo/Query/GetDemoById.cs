@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Common.Exceptions;
-
-namespace RadzenBook.Application.Catalog.Demo.Query;
+﻿namespace RadzenBook.Application.Catalog.Demo.Query;
 
 public class GetDemoByIdRequest : IRequest<Result<DemoDto>>
 {
@@ -41,7 +39,7 @@ public class GetDemoByIdRequestHandler : IRequestHandler<GetDemoByIdRequest, Res
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(Handle), nameof(GetDemoByIdRequestHandler), e.Message, e);
+            throw HandleRequestException.Create(nameof(Handle), nameof(GetDemoByIdRequestHandler), e.Message, e);
         }
     }
 }

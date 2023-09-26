@@ -1,10 +1,11 @@
-﻿using RadzenBook.Application;
-using RadzenBook.Application.Common;
+﻿using RadzenBook.Application.Common;
+using RadzenBook.Application.Common.Cache;
 using RadzenBook.Application.Common.Email;
 using RadzenBook.Application.Common.Photo;
 using RadzenBook.Application.Common.Security;
 using RadzenBook.Application.Identity.Auth;
 using RadzenBook.Application.Identity.Token;
+using RadzenBook.Infrastructure.Cache.LocalCache;
 using RadzenBook.Infrastructure.Identity.Auth;
 using RadzenBook.Infrastructure.Identity.Token;
 using RadzenBook.Infrastructure.Identity.User;
@@ -21,11 +22,13 @@ public class InfrastructureServiceManager : IInfrastructureServiceManager
     private readonly Lazy<IEmailSender> _emailSender;
     private readonly Lazy<ITokenService> _tokenService;
     private readonly Lazy<IAuthService> _authService;
+    private readonly Lazy<ICacheService> _localCacheService;
 
     public InfrastructureServiceManager(
         IConfiguration configuration, 
         ILoggerFactory loggerFactory,
         IStringLocalizerFactory t,
+        IMemoryCache memoryCache,
         IHttpContextAccessor httpContextAccessor,
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager
@@ -36,6 +39,7 @@ public class InfrastructureServiceManager : IInfrastructureServiceManager
         _photoAccessor = new Lazy<IPhotoAccessor>(() => new PhotoAccessor(configuration));
         _emailSender = new Lazy<IEmailSender>(() => new EmailSender(configuration));
         _authService = new Lazy<IAuthService>(() => new AuthService(userManager, signInManager, TokenService, loggerFactory, t, configuration, httpContextAccessor));
+        _localCacheService = new Lazy<ICacheService>(() => new LocalCacheService(memoryCache, loggerFactory));
     }
 
     public ITokenService TokenService => _tokenService.Value;
@@ -43,4 +47,5 @@ public class InfrastructureServiceManager : IInfrastructureServiceManager
     public IPhotoAccessor PhotoAccessor => _photoAccessor.Value;
     public IEmailSender EmailSender => _emailSender.Value;
     public IAuthService AuthService => _authService.Value;
+    public ICacheService LocalCacheService => _localCacheService.Value;
 }

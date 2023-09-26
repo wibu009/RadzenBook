@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
-using RadzenBook.Application.Common.Exceptions;
 using RadzenBook.Application.Common.Security;
 using RadzenBook.Domain.Common.Enums;
 
@@ -75,7 +74,7 @@ public class UpdateDemoRequestHandler : IRequestHandler<UpdateDemoRequest, Resul
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(Handle), nameof(UpdateDemoRequestHandler), e.Message, e);
+            throw HandleRequestException.Create(nameof(Handle), nameof(UpdateDemoRequestHandler), e.Message, e);
         }
     }
 }

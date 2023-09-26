@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Common.Exceptions;
-
-namespace RadzenBook.Application.Catalog.Address.Query;
+﻿namespace RadzenBook.Application.Catalog.Address.Query;
 
 public class GetAddressByIdRequest : IRequest<Result<AddressDto>>
 {
@@ -41,7 +39,7 @@ public class GetAddressByIdRequestHandler : IRequestHandler<GetAddressByIdReques
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(Handle), nameof(GetAddressByIdRequestHandler), e.Message, e);
+            throw HandleRequestException.Create(nameof(Handle), nameof(GetAddressByIdRequestHandler), e.Message, e);
         }
     }
 }

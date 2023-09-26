@@ -6,6 +6,6 @@ public class AddressProfile : Profile
 {
     public AddressProfile()
     {
-        CreateMap<Domain.Catalog.Address, AddressDto>().ReverseMap();
+        CreateMap<Domain.Catalog.Address, AddressDto>();
     }
 }

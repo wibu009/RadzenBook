@@ -40,6 +40,7 @@ public class ExceptionMiddleware
             NotFoundException => StatusCodes.Status404NotFound,
             RepositoryException => StatusCodes.Status500InternalServerError,
             ServiceException => StatusCodes.Status500InternalServerError,
+            HandleRequestException => StatusCodes.Status500InternalServerError,
             _ => StatusCodes.Status500InternalServerError
         };
 

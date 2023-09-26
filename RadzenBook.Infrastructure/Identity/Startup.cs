@@ -1,4 +1,10 @@
-﻿using RadzenBook.Infrastructure.Identity.Role;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.IdentityModel.Tokens;
+using RadzenBook.Application.Identity.Token;
+using RadzenBook.Infrastructure.Identity.Role;
+using RadzenBook.Infrastructure.Identity.Token;
 using RadzenBook.Infrastructure.Identity.User;
 using RadzenBook.Infrastructure.Persistence;
 
@@ -25,7 +31,33 @@ public static class Startup
             .AddRoleValidator<RoleValidator<AppRole>>()
             .AddEntityFrameworkStores<RadzenBookDbContext>()
             .AddDefaultTokenProviders();
+        
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("TokenSettings").Get<TokenSettings>()!.Key)),
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                };
+            });
+
+        services.AddAuthorization();
+
+        services.AddTransient<ITokenService, TokenService>();
 
         return services;
+    }
+    
+    public static IApplicationBuilder UseIdentity(this IApplicationBuilder app)
+    {
+        app.UseAuthentication();
+        app.UseAuthorization();
+        
+        return app;
     }
 }

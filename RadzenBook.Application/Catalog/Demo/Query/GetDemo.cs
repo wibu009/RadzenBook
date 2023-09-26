@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Common.Exceptions;
-
-namespace RadzenBook.Application.Catalog.Demo.Query;
+﻿namespace RadzenBook.Application.Catalog.Demo.Query;
 
 public class GetDemoRequest : IRequest<Result<PaginatedList<DemoDto>>>
 {
@@ -35,7 +33,7 @@ public class GetPagedDemoRequestHandler : IRequestHandler<GetDemoRequest, Result
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(Handle), nameof(GetPagedDemoRequestHandler), e.Message, e);
+            throw HandleRequestException.Create(nameof(Handle), nameof(GetPagedDemoRequestHandler), e.Message, e);
         }
     }
 }

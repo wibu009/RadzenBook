@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Common.Exceptions;
-
-namespace RadzenBook.Application.Catalog.Address.Query;
+﻿namespace RadzenBook.Application.Catalog.Address.Query;
 
 public class GetAddressRequest : IRequest<Result<PaginatedList<AddressDto>>>
 {
@@ -30,7 +28,8 @@ public class GetAddressRequestHandler : IRequestHandler<GetAddressRequest, Resul
     {
         try
         {
-            var address = await _unitOfWork.GetRepository<IAddressRepository, Domain.Catalog.Address, Guid>().GetPagedAsync(pageNumber: request.PagingParams.PageNumber, pageSize: request.PagingParams.PageSize, cancellationToken: cancellationToken);
+            var address = await _unitOfWork.GetRepository<IAddressRepository, Domain.Catalog.Address, Guid>()
+                .GetPagedAsync(pageNumber: request.PagingParams.PageNumber, pageSize: request.PagingParams.PageSize, cancellationToken: cancellationToken);
             var totalCount = await _unitOfWork.GetRepository<IAddressRepository, Domain.Catalog.Address, Guid>().CountAsync(cancellationToken: cancellationToken);
             var addressDto = _mapper.Map<List<AddressDto>>(address);
             var addressDtoPaginated = new PaginatedList<AddressDto>(addressDto, totalCount, request.PagingParams.PageNumber, request.PagingParams.PageSize);
@@ -39,7 +38,7 @@ public class GetAddressRequestHandler : IRequestHandler<GetAddressRequest, Resul
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(Handle), nameof(GetAddressRequestHandler), e.Message, e);
+            throw HandleRequestException.Create(nameof(Handle), nameof(GetAddressRequestHandler), e.Message, e);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using RadzenBook.Application.Common.Exceptions;
-using RadzenBook.Application.Common.Security;
+﻿using RadzenBook.Application.Common.Security;
 using RadzenBook.Domain.Common.Enums;
 
 namespace RadzenBook.Application.Catalog.Demo.Command;
@@ -63,7 +62,7 @@ public class CreateDemoRequestHandler : IRequestHandler<CreateDemoRequest, Resul
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(Handle), nameof(CreateDemoRequestHandler), e.Message, e);
+            throw HandleRequestException.Create(nameof(Handle), nameof(CreateDemoRequestHandler), e.Message, e);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RadzenBook.Application.Catalog.Address.Query;
+﻿using RadzenBook.Application.Catalog.Address.Command;
+using RadzenBook.Application.Catalog.Address.Query;
 
 namespace RadzenBook.Host.Controllers;
 
@@ -22,4 +23,13 @@ public class AddressController : BaseApiController
         Guid id,
         CancellationToken cancellationToken)
         => HandleResult(await Mediator.Send(new GetAddressByIdRequest { Id = id }, cancellationToken));
+    
+    [HttpDelete("{id:guid}")]
+    [SwaggerOperation(Summary = "Delete address by id")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Delete successfully")]
+    public async Task<IActionResult> DeleteAddressById(
+        [FromRoute]
+        Guid id,
+        CancellationToken cancellationToken)
+        => HandleResult(await Mediator.Send(new DeleteAddressRequest { Id = id }, cancellationToken));
 }

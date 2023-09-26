@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using RadzenBook.Application.Common.Exceptions;
 using RadzenBook.Application.Common.Models;
-using RadzenBook.Application.Common.Security;
 using RadzenBook.Application.Identity.Auth;
 using RadzenBook.Application.Identity.Token;
 using RadzenBook.Infrastructure.Identity.Token;
@@ -65,7 +64,7 @@ public class AuthService : IAuthService
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(LoginAsync), nameof(AuthService), e.Message, e);
+            throw HandleRequestException.Create(nameof(LoginAsync), nameof(AuthService), e.Message, e);
         }
     }
     
@@ -97,10 +96,10 @@ public class AuthService : IAuthService
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(RegisterAsync), nameof(AuthService), e.Message, e);
+            throw HandleRequestException.Create(nameof(RegisterAsync), nameof(AuthService), e.Message, e);
         }
     }
-
+    
     public async Task<Result<UserAuthDto>> RefreshTokenAsync()
     {
         try
@@ -125,7 +124,7 @@ public class AuthService : IAuthService
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw ServiceException.Create(nameof(RefreshTokenAsync), nameof(AuthService), e.Message, e);
+            throw HandleRequestException.Create(nameof(RefreshTokenAsync), nameof(AuthService), e.Message, e);
         }
     }
 
@@ -145,7 +144,7 @@ public class AuthService : IAuthService
             Expires = DateTime.UtcNow.AddDays(_tokenSettings.RefreshTokenExpirationInDays),
         };
         _httpContextAccessor.HttpContext!.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
-    }
+    } 
     
     private UserAuthDto CreateUserAuthDto(AppUser user)
     {

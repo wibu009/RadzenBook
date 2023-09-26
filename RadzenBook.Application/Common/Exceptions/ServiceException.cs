@@ -2,17 +2,23 @@
 
 public class ServiceException : Exception
 {
-    private ServiceException(string message) : base(message)
+    public ServiceException()
     {
     }
 
-    private ServiceException(string message, Exception innerException) : base(message, innerException)
+    public ServiceException(string message)
+        : base(message)
     {
     }
 
+    public ServiceException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
+    
     public static ServiceException Create(string methodName, string className, string message, Exception innerException) 
         => new ServiceException($"Exception in {className}.{methodName}: {message}", innerException);
     
-    public static ServiceException Create(string methodName, string className, string message)
+    public static ServiceException Create(string methodName, string className, string message) 
         => new ServiceException($"Exception in {className}.{methodName}: {message}");
 }

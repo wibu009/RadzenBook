@@ -37,7 +37,7 @@ public static class Startup
         services.AddValidations();
         services.AddScoped<IInfrastructureServiceManager, InfrastructureServiceManager>();
         services.AddIdentity(configuration);
-        services.AddAuth(configuration);
+        services.AddSecurity(configuration);
         
         return services;
     }
@@ -45,9 +45,9 @@ public static class Startup
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
         app.UseOpenApi();
+        app.UseIdentity();
         app.UseCustomMiddleware();
-        app.UseSecurityHeaders();
-        app.UseAuth();
+        app.UseSecurity();
         app.UsePoLocalization();
         app.MapControllers();
         app.ApplyMigrations().Wait();
