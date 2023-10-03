@@ -6,6 +6,7 @@
 # My Stuff
 .vscode/
 .idea/
+RadzenBook.Host/Configurations/*.json
 
 #Log files
 .Logs/
