@@ -28,7 +28,7 @@ public static class RateLimitRegister
                         ContentType = "application/json",
                         StatusCode = (int) HttpStatusCode.TooManyRequests
                     },
-                    MonitorMode = false
+                    MonitorMode = false,
                 },
             };
         });

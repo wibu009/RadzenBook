@@ -32,8 +32,8 @@ public class BaseApiController : ControllerBase
                 => StatusCode((int)HttpStatusCode.InternalServerError, result.Message),
             { IsSuccess: false, Message: not null } 
                 => BadRequest(result.Message),
-            { IsSuccess: true, Message: not null } 
-                => Ok(result.Message),
+            { IsSuccess: true, Value: not null, StatusCode: (int)HttpStatusCode.Redirect }
+                => Redirect(result.Value.ToString()!),
             { IsSuccess: true, Value: not null } 
                 => Ok(result.Value),
             { IsSuccess: true, Value: null, StatusCode: (int)HttpStatusCode.NoContent } 

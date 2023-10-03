@@ -1,3 +1,10 @@
+#: Common
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, username) => T["Request cannot be null"])
+msgid "Request cannot be null"
+msgstr "Request cannot be null"
+
 #: Login and Register validation messages
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -60,6 +67,10 @@ msgstr "Display Name must be at least {0} characters long"
 #: WithMessage((_, phoneNumber) => T["Phone Number is required"])
 msgid "Phone Number is not valid"
 msgstr "Phone Number is not valid"
+
+# WithMessage((_, accessToken) => T["AccessToken is required"])
+msgid "AccessToken is required"
+msgstr "AccessToken is required"
 
 #: Demo validation messages
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

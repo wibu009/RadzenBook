@@ -12,7 +12,7 @@ public class CreateDemoRequest : IRequest<Result<Unit>>
 
 public class DemoCreateRequestValidator : CustomValidator<CreateDemoRequest>
 {
-    public DemoCreateRequestValidator(IStringLocalizer<DemoCreateRequestValidator> t)
+    public DemoCreateRequestValidator(IStringLocalizer<DemoCreateRequestValidator> t) : base(t)
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage(t["Name is required"])

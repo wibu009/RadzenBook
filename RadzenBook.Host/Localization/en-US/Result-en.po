@@ -13,6 +13,14 @@ msgstr "Username already exists"
 msgid "Invalid refresh token"
 msgstr "Invalid refresh token"
 
+#: Result<T>.Message("Invalid provider")
+msgid "Invalid provider"
+msgstr "Invalid provider"
+
+#: Result<T>.Message("Invalid external authentication provider")
+msgid "External login error"
+msgstr "External login error"
+
 #: Demo result message
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

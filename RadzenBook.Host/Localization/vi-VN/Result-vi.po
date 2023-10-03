@@ -13,6 +13,14 @@ msgstr "Tên đăng nhập đã tồn tại"
 msgid "Invalid refresh token"
 msgstr "Refresh token không hợp lệ"
 
+#: Result<T>.Message("Invalid provider")
+msgid "Invalid provider"
+msgstr "Nhà cung cấp không hợp lệ"
+
+#: Result<T>.Message("Invalid external authentication provider")
+msgid "External login errorr"
+msgstr "Lỗi đăng nhập bên thứ 3"
+
 #: Demo result message
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

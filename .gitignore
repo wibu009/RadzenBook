@@ -6,7 +6,6 @@
 # My Stuff
 .vscode/
 .idea/
-appsettings.json
 
 #Log files
 .Logs/

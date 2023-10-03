@@ -35,6 +35,8 @@ public static class Startup
             };
         });
         services.AddSingleton<ILocalizationFileLocationProvider, PoFileLocationProvider>();
+        
+        //set default language in cookie
 
         return services;
     }

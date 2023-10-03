@@ -12,5 +12,4 @@
 		<PackageReference Include="MudBlazor" Version="6.10.0" />
 	</ItemGroup>
 	
-	
 </Project>

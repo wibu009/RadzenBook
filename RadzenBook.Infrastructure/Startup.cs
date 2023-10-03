@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Routing;
-using RadzenBook.Application.Common;
 using RadzenBook.Infrastructure.Cache;
 using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Localization;
@@ -26,6 +25,7 @@ public static class Startup
             options.Filters.Add(new AuthorizeFilter(policy));
         });
         services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+        services.AddHttpClient();
         services.AddHttpContextAccessor();
         services.AddEndpointsApiExplorer();
         services.AddCache();

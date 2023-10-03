@@ -12,7 +12,7 @@ public class RegisterRequest
 
 public class RegisterRequestValidator : CustomValidator<RegisterRequest>
 {
-    public RegisterRequestValidator(IStringLocalizer<RegisterRequestValidator> t)
+    public RegisterRequestValidator(IStringLocalizer<RegisterRequestValidator> t) : base(t)
     {
         RuleFor(x => x.Username)
             .NotEmpty().WithMessage(t["Username is required"])

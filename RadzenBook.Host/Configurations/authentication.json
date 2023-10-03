@@ -1,0 +1,22 @@
+{
+  "AuthenticationSettings": {
+    "JwtSettings": {
+      "Key": "C2y6WxX4zX7X0zR3vS5v8y/A?D(G+KbPeShVmYq3t6w9z$C&F)H@McQfTjWnZr4u",
+      "Issuer": "http://localhost:5000",
+      "Audience": "http://localhost:5000",
+      "Authority": "http://localhost:5000",
+      "AccessTokenExpirationInMinutes": 15,
+      "RefreshTokenExpirationInDays": 60
+    },
+    "FaceBookSettings": {
+      "AppId": "850314079745883",
+      "AppSecret": "9e9c2fa934696e1b54ed4187cc5e2722",
+      "CallBackPath": "/api/auth/external-login-callback/facebook"
+    },
+    "GoogleSettings": {
+      "ClientId": "832703843331-s3panmqjknc0gmbgu194906lvepph07n.apps.googleusercontent.com",
+      "ClientSecret": "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",
+      "CallBackPath": "/api/auth/external-login-callback/google"
+    }
+  }
+}

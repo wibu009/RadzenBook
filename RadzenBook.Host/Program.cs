@@ -1,4 +1,5 @@
 using RadzenBook.Application;
+using RadzenBook.Host.Configurations;
 using RadzenBook.Infrastructure;
 using RadzenBook.Infrastructure.Logger;
 using Serilog;
@@ -13,6 +14,7 @@ public class Program
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.AddConfigurations();
             builder.UseLogging();
                 
             builder.Services.AddInfrastructure(builder.Configuration);

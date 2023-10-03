@@ -4,19 +4,19 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using RadzenBook.Application.Identity.Token;
+using RadzenBook.Infrastructure.Identity.Auth;
 using RadzenBook.Infrastructure.Identity.User;
-using RadzenBook.Infrastructure.Security;
 
 namespace RadzenBook.Infrastructure.Identity.Token;
 
 public class TokenService : ITokenService
 {
-    private readonly TokenSettings _tokenSettings;
+    private readonly JwtSettings _jwtSettings;
     private readonly UserManager<AppUser> _userManager;
 
     public TokenService(IConfiguration config, UserManager<AppUser> userManager)
     {
-        _tokenSettings = config.GetSection("TokenSettings").Get<TokenSettings>()!;
+        _jwtSettings = config.GetSection("AuthenticationSettings").Get<AuthenticationSettings>()!.JwtSettings;
         _userManager = userManager;
     }
 
@@ -32,15 +32,15 @@ public class TokenService : ITokenService
         var roles = _userManager.GetRolesAsync(user).Result;
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenSettings.Key));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
         
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddDays(_tokenSettings.AccessTokenExpirationInMinutes),
+            Expires = DateTime.UtcNow.AddDays(_jwtSettings.AccessTokenExpirationInMinutes),
             SigningCredentials = cred,
-            Issuer = _tokenSettings.Issuer,
+            Issuer = _jwtSettings.Issuer,
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -62,11 +62,11 @@ public class TokenService : ITokenService
         var tokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenSettings.Key)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key)),
             ValidateIssuer = true,
-            ValidIssuer = _tokenSettings.Issuer,
+            ValidIssuer = _jwtSettings.Issuer,
             ValidateAudience = true,
-            ValidAudience = _tokenSettings.Audience,
+            ValidAudience = _jwtSettings.Audience,
             ValidateLifetime = false,
             ClockSkew = TimeSpan.Zero
         };

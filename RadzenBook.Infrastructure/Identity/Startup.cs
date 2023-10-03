@@ -1,8 +1,11 @@
 ﻿using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using RadzenBook.Application.Identity.Token;
+using RadzenBook.Infrastructure.Identity.Auth;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.Token;
 using RadzenBook.Infrastructure.Identity.User;
@@ -31,13 +34,17 @@ public static class Startup
             .AddRoleValidator<RoleValidator<AppRole>>()
             .AddEntityFrameworkStores<RadzenBookDbContext>()
             .AddDefaultTokenProviders();
-        
+
+        services.AddDataProtection();
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(opt =>
             {
                 opt.TokenValidationParameters = new TokenValidationParameters
                 {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("TokenSettings").Get<TokenSettings>()!.Key)),
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                            config.GetSection("AuthenticationSettings").Get<AuthenticationSettings>()!.JwtSettings.Key)),
                     ValidateIssuerSigningKey = true,
                     ValidateAudience = false,
                     ValidateIssuer = false,

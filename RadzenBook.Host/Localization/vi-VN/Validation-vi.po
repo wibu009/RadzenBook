@@ -1,3 +1,10 @@
+#: Common
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, username) => T["Request cannot be null"])
+msgid "Request cannot be null"
+msgstr "Yêu cầu không được để trống"
+
 #: Login and Register validation messages
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -60,6 +67,10 @@ msgstr "Tên hiển thị phải dài ít nhất {0} ký tự"
 #: WithMessage((_, phoneNumber) => T["Phone Number is required"])
 msgid "Phone Number is not valid"
 msgstr "Số điện thoại không hợp lệ"
+
+# WithMessage((_, accessToken) => T["AccessToken is required"])
+msgid "AccessToken is required"
+msgstr "AccessToken là bắt buộc"
 
 #: Demo validation messages
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

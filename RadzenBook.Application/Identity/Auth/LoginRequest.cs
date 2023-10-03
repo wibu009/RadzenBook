@@ -8,7 +8,7 @@ public class LoginRequest
 
 public class LoginRequestValidator : CustomValidator<LoginRequest>
 {
-    public LoginRequestValidator(IStringLocalizer<LoginRequestValidator> t)
+    public LoginRequestValidator(IStringLocalizer<LoginRequestValidator> t) : base(t)
     {
         RuleFor(x => x.Username)
             .NotEmpty().WithMessage(t["Username is required"]);

@@ -1,5 +1,4 @@
-﻿using RadzenBook.Application.Common;
-using RadzenBook.Application.Common.Cache;
+﻿using RadzenBook.Application.Common.Cache;
 using RadzenBook.Application.Common.Email;
 using RadzenBook.Application.Common.Photo;
 using RadzenBook.Application.Common.Security;
@@ -38,7 +37,7 @@ public class InfrastructureServiceManager : IInfrastructureServiceManager
         _userAccessor = new Lazy<IUserAccessor>(() => new UserAccessor(httpContextAccessor));
         _photoAccessor = new Lazy<IPhotoAccessor>(() => new PhotoAccessor(configuration));
         _emailSender = new Lazy<IEmailSender>(() => new EmailSender(configuration));
-        _authService = new Lazy<IAuthService>(() => new AuthService(userManager, signInManager, TokenService, loggerFactory, t, configuration, httpContextAccessor));
+        _authService = new Lazy<IAuthService>(() => new AuthService(userManager, signInManager, TokenService, loggerFactory, t, configuration, httpContextAccessor, LocalCacheService));
         _localCacheService = new Lazy<ICacheService>(() => new LocalCacheService(memoryCache, loggerFactory));
     }
 

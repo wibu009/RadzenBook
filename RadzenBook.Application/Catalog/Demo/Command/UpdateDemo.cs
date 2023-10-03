@@ -22,7 +22,7 @@ public class UpdateDemoRequest : IRequest<Result<Unit>>
 
 public class UpdateDemoRequestValidator : CustomValidator<UpdateDemoRequest>
 {
-    public UpdateDemoRequestValidator(IStringLocalizer<UpdateDemoRequestValidator> t)
+    public UpdateDemoRequestValidator(IStringLocalizer<UpdateDemoRequestValidator> t) : base(t)
     {
         RuleFor(x => x.Name)
             .MaximumLength(50).WithMessage(t["Name must not exceed {0} characters", 50]);

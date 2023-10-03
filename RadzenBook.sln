@@ -11,13 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Domain", "Radzen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Infrastructure", "RadzenBook.Infrastructure\RadzenBook.Infrastructure.csproj", "{B7D52A4C-BA25-46E6-85D3-2D9EFF0C3FA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadzenBook.Client", "RadzenBook.Client\RadzenBook.Client.csproj", "{7F47590F-42EA-4254-AA7E-5A10A7B1ECC8}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86A78770-E0D3-419F-8E4E-70FE77AAA297}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
+		RadzenBook.sln = RadzenBook.sln
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadzenBook.Client", "RadzenBook.Client\RadzenBook.Client.csproj", "{7F47590F-42EA-4254-AA7E-5A10A7B1ECC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
