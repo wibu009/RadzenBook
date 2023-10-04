@@ -29,7 +29,7 @@ public class Program
         catch (Exception ex)
         {
             if (ex.GetType().Name.Equals("StopTheHostException")) throw;
-            Log.Fatal(ex, "Application failed to start!!!");
+            Log.Fatal(ex, "Application failed to start");
         }
         finally
         {

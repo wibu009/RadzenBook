@@ -3,7 +3,8 @@
 namespace RadzenBook.Host.Controllers;
 
 [AllowAnonymous]
-[Route("api/[controller]")]
+[ApiVersion(ApiVersionName.V1)]
+[ApiVersion(ApiVersionName.V2)]
 public class AuthController : BaseApiController
 {
     [HttpPost("login")]
@@ -13,6 +14,7 @@ public class AuthController : BaseApiController
         => HandleResult(await InfrastructureServiceManager.AuthService.LoginAsync(loginRequest));
     
     [HttpGet("external-login/{provider}")]
+    [MapToApiVersion(ApiVersionName.V2)]
     [SwaggerOperation(Summary = "External login")]
     [SwaggerResponse(StatusCodes.Status200OK, "Redirect to external login provider")]
     public async Task<IActionResult> ExternalLogin(
@@ -20,6 +22,7 @@ public class AuthController : BaseApiController
         => HandleResult(await InfrastructureServiceManager.AuthService.ExternalLoginAsync(provider));
     
     [HttpGet("external-login-callback/{provider}")]
+    [MapToApiVersion(ApiVersionName.V2)]
     [SwaggerOperation(Summary = "External login callback")]
     [SwaggerResponse(StatusCodes.Status200OK, "External login callback", typeof(UserAuthDto))]
     public async Task<IActionResult> ExternalLoginCallback(
@@ -35,6 +38,7 @@ public class AuthController : BaseApiController
         => HandleResult(await InfrastructureServiceManager.AuthService.RegisterAsync(registerRequest));
     
     [HttpPost("refresh-token")]
+    [MapToApiVersion(ApiVersionName.V2)]
     [SwaggerOperation(Summary = "Refresh token")]
     [SwaggerResponse(StatusCodes.Status200OK, "Refresh token", typeof(UserAuthDto))]
     public async Task<IActionResult> RefreshToken() 

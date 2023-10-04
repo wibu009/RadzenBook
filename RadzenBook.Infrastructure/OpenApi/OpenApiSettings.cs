@@ -9,7 +9,6 @@ public class OpenApiSettings
 public class Info
 {
     public string Title { get; set; } = string.Empty;
-    public string Version { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public Contact Contact { get; set; } = new Contact();
     public License License { get; set; } = new License();

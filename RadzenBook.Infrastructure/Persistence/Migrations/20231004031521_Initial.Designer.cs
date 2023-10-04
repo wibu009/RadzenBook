@@ -12,13 +12,14 @@ using RadzenBook.Infrastructure.Persistence;
 namespace RadzenBook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    [Migration("20230925115137_Initial")]
+    [Migration("20231004031521_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("dbo")
                 .HasAnnotation("ProductVersion", "6.0.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -45,7 +46,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
@@ -69,7 +70,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
@@ -90,7 +91,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
@@ -105,7 +106,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -124,7 +125,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", "identity");
                 });
 
             modelBuilder.Entity("RadzenBook.Domain.Catalog.Address", b =>
@@ -198,7 +199,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", "catalog");
                 });
 
             modelBuilder.Entity("RadzenBook.Domain.Catalog.Demo", b =>
@@ -240,7 +241,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Demos");
+                    b.ToTable("Demos", "dbo");
                 });
 
             modelBuilder.Entity("RadzenBook.Domain.Catalog.Photo", b =>
@@ -276,7 +277,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", "catalog");
                 });
 
             modelBuilder.Entity("RadzenBook.Infrastructure.Identity.Role.AppRole", b =>
@@ -304,7 +305,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles", "identity");
                 });
 
             modelBuilder.Entity("RadzenBook.Infrastructure.Identity.Token.RefreshToken", b =>
@@ -332,7 +333,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", "identity");
                 });
 
             modelBuilder.Entity("RadzenBook.Infrastructure.Identity.User.AppUser", b =>
@@ -424,7 +425,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

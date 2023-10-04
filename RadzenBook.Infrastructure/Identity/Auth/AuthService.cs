@@ -81,7 +81,8 @@ public class AuthService : IAuthService
     {
         try
         {
-            var state = _httpContextAccessor.HttpContext!;
+            var key = Guid.NewGuid().ToString();
+            var state = _httpContextAccessor.HttpContext!.Request.Cookies["refreshToken"];
             
             return Task.FromResult(provider.ToLower() switch
             {

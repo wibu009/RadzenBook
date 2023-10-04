@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using RadzenBook.Infrastructure.Security.Header;
+﻿using RadzenBook.Infrastructure.Security.Header;
 using RadzenBook.Infrastructure.Security.RateLimit;
 
 namespace RadzenBook.Infrastructure.Security;

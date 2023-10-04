@@ -7,8 +7,8 @@ public static class Startup
         const string configurationsDirectory = "Configurations";
         var env = builder.Environment;
         builder.Configuration
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"{configurationsDirectory}/appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"{configurationsDirectory}/appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"{configurationsDirectory}/logger.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"{configurationsDirectory}/logger.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"{configurationsDirectory}/database.json", optional: false, reloadOnChange: true)

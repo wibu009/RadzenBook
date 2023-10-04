@@ -3,7 +3,7 @@
 namespace RadzenBook.Host.Controllers;
 
 [ApiController]
-[Route("api/[controller]s")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
 public class BaseApiController : ControllerBase
 {

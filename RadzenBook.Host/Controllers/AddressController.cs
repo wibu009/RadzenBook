@@ -3,6 +3,7 @@ using RadzenBook.Application.Catalog.Address.Query;
 
 namespace RadzenBook.Host.Controllers;
 
+[ApiVersion(ApiVersionName.V2)]
 public class AddressController : BaseApiController
 {
     [HttpGet]

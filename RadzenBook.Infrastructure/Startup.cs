@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Routing;
+﻿using RadzenBook.Infrastructure.ApiVersion;
 using RadzenBook.Infrastructure.Cache;
+using RadzenBook.Infrastructure.Cors;
 using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Localization;
 using RadzenBook.Infrastructure.Logger;
@@ -28,7 +26,9 @@ public static class Startup
         services.AddHttpClient();
         services.AddHttpContextAccessor();
         services.AddEndpointsApiExplorer();
+        services.AddVersion();
         services.AddCache();
+        services.AddCorsPolicy();
         services.AddOpenApi(configuration);
         services.AddLogger();
         services.AddPoLocalization(configuration);
@@ -44,12 +44,17 @@ public static class Startup
     
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
-        app.UseOpenApi();
         app.UseIdentity();
         app.UseCustomMiddleware();
+        app.UseRouting();
+        app.UseOpenApi();
         app.UseSecurity();
+        app.UseCorsPolicy();
         app.UsePoLocalization();
-        app.MapControllers();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
         app.ApplyMigrations().Wait();
         
         return app;

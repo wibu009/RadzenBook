@@ -24,7 +24,7 @@ public class FacebookAuthService
             redirect_uri = _redirectUri,
             response_type = "code",
             scope = "email",
-            state
+            state = state
         });
         
         return loginUrl.AbsoluteUri;
@@ -52,7 +52,7 @@ public class FacebookAuthService
         {
             Id = me.id,
             Name = me.name,
-            Email = me.email,
+            Email = string.IsNullOrEmpty(me.email) ? $"{me.id + "@facebook.com"}" : me.email,
             Picture = me.picture.data.url
         };
         

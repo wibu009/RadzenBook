@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using RadzenBook.Infrastructure.Logger.Serilog;
+﻿using RadzenBook.Infrastructure.Logger.Serilog;
 
 namespace RadzenBook.Infrastructure.Logger;
 

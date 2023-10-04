@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-
-namespace RadzenBook.Infrastructure.Middlewares;
+﻿namespace RadzenBook.Infrastructure.Middlewares;
 
 public static class Startup
 {

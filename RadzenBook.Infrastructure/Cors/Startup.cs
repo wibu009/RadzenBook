@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
-
-namespace RadzenBook.Infrastructure.Cors;
+﻿namespace RadzenBook.Infrastructure.Cors;
 
 public static class Startup
 {
-    public static IServiceCollection AddCrossOriginResourceSharing(this IServiceCollection services)
+    public static IServiceCollection AddCorsPolicy(this IServiceCollection services)
     {
         services.AddCors(options =>
         {
@@ -22,7 +20,7 @@ public static class Startup
         return services;
     }
     
-    public static IApplicationBuilder UseCrossOriginResourceSharing(this IApplicationBuilder app)
+    public static IApplicationBuilder UseCorsPolicy(this IApplicationBuilder app)
     {
         app.UseCors("CorsPolicy");
 

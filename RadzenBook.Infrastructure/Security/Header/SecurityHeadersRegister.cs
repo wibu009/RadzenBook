@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-
-namespace RadzenBook.Infrastructure.Security.Header;
+﻿namespace RadzenBook.Infrastructure.Security.Header;
 
 public static class SecurityHeadersRegister
 {

@@ -1,5 +1,10 @@
-﻿global using Microsoft.AspNetCore.Http;
+﻿global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.Authorization;
+global using Microsoft.AspNetCore.Routing;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Microsoft.Extensions.Caching.Memory;

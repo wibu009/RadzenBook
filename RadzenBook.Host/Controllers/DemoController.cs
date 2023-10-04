@@ -1,9 +1,11 @@
 ﻿using RadzenBook.Application.Catalog.Demo.Command;
 using RadzenBook.Application.Catalog.Demo.Query;
+using RadzenBook.Infrastructure.Identity.Role;
 
 namespace RadzenBook.Host.Controllers;
 
-[Authorize(Roles = "manager")]
+[ApiVersion(ApiVersionName.V1)]
+[Authorize(Roles = RoleName.Manager)]
 public class DemoController : BaseApiController
 {
     [HttpGet]

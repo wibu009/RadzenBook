@@ -5,6 +5,7 @@ using RadzenBook.Infrastructure.Identity;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.Token;
 using RadzenBook.Infrastructure.Identity.User;
+using RadzenBook.Infrastructure.Persistence.Configurations;
 
 namespace RadzenBook.Infrastructure.Persistence;
 
@@ -17,9 +18,11 @@ public class RadzenBookDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.HasDefaultSchema(SchemaName.Default);
     }
     
 
