@@ -114,8 +114,8 @@ public class AuthService : IAuthService
                 _logger.LogError("External login error: {RemoteError}", error);
                 return Result<UserAuthDto>.Failure(_t["External login error"], (int)HttpStatusCode.BadRequest);
             }
-            
-            var userExist = await _userManager.FindByEmailAsync(user.Email);
+
+            var userExist = await _userManager.FindByEmailAsync(user.Email as string);
             if (userExist != null)
             {
                 var userAuthDto = CreateUserAuthDto(userExist);

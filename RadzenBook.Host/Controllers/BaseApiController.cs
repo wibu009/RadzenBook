@@ -33,7 +33,9 @@ public class BaseApiController : ControllerBase
             { IsSuccess: false, Message: not null } 
                 => BadRequest(result.Message),
             { IsSuccess: true, Value: not null, StatusCode: (int)HttpStatusCode.Redirect }
-                => Redirect(result.Value.ToString()!),
+                => Request.Headers["Referer"].ToString().Contains("/swagger") 
+                    ? Ok($"Redirection to '{result.Value.ToString()}'")
+                    : Redirect(result.Value.ToString()!),
             { IsSuccess: true, Value: not null } 
                 => Ok(result.Value),
             { IsSuccess: true, Value: null, StatusCode: (int)HttpStatusCode.NoContent } 
