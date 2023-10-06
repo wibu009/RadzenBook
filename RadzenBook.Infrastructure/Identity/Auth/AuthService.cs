@@ -1,10 +1,9 @@
-﻿using System.Net;
-using Facebook;
-using RadzenBook.Application.Common.Cache;
+﻿using RadzenBook.Application.Common.Cache;
 using RadzenBook.Application.Common.Exceptions;
 using RadzenBook.Application.Common.Models;
 using RadzenBook.Application.Identity.Auth;
 using RadzenBook.Application.Identity.Token;
+using RadzenBook.Infrastructure.Common.Extensions;
 using RadzenBook.Infrastructure.Identity.Auth.OAuth2.Facebook;
 using RadzenBook.Infrastructure.Identity.Auth.OAuth2.Google;
 using RadzenBook.Infrastructure.Identity.Token;
@@ -14,6 +13,8 @@ namespace RadzenBook.Infrastructure.Identity.Auth;
 
 public class AuthService : IAuthService
 {
+    #region Services And Fields
+
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly ITokenService _tokenService;
@@ -25,6 +26,10 @@ public class AuthService : IAuthService
     private readonly FacebookAuthService _facebookAuthService;
     private readonly ICacheService _cacheService;
 
+    #endregion
+
+    #region Constructor
+    
     public AuthService(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
@@ -46,28 +51,27 @@ public class AuthService : IAuthService
         _googleAuthService = new GoogleAuthService(config, httpContextAccessor);
         _facebookAuthService = new FacebookAuthService(config, httpContextAccessor);
     }
-
+    
+    #endregion
+    
+    #region Public Methods
+    
     public async Task<Result<UserAuthDto>> LoginAsync(LoginRequest loginRequest)
     {
         try
         {
             var user = await _userManager.Users
                 .SingleOrDefaultAsync(x => x.UserName == loginRequest.Username || x.Email == loginRequest.Username);
-
             if (user == null) return Result<UserAuthDto>.Failure(_t["Incorrect username or password"], (int)HttpStatusCode.Unauthorized);
-
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginRequest.Password, false);
             
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginRequest.Password, false);
             if (!result.Succeeded) return Result<UserAuthDto>.Failure(_t["Incorrect username or password"], (int)HttpStatusCode.Unauthorized);
             
             // if (!user.EmailConfirmed) return Result<UserAuthDto>.Failure("Email not confirmed", (int)HttpStatusCode.Unauthorized);
-
             var userAuthDto = CreateUserAuthDto(user);
-            
             await SetRefreshTokenAsync(user);
 
             _logger.LogInformation("User {UserUserName} logged in successfully", user.UserName);
-
             return Result<UserAuthDto>.Success(userAuthDto);
         }
         catch (Exception e)
@@ -77,18 +81,22 @@ public class AuthService : IAuthService
         }
     }
 
-    public Task<Result<string>> ExternalLoginAsync(string provider)
+    public async Task<Result<string>> ExternalLoginAsync(string provider)
     {
         try
         {
-            var key = Guid.NewGuid().ToString();
-            var state = _httpContextAccessor.HttpContext!.Request.Cookies["refreshToken"];
+            var clientUrl =_httpContextAccessor.HttpContext!.Request.GetUrl().IsNullOrEmpty() 
+                ? _authenticationSettings.DefaultClientAppUrl 
+                : _httpContextAccessor.HttpContext.Request.GetUrl();
+            var clientIp = _httpContextAccessor.HttpContext.GetIpAddress();
+            var state = Guid.NewGuid().ToString();
+            _cacheService.Set(state, Tuple.Create(clientUrl, clientIp), TimeSpan.FromMinutes(5));
             
-            return Task.FromResult(provider.ToLower() switch
+            return await Task.FromResult(provider.ToLower() switch
             {
-                "facebook" => Result<string>.Success(data: _facebookAuthService.GetLoginLinkUrl(), statusCode: (int)HttpStatusCode.Redirect),
-                "google" => Result<string>.Success(data: _googleAuthService.GetLoginLinkUrl(), statusCode: (int)HttpStatusCode.Redirect),
-                _ => throw new ArgumentException($"Invalid provider: {provider}")
+                "facebook" => Result<string>.Success(data: _facebookAuthService.GetLoginLinkUrl(state), statusCode: (int)HttpStatusCode.Redirect),
+                "google" => Result<string>.Success(data: _googleAuthService.GetLoginLinkUrl(state), statusCode: (int)HttpStatusCode.Redirect),
+                _ => Result<string>.Failure(_t["Invalid provider"], (int)HttpStatusCode.BadRequest)
             });
         }
         catch (Exception e)
@@ -98,7 +106,7 @@ public class AuthService : IAuthService
         }
     }
 
-    public async Task<Result<UserAuthDto>> ExternalLoginCallbackAsync(string provider, string code, string? error = "")
+    public async Task<Result<string>> ExternalLoginCallbackAsync(string provider, string code, string? error = "", string? state = "")
     {
         try
         {
@@ -106,21 +114,27 @@ public class AuthService : IAuthService
             {
                 "google" => await _googleAuthService.GetUserFromCode(code),
                 "facebook" => await _facebookAuthService.GetUserFromCode(code),
-                _ => throw new ArgumentException($"Invalid provider: {provider}")
+                _ => Result<string>.Failure(_t["Invalid provider"], (int)HttpStatusCode.BadRequest)
             };
-
+            
             if (user == null)
             {
                 _logger.LogError("External login error: {RemoteError}", error);
-                return Result<UserAuthDto>.Failure(_t["External login error"], (int)HttpStatusCode.BadRequest);
+                return Result<string>.Failure(_t["External login error"], (int)HttpStatusCode.BadRequest);
             }
+
+            var (clientUrl, clientIp) = _cacheService.Get<Tuple<string, string>>(state!)!;
+            await _cacheService.RemoveAsync(state!);
+            
+            var signInCode = _tokenService.GenerateToken();
 
             var userExist = await _userManager.FindByEmailAsync(user.Email as string);
             if (userExist != null)
             {
-                var userAuthDto = CreateUserAuthDto(userExist);
-                await SetRefreshTokenAsync(userExist);
-                return Result<UserAuthDto>.Success(userAuthDto);
+                await _cacheService.SetAsync(signInCode, Tuple.Create(userExist.Id, clientIp), TimeSpan.FromMinutes(5));
+                return Result<string>.Success(
+                    data: clientUrl!.AddQueryParam("signInCode", signInCode),
+                    statusCode: (int)HttpStatusCode.Redirect);
             }
             
             var appUser = new AppUser
@@ -135,11 +149,12 @@ public class AuthService : IAuthService
             await _userManager.CreateAsync(appUser);
             await _userManager.AddToRoleAsync(appUser, "customer");
             
-            var userAuthDto2 = CreateUserAuthDto(appUser);
-            await SetRefreshTokenAsync(appUser);
-            
             _logger.LogInformation("User {UserName} registered successfully", appUser.UserName);
-            return Result<UserAuthDto>.Success(userAuthDto2);
+            await _cacheService.SetAsync(signInCode, Tuple.Create(appUser.Id, clientIp), TimeSpan.FromMinutes(5));
+            
+            return Result<string>.Success(
+                data: clientUrl!.AddQueryParam("signInCode", signInCode),
+                statusCode: (int)HttpStatusCode.Redirect);
         }
         catch (Exception e)
         {
@@ -163,13 +178,10 @@ public class AuthService : IAuthService
             };
 
             await _userManager.CreateAsync(user, registerRequest.Password);
-            
             await _userManager.AddToRoleAsync(user, "customer");
             
             var userAuthDto = CreateUserAuthDto(user);
-
             _logger.LogInformation("User {UserName} registered successfully", user.UserName);
-
             return Result<UserAuthDto>.Success(userAuthDto);
         }
         catch (Exception e)
@@ -179,16 +191,36 @@ public class AuthService : IAuthService
         }
     }
     
-    
-    
-    public async Task<Result<UserAuthDto>> RefreshTokenAsync()
+    public async Task<Result<UserAuthDto>> RefreshTokenAsync(string? signInCode = null)
     {
         try
         {
+            AppUser? user;
+            
+            if (!signInCode.IsNullOrEmpty())
+            {
+                var (userId, clientIp) = _cacheService.Get<Tuple<Guid, string>>(signInCode!)!;
+                await _cacheService.RemoveAsync(signInCode!);
+                if (clientIp != _httpContextAccessor.HttpContext!.GetIpAddress())
+                {
+                    _logger.LogError("Invalid request ip: {ClientIp}", clientIp);
+                    return Result<UserAuthDto>.Failure(_t["Invalid sign signInCode"], (int)HttpStatusCode.Unauthorized);
+                }
+                
+                user = await _userManager.FindByIdAsync(userId.ToString());
+                if (user == null) return Result<UserAuthDto>.Failure(_t["Invalid sign signInCode"], (int)HttpStatusCode.Unauthorized);
+                
+                await SetRefreshTokenAsync(user);
+                _logger.LogInformation("User {UserName} refreshed token successfully", user.UserName);
+                
+                return Result<UserAuthDto>.Success(CreateUserAuthDto(user));
+            }
+
             var refreshToken = _httpContextAccessor.HttpContext!.Request.Cookies["refreshToken"];
+            
             if (string.IsNullOrEmpty(refreshToken)) return Result<UserAuthDto>.Failure(_t["Invalid refresh token"], (int)HttpStatusCode.Unauthorized);
             
-            var user = await _userManager.Users.Include(x => x.RefreshTokens).SingleOrDefaultAsync(x => x.RefreshTokens.Any(t => t.Token == refreshToken));
+            user = await _userManager.Users.Include(x => x.RefreshTokens).SingleOrDefaultAsync(x => x.RefreshTokens.Any(t => t.Token == refreshToken));
             if (user == null) return Result<UserAuthDto>.Failure(_t["Invalid refresh token"], (int)HttpStatusCode.Unauthorized);
             
             var oldRefreshToken = user.RefreshTokens.Single(x => x.Token == refreshToken);
@@ -196,11 +228,10 @@ public class AuthService : IAuthService
             oldRefreshToken.Revoked = DateTime.UtcNow;
             await _userManager.UpdateAsync(user);
             
-            var userAuthDto = CreateUserAuthDto(user);
             await SetRefreshTokenAsync(user);
             _logger.LogInformation("User {UserName} refreshed token successfully", user.UserName);
             
-            return Result<UserAuthDto>.Success(userAuthDto);
+            return Result<UserAuthDto>.Success(CreateUserAuthDto(user));
         }
         catch (Exception e)
         {
@@ -208,36 +239,43 @@ public class AuthService : IAuthService
             throw ServiceException.Create(nameof(RefreshTokenAsync), nameof(AuthService), e.Message, e);
         }
     }
+    
+    #endregion
+    
+    #region Private Methods
 
     private async Task SetRefreshTokenAsync(AppUser user)
     {
-        var refreshToken = _tokenService.GenerateRefreshTokenAsync();
+        var refreshToken = _tokenService.GenerateToken();
         user.RefreshTokens.Add(new RefreshToken
         {
             Token = refreshToken,
             Expires = DateTime.UtcNow.AddDays(_authenticationSettings.JwtSettings.RefreshTokenExpirationInDays),
         });
         await _userManager.UpdateAsync(user);
-            
+        
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
             Expires = DateTime.UtcNow.AddDays(_authenticationSettings.JwtSettings.RefreshTokenExpirationInDays),
         };
         _httpContextAccessor.HttpContext!.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+        
+        _logger.LogInformation("User {UserName} set refresh token successfully", user.UserName);
     }
     
     private UserAuthDto CreateUserAuthDto(AppUser user)
     {
         var userAuthDto = new UserAuthDto
         {
-            Username = user.UserName,
             DisplayName = user.DisplayName!,
             Email = user.Email,
             Avatar = user.AvatarUrl!,
-            Token = _tokenService.GenerateAccessTokenAsync(user.Id),
+            Token = _tokenService.GenerateAccessToken(user.Id),
         };
 
         return userAuthDto;
     }
+    
+    #endregion
 }

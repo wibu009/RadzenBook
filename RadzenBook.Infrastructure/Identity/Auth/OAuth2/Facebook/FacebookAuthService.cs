@@ -24,7 +24,7 @@ public class FacebookAuthService
             redirect_uri = _redirectUri,
             response_type = "code",
             scope = "email",
-            state = state
+            state
         });
         
         return loginUrl.AbsoluteUri;

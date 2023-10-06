@@ -21,6 +21,10 @@ msgstr "Invalid provider"
 msgid "External login error"
 msgstr "External login error"
 
+#: Result<T>.Message("Invalid request ip")
+msgid "Invalid request ip"
+msgstr "Invalid request ip"
+
 #: Demo result message
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

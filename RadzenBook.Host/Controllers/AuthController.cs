@@ -24,12 +24,13 @@ public class AuthController : BaseApiController
     [HttpGet("external-login-callback/{provider}")]
     [MapToApiVersion(ApiVersionName.V2)]
     [SwaggerOperation(Summary = "External login callback")]
-    [SwaggerResponse(StatusCodes.Status200OK, "External login callback", typeof(UserAuthDto))]
+    [SwaggerResponse(StatusCodes.Status200OK, "External login callback and redirect to client app")]
     public async Task<IActionResult> ExternalLoginCallback(
         [FromRoute] string provider, 
         [FromQuery] string code, 
-        [FromQuery] string? error = "") 
-        => HandleResult(await InfrastructureServiceManager.AuthService.ExternalLoginCallbackAsync(provider, code, error));
+        [FromQuery] string? error = "",
+        [FromQuery] string? state = "")
+        => HandleResult(await InfrastructureServiceManager.AuthService.ExternalLoginCallbackAsync(provider, code, error, state));
     
     [HttpPost("register")]
     [SwaggerOperation(Summary = "Register")]
@@ -41,6 +42,8 @@ public class AuthController : BaseApiController
     [MapToApiVersion(ApiVersionName.V2)]
     [SwaggerOperation(Summary = "Refresh token")]
     [SwaggerResponse(StatusCodes.Status200OK, "Refresh token", typeof(UserAuthDto))]
-    public async Task<IActionResult> RefreshToken() 
-        => HandleResult(await InfrastructureServiceManager.AuthService.RefreshTokenAsync());
+    public async Task<IActionResult> RefreshToken(
+        [FromQuery]
+         string? code = null)
+        => HandleResult(await InfrastructureServiceManager.AuthService.RefreshTokenAsync(code));
 }

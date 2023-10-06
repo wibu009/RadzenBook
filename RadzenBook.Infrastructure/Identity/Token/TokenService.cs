@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
 using RadzenBook.Application.Identity.Token;
 using RadzenBook.Infrastructure.Identity.Auth;
 using RadzenBook.Infrastructure.Identity.User;
@@ -20,7 +19,7 @@ public class TokenService : ITokenService
         _userManager = userManager;
     }
 
-    public string GenerateAccessTokenAsync<TKey>(TKey userId)
+    public string GenerateAccessToken<TKey>(TKey userId)
     {
         var user = _userManager.FindByIdAsync(userId!.ToString()).Result;
         var claims = new List<Claim>
@@ -49,7 +48,7 @@ public class TokenService : ITokenService
         return tokenHandler.WriteToken(token);
     }
     
-    public string GenerateRefreshTokenAsync()
+    public string GenerateToken()
     {
         var randomNumber = new byte[32];
         using var rng = RandomNumberGenerator.Create();

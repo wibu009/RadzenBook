@@ -1,4 +1,5 @@
-﻿global using Microsoft.AspNetCore.Authorization;
+﻿global using System.Net;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Identity;
@@ -12,4 +13,5 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Localization;
 global using Microsoft.Extensions.Logging;
+global using Microsoft.IdentityModel.Tokens;
 global using RadzenBook.Application.Common;

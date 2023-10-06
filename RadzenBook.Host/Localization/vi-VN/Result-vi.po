@@ -21,6 +21,10 @@ msgstr "Nhà cung cấp không hợp lệ"
 msgid "External login errorr"
 msgstr "Lỗi đăng nhập bên thứ 3"
 
+#: Result<T>.Message("Invalid request ip")
+msgid "Invalid request ip"
+msgstr "Địa chỉ ip không hợp lệ"
+
 #: Demo result message
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

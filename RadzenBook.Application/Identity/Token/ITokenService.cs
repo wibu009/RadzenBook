@@ -4,7 +4,7 @@ namespace RadzenBook.Application.Identity.Token;
 
 public interface ITokenService
 {
-    string GenerateAccessTokenAsync<TKey>(TKey userId);
-    string GenerateRefreshTokenAsync();
+    string GenerateAccessToken<TKey>(TKey userId);
+    string GenerateToken();
     ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
 }

@@ -1,5 +1,4 @@
-﻿using System.Net;
-using AspNetCoreRateLimit;
+﻿using AspNetCoreRateLimit;
 
 namespace RadzenBook.Infrastructure.Security.RateLimit;
 

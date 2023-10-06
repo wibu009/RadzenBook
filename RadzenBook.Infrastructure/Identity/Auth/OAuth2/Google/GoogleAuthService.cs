@@ -29,9 +29,14 @@ public class GoogleAuthService
             Scopes = new[] { "email", "profile" },
         });
 
-        var uri = flow.CreateAuthorizationCodeRequest(_redirectUri).Build().AbsoluteUri;
-
-        return uri;
+        var url = flow.CreateAuthorizationCodeRequest(_redirectUri);
+        
+        if (!string.IsNullOrEmpty(state))
+        {
+            url.State = state;
+        }
+        
+        return url.Build().AbsoluteUri;
     }
     
     public async Task<Userinfo> GetUserFromCode(string code)

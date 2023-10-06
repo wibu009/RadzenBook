@@ -5,6 +5,7 @@ public class AuthenticationSettings
     public JwtSettings JwtSettings { get; set; } = default!;
     public FacebookSettings FacebookSettings { get; set; } = default!;
     public GoogleSettings GoogleSettings { get; set; } = default!;
+    public string DefaultClientAppUrl { get; set; } = default!;
 }
 
 public class JwtSettings
