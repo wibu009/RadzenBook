@@ -24,6 +24,7 @@ public class PhotoAccessor : IPhotoAccessor
         var uploadParams = new ImageUploadParams
         {
             File = new FileDescription(file.FileName, stream),
+            Folder = "RadzenStore",
             Transformation = new Transformation().Crop("scale").Gravity("face")
         };
         

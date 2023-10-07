@@ -50,3 +50,7 @@ msgstr "Delete demo successfully"
 #: Result<T>.Message("Address with id {0} does not exist")
 msgid "Address with id {0} does not exist"
 msgstr "Address with id {0} does not exist"
+
+#: Result<T>.Message("Create address successfully")
+msgid "Create address successfully"
+msgstr "Create address successfully"

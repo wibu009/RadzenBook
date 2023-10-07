@@ -44,6 +44,6 @@ public class AuthController : BaseApiController
     [SwaggerResponse(StatusCodes.Status200OK, "Refresh token", typeof(UserAuthDto))]
     public async Task<IActionResult> RefreshToken(
         [FromQuery]
-         string? code = null)
-        => HandleResult(await InfrastructureServiceManager.AuthService.RefreshTokenAsync(code));
+         string? signInCode = null)
+        => HandleResult(await InfrastructureServiceManager.AuthService.RefreshTokenAsync(signInCode));
 }

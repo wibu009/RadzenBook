@@ -44,11 +44,11 @@ public static class Startup
     
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
-        app.UseIdentity();
-        app.UseCustomMiddleware();
         app.UseRouting();
+        app.UseCustomMiddleware();
         app.UseOpenApi();
         app.UseSecurity();
+        app.UseIdentity();
         app.UseCorsPolicy();
         app.UsePoLocalization();
         app.UseEndpoints(endpoints =>

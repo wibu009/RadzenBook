@@ -1,9 +1,29 @@
-#: Common
+#: Common validation messages
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #: WithMessage((_, username) => T["Request cannot be null"])
 msgid "Request cannot be null"
 msgstr "Request cannot be null"
+
+#: WithMessage((_, username) => T["Phone Number is required"])
+msgid "Phone Number is required"
+msgstr "Phone Number is required"
+
+#: WithMessage((_, phoneNumber) => T["Phone Number is not valid"])
+msgid "Phone Number is not valid"
+msgstr "Phone Number is not valid"
+
+#: WithMessage((_, email) => T["Email is required"])
+msgid "Email is required"
+msgstr "Email is required"
+
+#: WithMessage((_, email) => T["Email must not exceed {0} characters"])
+msgid "Email must not exceed {0} characters"
+msgstr "Email must not exceed {0} characters"
+
+#: WithMessage((_, email) => T["Email is not valid"])
+msgid "Email is not valid"
+msgstr "Email is not valid"
 
 #: Login and Register validation messages
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,18 +60,6 @@ msgstr "Confirm Password is required"
 msgid "Confirm Password must match Password"
 msgstr "Confirm Password must match Password"
 
-#: WithMessage((_, email) => T["Email is required"])
-msgid "Email is required"
-msgstr "Email is required"
-
-#: WithMessage((_, email) => T["Email must not exceed {0} characters"])
-msgid "Email must not exceed {0} characters"
-msgstr "Email must not exceed {0} characters"
-
-#: WithMessage((_, email) => T["Email is not valid"])
-msgid "Email is not valid"
-msgstr "Email is not valid"
-
 #: WithMessage((_, displayName) => T["Display Name is required"])
 msgid "Display Name is required"
 msgstr "Display Name is required"
@@ -63,10 +71,6 @@ msgstr "Display Name must not exceed {0} characters"
 #: WithMessage((_, displayName) => T["Display Name must be at least {0} characters long"])
 msgid "Display Name must be at least {0} characters long"
 msgstr "Display Name must be at least {0} characters long"
-
-#: WithMessage((_, phoneNumber) => T["Phone Number is required"])
-msgid "Phone Number is not valid"
-msgstr "Phone Number is not valid"
 
 # WithMessage((_, accessToken) => T["AccessToken is required"])
 msgid "AccessToken is required"
@@ -94,3 +98,70 @@ msgstr "Description must not exceed {0} characters"
 #: WithMessage((_, demoEnum) => T["DemoEnum is not valid"])
 msgid "DemoEnum is not valid"
 msgstr "DemoEnum is not valid"
+
+#: Address validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, addressLine1) => T["FullName is required"])
+msgid "FullName is required"
+msgstr "FullName is required"
+
+#: WithMessage((_, addressLine1) => T["FullName must be at least {0} characters"])
+msgid "FullName must be at least {0} characters"
+msgstr "FullName must be at least {0} characters"
+
+#: WithMessage((_, addressLine1) => T["FullName must not exceed {0} characters"])
+msgid "FullName must not exceed {0} characters"
+msgstr "FullName must not exceed {0} characters"
+
+#: WithMessage((_, addressLine1) => T["Street is required"])
+msgid "Street is required"
+msgstr "Street is required"
+
+#: WithMessage((_, addressLine1) => T["Street must be at least {0} characters"])
+msgid "Street must be at least {0} characters"
+msgstr "Street must be at least {0} characters"
+
+#: WithMessage((_, addressLine1) => T["Street must not exceed {0} characters"])
+msgid "Street must not exceed {0} characters"
+msgstr "Street must not exceed {0} characters"
+
+#: WithMessage((_, addressLine2) => T["City is required"])
+msgid "City is required"
+msgstr "City is required"
+
+#: WithMessage((_, addressLine2) => T["City must be at least {0} characters"])
+msgid "City must be at least {0} characters"
+msgstr "City must be at least {0} characters"
+
+#: WithMessage((_, addressLine2) => T["City must not exceed {0} characters"])
+msgid "City must not exceed {0} characters"
+msgstr "City must not exceed {0} characters"
+
+#: WithMessage((_, addressLine3) => T["ZipCode is required"])
+msgid "ZipCode is required"
+msgstr "ZipCode is required"
+
+#: WithMessage((_, addressLine3) => T["ZipCode is not valid"])
+msgid "ZipCode is not valid"
+msgstr "ZipCode is not valid"
+
+#: WithMessage((_, addressLine3) => T["ZipCode must be at least {0} characters"])
+msgid "ZipCode must be at least {0} characters"
+msgstr "ZipCode must be at least {0} characters"
+
+#: WithMessage((_, addressLine3) => T["ZipCode must not exceed {0} characters"])
+msgid "ZipCode must not exceed {0} characters"
+msgstr "ZipCode must not exceed {0} characters"
+
+#: WithMessage((_, addressLine3) => T["State is required"])
+msgid "State is required"
+msgstr "State is required"
+
+#: WithMessage((_, addressLine3) => T["State must be at least {0} characters"])
+msgid "State must be at least {0} characters"
+msgstr "State must be at least {0} characters"
+
+#: WithMessage((_, addressLine3) => T["State must not exceed {0} characters"])
+msgid "State must not exceed {0} characters"
+msgstr "State must not exceed {0} characters"

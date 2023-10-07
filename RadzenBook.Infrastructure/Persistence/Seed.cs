@@ -11,7 +11,7 @@ public static class Seed
     public static async Task SeedData(this RadzenBookDbContext context, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
     {
         // Create roles if they don't exist
-        var roles = new List<string> { "manager", "employee", "customer" };
+        var roles = new List<string> { RoleName.Manager, RoleName.Employee, RoleName.Customer };
         foreach (var role in roles)
         {
             if (!await roleManager.RoleExistsAsync(role))
@@ -31,14 +31,14 @@ public static class Seed
                 PhoneNumberConfirmed = true
             };
             await userManager.CreateAsync(managerUser, "123456@Abc"); // Set a secure password
-            await userManager.AddToRoleAsync(managerUser, "manager");
+            await userManager.AddToRoleAsync(managerUser, RoleName.Manager);
 
             // Create 3 employee accounts
             for (var i = 1; i <= 3; i++)
             {
                 var employeeUser = new AppUser { UserName = $"employee{i}", Email = $"employee{i}@example.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
                 await userManager.CreateAsync(employeeUser, "123456@Abc"); // Set a secure password
-                await userManager.AddToRoleAsync(employeeUser, "employee");
+                await userManager.AddToRoleAsync(employeeUser, RoleName.Employee);
             }
 
             // Create 5 customer accounts
@@ -46,7 +46,7 @@ public static class Seed
             {
                 var customerUser = new AppUser { UserName = $"customer{i}", Email = $"customer{i}@example.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
                 await userManager.CreateAsync(customerUser, "123456@Abc"); // Set a secure password
-                await userManager.AddToRoleAsync(customerUser, "customer");
+                await userManager.AddToRoleAsync(customerUser, RoleName.Customer);
             }
         }
         

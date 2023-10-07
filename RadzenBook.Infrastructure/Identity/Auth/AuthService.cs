@@ -6,6 +6,7 @@ using RadzenBook.Application.Identity.Token;
 using RadzenBook.Infrastructure.Common.Extensions;
 using RadzenBook.Infrastructure.Identity.Auth.OAuth2.Facebook;
 using RadzenBook.Infrastructure.Identity.Auth.OAuth2.Google;
+using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.Token;
 using RadzenBook.Infrastructure.Identity.User;
 
@@ -147,7 +148,7 @@ public class AuthService : IAuthService
             };
             
             await _userManager.CreateAsync(appUser);
-            await _userManager.AddToRoleAsync(appUser, "customer");
+            await _userManager.AddToRoleAsync(appUser, RoleName.Customer);
             
             _logger.LogInformation("User {UserName} registered successfully", appUser.UserName);
             await _cacheService.SetAsync(signInCode, Tuple.Create(appUser.Id, clientIp), TimeSpan.FromMinutes(5));
@@ -178,7 +179,7 @@ public class AuthService : IAuthService
             };
 
             await _userManager.CreateAsync(user, registerRequest.Password);
-            await _userManager.AddToRoleAsync(user, "customer");
+            await _userManager.AddToRoleAsync(user, RoleName.Customer);
             
             var userAuthDto = CreateUserAuthDto(user);
             _logger.LogInformation("User {UserName} registered successfully", user.UserName);
@@ -200,7 +201,13 @@ public class AuthService : IAuthService
             if (!signInCode.IsNullOrEmpty())
             {
                 var (userId, clientIp) = _cacheService.Get<Tuple<Guid, string>>(signInCode!)!;
+                if (userId == Guid.Empty || clientIp.IsNullOrEmpty())
+                {
+                    _logger.LogError("Invalid sign signInCode");
+                    return Result<UserAuthDto>.Failure(_t["Invalid sign signInCode"], (int)HttpStatusCode.Unauthorized);
+                }
                 await _cacheService.RemoveAsync(signInCode!);
+                
                 if (clientIp != _httpContextAccessor.HttpContext!.GetIpAddress())
                 {
                     _logger.LogError("Invalid request ip: {ClientIp}", clientIp);
