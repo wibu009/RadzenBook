@@ -1,7 +1,93 @@
 ﻿@page "/"
-
+@using MudBlazor
 <PageTitle>Index</PageTitle>
+@* <link href="css/Test.css" rel="stylesheet" /> *@
 
-<MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
-<MudText Class="mb-8">Welcome to your new app, powered by MudBlazor!</MudText>
-<MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
+
+<MudCarousel Class="mud-width-full" Style="width:auto;height:720px;padding-top20px" AutoCycle="true" Interval="1000" TData="object">
+    <PreviousButtonTemplate>
+        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+            <span class="mud-icon-button-label">
+                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Style="font-size:50px" Color="@Color.Secondary" />
+            </span>
+        </div>
+    </PreviousButtonTemplate>
+    <NextButtonTemplate>
+        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+            <span class="mud-icon-button-label">
+                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Style="font-size:50px" Color="@Color.Secondary" />
+            </span>
+        </div>
+    </NextButtonTemplate>
+    <ChildContent>
+        <MudCarouselItem>
+            <div class="main_slider" style="background-image: url(img/slider10.jpg); background-size: cover; background-position: center; height: 100%; width: 100%;">
+                <div class="container fill_height">
+                    <div class="row align-items-center fill_height" style="padding-top:220px;">
+                        <div class="col" >
+                            <div class="main_slider_content" style="color:black; margin-left:100px" >
+                                <h6 style="font-size:20px">Spring / Summer Collection 2017</h6>
+                                <h1 style="font-size:40px">Get up to 30% Off New Arrivals</h1>
+                                <MudButton Class="red_button shop_now_button" Variant="Variant.Filled" Style="background-color: yellowgreen; color: white;">
+                                    Shop Now
+                                </MudButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudCarouselItem>
+
+        <MudCarouselItem>
+            <div class="main_slider" style="background-image: url(img/slider_1.jpg); background-size: cover; background-position: center; height: 100%; width: 100%;">
+                <div class="container fill_height">
+                    <div class="row align-items-center fill_height" style="padding-top:220px;">
+                        <div class="col" >
+                            <div class="main_slider_content" style="color:white;  margin-left:100px">
+                                <h6 style="font-size:20px">Spring / Summer Collection 2017</h6>
+                                <h1 style="font-size:40px">Get up to 30% Off New Arrivals</h1>
+                                <MudButton Class="red_button shop_now_button" Variant="Variant.Filled" Style="background-color: yellowgreen; color: white;">
+                                    Shop Now
+                                </MudButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudCarouselItem>
+
+
+        <MudCarouselItem>
+            <div class="main_slider" style="background-image: url(img/slider_3.jpg); background-size: cover; background-position: center; height: 100%; width: 100%;">
+                <div class="container fill_height">
+                    <div class="row align-items-center fill_height" style="padding-top:220px;">
+                        <div class="col">
+                            <div class="main_slider_content" style="color:white;  margin-left:100px">
+                                <h6 style="font-size:20px">Spring / Summer Collection 2017</h6>
+                                <h1 style="font-size:40px">Get up to 30% Off New Arrivals</h1>
+                                <MudButton Class="red_button shop_now_button" Variant="Variant.Filled" Style="background-color: yellowgreen; color: white;">
+                                    Shop Now
+                                </MudButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </MudCarouselItem>
+
+    </ChildContent>
+</MudCarousel>
+
+<div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:50px ;color:black">Sách Mới</MudText>
+    </div>
+</div>
+
+
+
+
+
+
+
+
