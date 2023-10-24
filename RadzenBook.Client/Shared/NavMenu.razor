@@ -1,5 +1,34 @@
-﻿<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
-    <MudNavLink Href="fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Fetch data</MudNavLink>
-</MudNavMenu>
+﻿<MudPaper Elevation="25" Style="padding-top:40px;padding-bottom:15px">
+    <MudToolBar>
+        <MudImage Src="img/SachLogo.PNG" Alt="logo" Style="width:100px;height:100px; margin-left:130px" />
+
+
+
+        <MudTextField @bind-Value="searchText" Placeholder="Tìm kiếm..." Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Secondary" Style="width:300px; height:35px;margin-left:20px" />
+
+
+        <MudSpacer />
+        <div style="margin-left:350px">
+            <MudLink Href="" Style="font-size:20px;color:black!important; margin-left:30px">Trang Chủ</MudLink>
+            <MudLink Href="counter" Style="font-size:20px;color:black !important; margin-left:30px">Tin Tức</MudLink>
+            <MudLink Href="fetchdata" Style="font-size:20px;color:black !important; margin-left:30px">Sản Phẩm</MudLink>
+            <MudLink Href="fetchdata" Style="font-size:20px;color:black !important; margin-left:30px">Shop</MudLink>
+            <MudLink Href="fetchdata" Style="font-size:20px;color:black!important; margin-left:30px">About</MudLink>
+
+            <MudIconButton Icon="@Icons.Material.Outlined.PeopleAlt" Color="Color.Inherit" Style="margin-left:120px" />
+            <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Secondary" Style="margin-left:20px" />
+        </div>
+    </MudToolBar>
+</MudPaper>
+@code {
+
+
+    private string searchText = "";
+
+    private void HandleSearch()
+    {
+        Console.WriteLine("Đang tìm kiếm: " + searchText);
+    }
+
+}
+
