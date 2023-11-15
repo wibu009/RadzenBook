@@ -1,0 +1,105 @@
+﻿@import url('https://fonts.googleapis.com/css2?family-Open+Sans:wght@400;600&display-swap');
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: 'Open Sans',sans-serif;
+}
+
+#wrapper {
+	/*max-width: 1170px;*/
+	margin: 0 auto;
+}
+ul.products {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+	ul.products li {
+		padding-left: 10px;
+		padding-right: 10px;
+		box-sizing: border-box;
+		margin-bottom: 30px;
+	}
+
+		ul.products li .product-item {
+			position:relative;
+			background-clip:padding-box;
+			border:10px solid transparent;
+			border-radius:20px;
+		}
+			ul.products li .product-item:before {
+				content: " ";
+				position: absolute;
+				inset: 0;
+				z-index: -1;
+				margin: -10px;
+				border-radius: inherit;
+				background-image: linear-gradient(to right bottom,#ffa400,#ff6bcb);
+			}
+		ul.products li img {
+			width: 240px;
+			height: 320px;
+			background-color: wheat;
+		}
+
+		ul.products li .product-info {
+			padding: 10px 0px;
+		}
+
+			ul.products li .product-info a {
+				display: block;
+				text-decoration: none;
+			}
+
+				ul.products li .product-info a.product-name {
+					text-align: center;
+					font-size: 800;
+					color: #111;
+				}
+
+			ul.products li .product-info .product-price {
+				color: #111;
+				font-size: 600;
+			}
+
+		ul.products li .product-top a.buy-now {
+			text-transform: uppercase;
+			text-decoration: none;
+			text-align: center;
+			display: block;
+			background-color: #446084;
+			color: #fff;
+			padding: 10px 0px;
+			position: absolute;
+			bottom: -40px;
+			width: 280px;
+			transform: 0.25s ease-in-out;
+			opacity: 0.85;
+		}
+
+		ul.products li .product-top {
+			position: relative;
+			overflow: hidden;
+		}
+
+		ul.products li:hover a.buy-now {
+			bottom: 0px;
+		}
+
+		ul.products li .product-top .product-thumb {
+			display: block;
+		}
+
+		ul.products li:hover .product-top .product-thumb img {
+			filter: opacity(80%);
+		}
+
+		ul.products li .product-top .product-thumb img {
+			display: block;
+		}

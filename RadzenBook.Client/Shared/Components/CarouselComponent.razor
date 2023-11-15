@@ -1,0 +1,47 @@
+﻿<MudCarousel Class="mud-width-full" Style="width:auto;height:720px;padding-top20px" AutoCycle="true" Interval="1000" TData="object">
+    <PreviousButtonTemplate>
+        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+            <span class="mud-icon-button-label">
+                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Style="font-size:50px" Color="@Color.Secondary" />
+            </span>
+        </div>
+    </PreviousButtonTemplate>
+    <NextButtonTemplate>
+        <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+            <span class="mud-icon-button-label">
+                <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Style="font-size:50px" Color="@Color.Secondary" />
+            </span>
+        </div>
+    </NextButtonTemplate>
+    <ChildContent>
+        @foreach (var item in carouselItem)
+        {
+            <MudCarouselItem>
+                <div class="carousel-slide" style="background-image: @item;  background-size: cover; background-position: center; height: 100%; width: 100%;">
+                    <div class="container fill_height">
+                        <div class="row align-items-center fill_height" style="padding-top:220px;">
+                            <div class="col">
+                                <div class="main_slider_content" style="color:black; margin-left:100px">
+                                    <h6 style="font-size:20px; color:white;">Spring / Summer Collection 2017</h6>
+                                    <h1 style="font-size:40px; color:white;">Get up to 30% Off New Arrivals</h1>
+                                    <MudButton Class="red_button shop_now_button" Variant="Variant.Filled" Style="background-color: yellowgreen; color: white;">
+                                        Shop Now
+                                    </MudButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </MudCarouselItem>
+        }
+    </ChildContent>
+</MudCarousel>
+
+@code {
+    List<string> carouselItem  = new List<string>
+    {
+        "url(img/slider10.jpg)",
+        "url(img/slider_1.jpg)",
+        "url(img/slider_3.jpg)"
+    };
+}

@@ -1,0 +1,73 @@
+﻿<MudGrid Justify="Justify.Center" Style="padding-top:30px;padding-bottom:20px;">
+
+    <div class="wrapper">
+        <ul class="products">
+            @foreach (var item in responseBookItem)
+            {
+                <MudItem md="3">
+                    <li>
+                        <div class="product-item">
+                            <div class="product-top">
+                                <a href="#" class="product-thumb">
+                                    <img src="@item.ImageUrl" />
+                                </a>
+                                <a href="#" class="buy-now">Mua Ngay</a>
+                            </div>
+                            <div class="product-info">
+                                <a href="#">@item.Title</a>
+                                <div class="product-price">@item.Price đ</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+            }
+        </ul>
+    </div>
+
+    <div style="padding-top:7px; margin-left: 990px;">
+        <span style="display: flex; align-items: center;">
+            <a href="/Product" style="text-decoration: none; display: flex; align-items: center;color:red;">
+                Xem thêm
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-right: 10px" />
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-left: -17px" />
+            </a>
+        </span>
+    </div>
+
+</MudGrid>
+
+@code {
+    public class ProductProduct
+    {
+        public string Title { get; set; }
+        public string ImageUrl { get; set; }
+        public decimal Price { get; set; }
+    }
+    List<ProductProduct> responseBookItem = new List<ProductProduct>
+    {
+        new ProductProduct
+        {
+            Title = "Cây Cam Ngọt Của Tôi",
+            ImageUrl = "https://salt.tikicdn.com/cache/750x750/ts/product/5e/18/24/2a6154ba08df6ce6161c13f4303fa19e.jpg.webp",
+            Price = 75600
+        },
+          new ProductProduct
+        {
+            Title = "Nhà Giả Kim (Tái Bản 2020)",
+            ImageUrl = "https://salt.tikicdn.com/cache/750x750/ts/product/45/3b/fc/aa81d0a534b45706ae1eee1e344e80d9.jpg.webp",
+            Price = 55300
+        },
+          new ProductProduct
+        {
+            Title = "Dark Nhân Tâm",
+            ImageUrl = "https://salt.tikicdn.com/cache/750x750/ts/product/6a/da/bb/185d27fe442a1668cf0196c1b82c87eb.jpg.webp",
+            Price = 56300
+        },
+          new ProductProduct
+        {
+            Title = "Rừng Nauy",
+            ImageUrl = "https://salt.tikicdn.com/cache/750x750/ts/product/65/1f/41/28eeabed8bb8877effcd00448e775382.jpg.webp",
+            Price = 105000
+        },
+    };
+}

@@ -1,34 +1,37 @@
 ﻿@inherits LayoutComponentBase
-
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
-    <MudAppBar Elevation="0">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
-    </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h6">RadzenBook.Client</MudText>
-        </MudDrawerHeader>
+
+
+<MudLayout >
+    <MudToolBar Class="d-flex justify-space-around flex-grow-1 gap-4" Style="background-color:red;height:35px">
+
+        <div  style="margin-left:150px">
+            <MudIcon Icon="@Icons.Custom.Brands.Facebook"  Style="margin-left:10px;color:white" />
+            <MudIcon Icon="@Icons.Custom.Brands.YouTube" Style="margin-left:10px;color:white" />
+            <MudIcon Icon="@Icons.Custom.Brands.Instagram" Style="margin-left:10px;color:white" />
+        </div>
+        
+
+        <div  style="margin-right:300px">
+            <span style="color:white"><MudIcon Icon="@Icons.Material.Filled.Phone" Style="font-size:large ; margin-right:10px;color:white" />(+84)190000</span>
+            <span style="color:white"><MudIcon Icon="@Icons.Material.Filled.Email" Style="font-size:large ;margin-left:30px;color:white" /> rb_online@radzenbook.com.vn</span>
+        </div>
+    </MudToolBar>
+
+
         <NavMenu />
-    </MudDrawer>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
-            @Body
-        </MudContainer>
-    </MudMainContent>
+
+        @Body 
+
+        <NavFooter/>
 </MudLayout>
 
-@code {
-    bool _drawerOpen = true;
 
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
+@code {
+
+  
+    
 }

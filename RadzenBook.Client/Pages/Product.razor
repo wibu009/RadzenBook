@@ -1,0 +1,370 @@
+﻿@page "/Product"
+@inject IJSRuntime JSRuntime
+
+<link href="css/productNew.css" rel="stylesheet" />
+
+<MudPaper Class="d-flex flex-column-reverse flex-grow-1 gap-4" Style="padding-top:10px" Elevation="0">
+    <div class="main_slider" style="background-image: url(img/anhbia_1.jpg); background-size: cover; background-position: center; height: 400px; width: 100%;">
+        <div class="container fill_height">
+            <div class="row align-items-center fill_height" style="padding-top:150px;">
+                <div class="col">
+                    <div class="main_slider_content" style="color:White;  margin-left:100px">
+                        <h1 style="font-size:35px">Sách Mới Phát Hành</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</MudPaper>
+
+<MudBreadcrumbs Items="_items" Style="padding-top:10px;margin-left:300px">
+    <SeparatorTemplate>
+        <MudIcon Icon="@Icons.Material.Filled.ArrowForward" Size="Size.Small" />
+    </SeparatorTemplate>
+</MudBreadcrumbs>
+
+
+
+
+<MudGrid Justify="Justify.Center">
+    <MudItem md="2" xs="12" Style="width:300px">
+        <MudAlert Severity="Severity.Info"  Variant="Variant.Filled" NoIcon="true" Class="mb-2 mt-3">
+            <MudTreeView MultiSelection="true" @bind-SelectedValues="SelectedValues">
+                <MudTreeViewItem Value="@("Khoảng Giá")">
+                    <MudTreeViewItem Value="@("Tất Cả")" />
+                    <MudTreeViewItem Value="@("Nhỏ hơn 100,000đ")" />
+                    <MudTreeViewItem Value="@("Từ 100,000đ \u2192 200,000đ")" />
+                    <MudTreeViewItem Value="@("Từ 200,000đ \u2192 300,000đ")" />
+                    <MudTreeViewItem Value="@("Từ 300,000đ \u2192 400,000đ")" />
+                    <MudTreeViewItem Value="@("Từ 400,000đ \u2192 500,000đ")" />
+                    <MudTreeViewItem Value="@("Lớn hơn 500,000đ")" />
+
+                </MudTreeViewItem>
+            </MudTreeView>
+        </MudAlert>
+
+
+        <MudAlert Severity="Severity.Info" Variant="Variant.Filled" NoIcon="true" Class="mb-2 mt-3">
+            <MudTreeView MultiSelection="true" @bind-SelectedValues="SelectedValues">
+                <MudTreeViewItem Value="@("Tác Giả")">
+                    <MudTreeViewItem Value="@("Khác")" />
+                   
+                </MudTreeViewItem>
+            </MudTreeView>
+        </MudAlert>
+
+
+
+
+        <MudAlert Severity="Severity.Info"  Variant="Variant.Filled" NoIcon="true" Class="mb-2 mt-3">
+            <MudTreeView MultiSelection="true" @bind-SelectedValues="SelectedValues">
+                <MudTreeViewItem Value="@("Thể Loại")">
+                    <MudTreeViewItem Value="@("Tất Cả")" />
+                    <MudTreeViewItem Value="@("Kiến thức - khoa học")" />
+                    <MudTreeViewItem Value="@("Lịch sử - truyền thống")" />
+                    <MudTreeViewItem Value="@("Văn học nước ngoài")" />
+                    <MudTreeViewItem Value="@("Văn học Việt Nam")" />
+                    <MudTreeViewItem Value="@("Wings Books")" />
+                    <MudTreeViewItem Value="@("Truyện tranh")" />
+                    <MudTreeViewItem Value="@("Manga-comic")" />
+                    <MudTreeViewItem Value="@("Combo")" />
+                    <MudTreeViewItem Value="@("Khác")" />
+                </MudTreeViewItem>
+            </MudTreeView>
+        </MudAlert>
+
+
+   </MudItem>
+
+    <MudItem md="6" xs="12" >
+        <MudPaper Elevation="25">
+            <MudToolBar>
+                <MudText Typo="Typo.h6">Sách Mới Phát Hành</MudText>
+                <MudSpacer />
+                <MudText Align="Align.Right">Sắp xếp:</MudText>
+                <div style="width:170px">
+                <MudSelect @bind-Value="@country" Variant="Variant.Outlined" >
+                       
+                        <MudSelectItem Value="@("MoiNhat")">
+                            Mới nhất
+                        </MudSelectItem>
+                        <MudSelectItem Value="@("TuyChon")">
+                            Tùy chọn
+                        </MudSelectItem>
+                        <MudSelectItem Value="@("B")">
+                            Bán chạy nhất
+                        </MudSelectItem>
+                        <MudSelectItem Value="@("A")">
+                           Tên A-Z
+                        </MudSelectItem>
+                        <MudSelectItem Value="@("Z")">
+                           Tên Z-A
+                        </MudSelectItem>
+                        <MudSelectItem Value="@("Cu")">
+                            Cũ nhất
+                        </MudSelectItem>
+                        <MudSelectItem Value="@("Giam")">
+                           Giảm giá
+                        </MudSelectItem>
+                        <MudSelectItem Value="@("Tang")">
+                            Tăng giá
+                        </MudSelectItem>
+                    </MudSelect>
+                </div>
+            </MudToolBar>
+        </MudPaper>
+        
+        <div class="col">
+            <ul class="product-news">
+                <MudItem md="3">
+                    <li>
+                        <div class="product-items">
+                            <div class="product-tops">
+                                <a href="#" class="product-thumbs">
+                                    <img src="img/sanpham.PNG" />
+                                </a>
+                                <a href="#" class="buy-nows">Mua Ngay</a>
+                            </div>
+                            <div class="product-infos">
+                                <a href="#">San Pham</a>
+                                <div class="product-prices">$2,999</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+
+
+
+
+
+                <MudItem md="3">
+                    <li>
+                        <div class="product-items">
+                            <div class="product-tops">
+                                <a href="#" class="product-thumbs">
+                                    <img src="img/sanpham.PNG" />
+                                </a>
+                                <a href="#" class="buy-nows">Mua Ngay</a>
+                            </div>
+                            <div class="product-infos">
+                                <a href="#">San Pham</a>
+                                <div class="product-prices">$2,999</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+
+                <MudItem md="3">
+                    <li>
+                        <div class="product-items">
+                            <div class="product-tops">
+                                <a href="#" class="product-thumbs">
+                                    <img src="img/sanpham.PNG" />
+                                </a>
+                                <a href="#" class="buy-nows">Mua Ngay</a>
+                            </div>
+                            <div class="product-infos">
+                                <a href="#">San Pham</a>
+                                <div class="product-prices">$2,999</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+
+                <MudItem md="3">
+                    <li>
+                        <div class="product-items">
+                            <div class="product-tops">
+                                <a href="#" class="product-thumbs">
+                                    <img src="img/sanpham.PNG" />
+                                </a>
+                                <a href="#" class="buy-nows">Mua Ngay</a>
+                            </div>
+                            <div class="product-infos">
+                                <a href="#">San Pham</a>
+                                <div class="product-prices">$2,999</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+
+
+
+
+
+                
+                <MudItem md="3">
+                    <li>
+                        <div class="product-items">
+                            <div class="product-tops">
+                                <a href="#" class="product-thumbs">
+                                    <img src="img/sanpham.PNG" />
+                                </a>
+                                <a href="#" class="buy-nows">Mua Ngay</a>
+                            </div>
+                            <div class="product-infos">
+                                <a href="#">San Pham</a>
+                                <div class="product-prices">$2,999</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+
+
+
+
+
+
+                <MudItem md="3">
+                    <li>
+                        <div class="product-items">
+                            <div class="product-tops">
+                                <a href="#" class="product-thumbs">
+                                    <img src="img/sanpham.PNG" />
+                                </a>
+                                <a href="#" class="buy-nows">Mua Ngay</a>
+                            </div>
+                            <div class="product-infos">
+                                <a href="#">San Pham</a>
+                                <div class="product-prices">$2,999</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+
+
+                <MudItem md="3">
+                    <li>
+                        <div class="product-items">
+                            <div class="product-tops">
+                                <a href="#" class="product-thumbs">
+                                    <img src="img/sanpham.PNG" />
+                                </a>
+                                <a href="#" class="buy-nows">Mua Ngay</a>
+                            </div>
+                            <div class="product-infos">
+                                <a href="#">San Pham</a>
+                                <div class="product-prices">$2,999</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+
+
+
+                <MudItem md="3">
+                    <li>
+                        <div class="product-items">
+                            <div class="product-tops">
+                                <a href="#" class="product-thumbs">
+                                    <img src="img/sanpham.PNG" />
+                                </a>
+                                <a href="#" class="buy-nows">Mua Ngay</a>
+                            </div>
+                            <div class="product-infos">
+                                <a href="#">San Pham</a>
+                                <div class="product-prices">$2,999</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+
+            </ul>
+        </div>
+    </MudItem>
+</MudGrid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="d-flex flex-column align-center">
+    <MudPagination ShowPreviousButton="false" ShowNextButton="false" Count="4"/>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+@code {
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("Sản Phẩm", href: "#"),
+
+    };
+
+    HashSet<string> SelectedValues { get; set; }
+  
+    public bool ToolbarCheckBox { get; set; } = false;
+    string country = "Mới nhất";
+
+
+
+
+
+    private bool isInitialized = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!isInitialized)
+            {
+                isInitialized = true;
+                await JSRuntime.InvokeVoidAsync("initializeSwiper");
+            }
+        }
+    }
+
+
+   
+}
+
+
+
+
+
+
+
+
+
+}
+
+
+

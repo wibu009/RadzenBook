@@ -1,7 +1,73 @@
 ﻿@page "/"
-
+@using MudBlazor
+@inject IJSRuntime JSRuntime
 <PageTitle>Index</PageTitle>
+<link href="css/productItem.css" rel="stylesheet" />
 
-<MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
-<MudText Class="mb-8">Welcome to your new app, powered by MudBlazor!</MudText>
-<MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
+<CarouselComponent />
+
+ <MudGrid Justify="Justify.Center" Style="padding-top:30px">
+    <MudItem>
+        <MudPaper class="image-container">
+            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
+        </MudPaper>
+    </MudItem>
+    <MudItem>
+        <MudPaper class="image-container">
+            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
+        </MudPaper>
+    </MudItem>
+    <MudItem>
+        <MudPaper class="image-container">
+            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
+        </MudPaper>
+    </MudItem>
+    
+</MudGrid> 
+
+<div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:40px ;color:black">Sách Mới</MudText>
+    </div>
+</div>
+
+<ProductListComoponent />
+
+<div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:40px ;color:black">Sách Bán Chạy</MudText>
+    </div>
+
+</div>
+
+<ProductListComoponent />
+
+<MudPaper Class="d-flex flex-column-reverse flex-grow-1 gap-4" Style="padding-top:30px" Elevation="0">
+    <MudImage Src="img/logo2.PNG"  Style=" height:150px"  /> 
+</MudPaper>
+
+<div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:40px ;color:black">Côm bô</MudText>
+    </div>
+</div>
+
+<ProductListComoponent />
+
+<MudPaper Class="d-flex flex-column-reverse flex-grow-1 gap-4" Style="padding-top:30px" Elevation="0">
+    <MudImage Src="img/logosach3.PNG" Style=" height:150px" />
+
+</MudPaper> 
+
+<div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:40px ;color:black">MANGA-COMIC </MudText>
+    </div>
+</div> 
+
+<ProductListComoponent />
+
+
+
+ 
+
