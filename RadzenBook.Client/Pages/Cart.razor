@@ -1,0 +1,305 @@
+﻿@page "/cart"
+
+<div id="PageContainer"
+     style="
+        overflow: hidden;
+        box-sizing: border-box;
+        display: block;
+        line-height: normal !important;
+        letter-spacing: 0.5px;
+        font-size: 14px;
+        font-family: Roboto;
+        color: #333333;
+        font-weight: 300;
+      ">
+    <main class="main-content" role="main">
+        <div style="padding: 50px 0px" id="page-wrapper">
+            <div style="padding: 0 30px" class="wrapper">
+                <div class="inner">
+                    <h1 style="
+                  color: #333333;
+                  padding: 0px 0px 15px 0px;
+                  margin: 0px 0px 15px 0px;
+                  border-bottom: 1px solid #e6e6e6;
+                  text-transform: uppercase !important;
+                  font-size: 18px;
+                  font-weight: bold;
+                ">
+                        Giỏ hàng
+                    </h1>
+                    <form style="max-width: 100%; overflow: auto"
+                          action="/cart"
+                          method="post"
+                          novalidate=""
+                          class="form-desk cart table-wrap medium--hide small--hide">
+                        <table style="
+                    width: 100%;
+                    margin-bottom: 1em;
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                  "
+                               class="cart-table full table--responsive">
+                            <thead style="position: relative; border-top: 1px solid #e6e6e6"
+                                   class="cart__row cart__header-labels">
+                                <tr>
+                                    <th style="
+                          padding: 30px 15px;
+                          border: none;
+                          font-weight: normal;
+                        "
+                                        colspan="2"
+                                        class="text-center">
+                                        Sản phẩm
+                                    </th>
+                                    <th style="
+                          padding: 30px 15px;
+                          border: none;
+                          font-weight: normal;
+                        "
+                                        class="text-center">
+                                        Đơn giá
+                                    </th>
+                                    <th style="
+                          padding: 30px 15px;
+                          border: none;
+                          font-weight: normal;
+                        "
+                                        class="text-center">
+                                        Số lượng
+                                    </th>
+                                    <th style="
+                          padding: 30px 15px;
+                          border: none;
+                          font-weight: normal;
+                        "
+                                        class="text-right">
+                                        Tổng giá
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="position: relative; border-top: 1px solid #e6e6e6"
+                                    class="cart__row table__section">
+                                    <td style="
+                          padding: 30px 15px;
+                          border: none;
+                          text-align: left;
+                        "
+                                        data-label="Sản phẩm">
+                                        <a style="
+                            display: block;
+                            color: #d51c24;
+                            text-decoration: none;
+                            background: transparent;
+                          "
+                                           href="/products/ty-quay-tap-6-2021"
+                                           class="cart__image">
+                                            <img style="display: block; max-width: 100%"
+                                                 src="//product.hstatic.net/200000343865/product/6_4fda9c4d44814b78951d775bd8047cfe_medium.jpg"
+                                                 alt="Tý Quậy - Tập 6" />
+                                        </a>
+                                    </td>
+                                    <td style="
+                          padding: 30px 15px;
+                          border: none;
+                          text-align: left;
+                          padding: 15px;
+                        ">
+                                        <a style="
+                            display: block;
+                            color: #d51c24;
+                            text-decoration: none;
+                            background: transparent;
+                            font-weight: bold;
+                          "
+                                           href="/products/ty-quay-tap-6-2021"
+                                           class="h4">
+                                            Tý Quậy - Tập 6
+                                        </a>
+
+                                        Khuyến mãi: 1017960497 - Giảm vô thời hạn 10% cho toàn
+                                        bộ Sách Kim Đồng
+
+                                        <br />
+
+                                        <a style="
+                            display: block;
+                            color: #d51c24;
+                            text-decoration: none;
+                            background: transparent;
+                          "
+                                           href="/cart/change?line=1&amp;quantity=0"
+                                           class="cart__remove">
+                                            <small>Xóa</small>
+                                        </a>
+                                    </td>
+                                    <td style="
+                          padding: 30px 15px;
+                          border: none;
+                          text-align: left;
+                        "
+                                        data-label="Đơn giá">
+                                        <span style="
+                            font-weight: 700;
+                            margin: 0 0 0.5em;
+                            line-height: 1.4;
+                            font-weight: bold;
+                          "
+                                              class="h3">
+                                            36,000₫
+                                        </span>
+                                    </td>
+                                    <td style="
+                          padding: 30px 15px;
+                          border: none;
+                          text-align: left;
+                        "
+                                        data-label="Số lượng"
+                                        data-max="0">
+                                        <div style="
+                            margin: 0 auto;
+                            max-width: 150px;
+                            min-width: 75px;
+                          "
+                                             class="js-qty">
+
+                                            <input style="
+                              display: block;
+                              background: none;
+                              text-align: center;
+                              width: 100%;
+                              padding: 5px 25px;
+                              margin: 0;
+                              border: 1px solid #e6e6e6;
+                              max-width: 100%;
+                            "
+                                                   type="number"
+                                                   class="js-qty__num"
+                                                   value="1"
+                                                   min="1"
+                                                   data-id=""
+                                                   aria-label="quantity"
+                                                   pattern="[0-9]*"
+                                                   name="updates[]"
+                                        </div>
+                                    </td>
+                                    <td style="
+                          padding: 30px 15px;
+                          border: none;
+                          text-align: left;
+                        "
+                                        data-label="Tổng tiền"
+                                        class="text-right">
+                                        <span style="
+                            font-weight: 700;
+                            margin: 0 0 0.5em;
+                            line-height: 1.4;
+                            font-weight: bold;
+                          "
+                                              class="h3">
+                                            36,000₫
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="grid cart__row"
+                             style="
+                    position: relative;
+                    margin-top: 30px;
+                    padding-top: 30px;
+                    border-top: 1px solid #e6e6e6;
+                  ">
+                            <div class="grid__item two-thirds small--one-whole"
+                                 style="
+                      box-sizing: border-box;
+                      float: left;
+                      min-height: 1px;
+                      padding-left: 30px;
+                      vertical-align: top;
+                    ">
+                                <label style="cursor: pointer" for="CartSpecialInstructions">Ghi chú</label>
+                                <textarea style="
+                        width: 300%;
+                        border: 1px solid #e6e6e6;
+                        padding: 8px 10px;
+                        border-radius: 0px;
+                      "
+                                          name="note"
+                                          class="input-full"
+                                          id="CartSpecialInstructions"></textarea>
+                            </div>
+
+                            <div style="
+                      text-align: right !important;
+                      box-sizing: border-box;
+                      min-height: 1px;
+                      padding-left: 30px;
+                      vertical-align: top;
+                    "
+                                 class="grid__item text-right one-third small--one-whole">
+                                <p style="margin: 0 0 15px 0">
+                                    <span style="margin: 0 0 0 10px; font-family: Roboto"
+                                          class="cart__subtotal-title">Tạm tính:</span>
+                                    <span style="
+                          margin: 0 0 0 10px;
+                          font-weight: 700;
+                          margin: 0 0 0.5em;
+                          line-height: 1.4;
+                          font-weight: bold;
+                        "
+                                          class="h3 cart__subtotal">36,000₫</span>
+                                </p>
+
+                                <button style="
+                        display: inline-block;
+                        padding: 2px 10px;
+                        width: auto;
+                        margin: 0;
+                        line-height: 1.42;
+                        font-weight: bold;
+                        text-decoration: none;
+                        text-align: center;
+                        vertical-align: middle;
+                        white-space: nowrap;
+                        cursor: pointer;
+                        border: 1px solid transparent;
+                        border-radius: 0px;
+                        background-color: #d51c24;
+                        color: #fff;
+                      "
+                                        type="submit"
+                                        name="update"
+                                        class="btn update-cart">
+                                    Cập nhật
+                                </button>
+                                <button style="
+                        display: inline-block;
+                        padding: 2px 10px;
+                        width: auto;
+                        margin: 0;
+                        line-height: 1.42;
+                        font-weight: bold;
+                        text-decoration: none;
+                        text-align: center;
+                        vertical-align: middle;
+                        white-space: nowrap;
+                        cursor: pointer;
+                        border: 1px solid transparent;
+                        border-radius: 0px;
+                        background-color: #d51c24;
+                        color: #fff;
+                      "
+                                        type="submit"
+                                        name="checkout"
+                                        class="btn">
+                                    Thanh toán
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
