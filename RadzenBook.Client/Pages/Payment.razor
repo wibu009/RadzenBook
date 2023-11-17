@@ -1,49 +1,26 @@
 ﻿@page "/payment"
 <div class="container mt-4 p-0">
     <div class="row px-md-4 px-2 py-4">
-        <div class="col-lg-8">
+        <div class="grid gird-cols-8 md:grid-cols-1">
             <h1 class="pb-2 fw-bold">Radzen book: Thanh toán</h1>
             <div class="card">
                 <div>
-                    <div class="table-responsive px-md-4 px-2 pt-3">
+                    <div class="x-2 pt-3">
                         <table class="table table-borderless">
                             <tbody>
                                 <tr style="position: relative; border-top: 1px solid #e6e6e6"
-                                    class="cart__row table__section">
-                                    <td style="
-                          padding: 30px 15px;
-                          border: none;
-                          text-align: left;
-                        "
-                                        data-label="Sản phẩm">
-                                        <a style="
-                            display: block;
-                            color: #d51c24;
-                            text-decoration: none;
-                            background: transparent;
-                          "
-                                           href="/products/ty-quay-tap-6-2021"
-                                           class="cart__image">
-                                            <img style="display: block; max-width: 100%"
+                                   <td class="p-4 text-left">
+                                        <a
+                                           href="/products"
+                                           >
+                                            <img
                                                  src="//product.hstatic.net/200000343865/product/6_4fda9c4d44814b78951d775bd8047cfe_medium.jpg"
                                                  alt="Tý Quậy - Tập 6" />
                                         </a>
                                     </td>
-                                    <td style="
-                          padding: 30px 15px;
-                          border: none;
-                          text-align: left;
-                          padding: 15px;
-                        ">
-                                        <a style="
-                            display: block;
-                            color: #d51c24;
-                            text-decoration: none;
-                            background: transparent;
-                            font-weight: bold;
-                          "
-                                           href="/products/ty-quay-tap-6-2021"
-                                           class="h4">
+                                    <td class="p-4 text-left">
+                                        <a class="h4 block font-bold text-red-600 no-underline" st
+                                           href="/products">
                                             Tý Quậy - Tập 6
                                         </a>
 
@@ -52,68 +29,28 @@
 
                                         <br />
 
-                                        <a style="
-                            display: block;
-                            color: #d51c24;
-                            text-decoration: none;
-                            background: transparent;
-                          "
-                                           href="/cart/change?line=1&amp;quantity=0"
-                                           class="cart__remove">
+                                        <a class="block text-red-600 no-underline"
+                                           "
+                                           href="/cart">
                                             <small>Xóa</small>
                                         </a>
                                     </td>
-                                    <td style="
-                          padding: 30px 15px;
-                          border: none;
-                          text-align: left;
-                        "
-                                        data-label="Đơn giá">
-                                        <span style="
-                            font-weight: 700;
-                            margin: 0 0 0.5em;
-                            line-height: 1.4;
-                            font-weight: bold;
-                          "
-                                              class="h3">
+                                    <td class="p-4 text-left">
+                                        <span class="text-3xl font-bold leading-normal">
                                             36,000₫
                                         </span>
                                     </td>
-                                    <td style="
-                          padding: 30px 15px;
-                          border: none;
-                          text-align: left;
-                        "
-                                        data-label="Số lượng"
-                                        data-max="0">
-                                        <div style="
-                            margin: 0 auto;
-                            max-width: 150px;
-                            min-width: 75px;
-                          "
-                                             class="js-qty">
-                                            <input style=" display: block; background: none;
-                          text-align: center; width: 100%; padding: 5px 25px;
-                          margin: 0; border: 1px solid #e6e6e6; max-width: 100%;
-                          " type="number" class="js-qty__num" value="1" min="1"
-                                                   data-id="" aria-label="quantity" pattern="[0-9]*"
-                                                   name="updates[]"
+                                    <td class="p-4 text-left">
+                                        <div class="mx-auto max-w-[150px] min-w-[75px]">
+                                            <input class="block py-1 px-4 text-center w-full border-1 border-neutral-200"
+                                                   type="number"
+                                                   value="1"
+                                                   min="1" />
                                         </div>
                                     </td>
-                                    <td style="
-                          padding: 30px 15px;
-                          border: none;
-                          text-align: left;
-                        "
-                                        data-label="Tổng tiền"
-                                        class="text-right">
-                                        <span style="
-                            font-weight: 700;
-                            margin: 0 0 0.5em;
-                            line-height: 1.4;
-                            font-weight: bold;
-                          "
-                                              class="h3">
+                                    <td class="text-left py-4 px-2"
+                                        data-label="Tổng tiền">
+                                        <span class="text-3xl font-bold leading-normal">
                                             36,000₫
                                         </span>
                                     </td>
@@ -121,220 +58,79 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="table-responsive px-md-4 px-2 pt-3">
-                        <div class="section">
-                            <div class="section-header">
-                                <h2 class="section-title">Thông tin thanh toán</h2>
+                    <div class="px-2 pt-3 md:px-4">
+                        <div>
+                            <div>
+                                <h2>Thông tin thanh toán</h2>
                             </div>
                             <div class="section-content section-customer-information no-mb">
                                 <input name="utf8" type="hidden" value="✓" />
 
-                                <p class="section-content-text">
+                                <p>
                                     Bạn đã có tài khoản?
                                     <a href="/account/login?urlredirect=%2Fcheckouts%2F186360f7d6a84274bfd608c73d760089%3Fstep%3D1">Đăng nhập</a>
                                 </p>
 
                                 <div class="fieldset">
-                                    <div class="field field-required"
-                                         style="
-                          width: 100%;
-                          float: left;
-                          padding: 0.45em;
-                          box-sizing: border-box;
-                        ">
-                                        <div class="field-input-wrapper"
-                                             style="
-                            position: relative;
-                            font-size: 14px;
-                            line-height: 1.3em;
-                          ">
+                                    <div class="w-full float-left p-2">
+                                        <div class="relative leading-1">
                                             <label class="field-label"
                                                    for="billing_address_full_name">
                                                 Họ và tên:
                                             </label>
-                                            <input style="
-                              box-shadow: 0 0 0 1px #d9d9d9;
-                              transition: all 0.2s ease-out;
-                              background-color: white;
-                              color: #333333;
-                              border-radius: 4px;
-                              display: block;
-                              box-sizing: border-box;
-                              width: 100%;
+                                            <input class="block w-full rounded border-2 border-zinc-300" style="
                               padding: 0.94em 2.8em 0.94em 0.8em;
-                              word-break: normal;
-                            "
-                                                   placeholder="Họ và tên"
-                                                   autocapitalize="off"
-                                                   spellcheck="false"
-                                                   class="field-input"
-                                                   size="30"
-                                                   type="text"
-                                                   id="billing_address_full_name"
-                                                   name="billing_address[full_name]"
-                                                   value=""
-                                                   autocomplete="false" />
+                            " id="billing_address_full_name"
+                                                   placeholder=" Họ và tên" />
                                         </div>
                                     </div>
 
-                                    <div class="field field-required field-two-thirds"
-                                         style="
-                          width: 100%;
-                          float: left;
-                          padding: 0.45em;
-                          box-sizing: border-box;
-                        ">
-                                        <div class="field-input-wrapper"
-                                             style="
-                            position: relative;
-                            font-size: 14px;
-                            line-height: 1.3em;
-                          ">
+                                    <div class="w-full float-left p-2">
+                                        <div class="relative leading-1">
                                             <label class="field-label" for="checkout_user_email">
                                                 Email:
                                             </label>
-                                            <input style="
-                              box-shadow: 0 0 0 1px #d9d9d9;
-                              transition: all 0.2s ease-out;
-                              background-color: white;
-                              color: #333333;
-                              border-radius: 4px;
-                              display: block;
-                              box-sizing: border-box;
-                              width: 100%;
+                                            <input class="block w-full rounded border-2 border-zinc-300" style="
                               padding: 0.94em 2.8em 0.94em 0.8em;
-                              word-break: normal;
-                            "
-                                                   autocomplete="false"
-                                                   placeholder="Email"
-                                                   autocapitalize="off"
-                                                   spellcheck="false"
-                                                   class="field-input"
-                                                   size="30"
-                                                   type="email"
-                                                   id="checkout_user_email"
-                                                   name="checkout_user[email]"
-                                                   value="" />
+                            " id="billing_user_email"
+                                                   placeholder="Email" />
                                         </div>
                                     </div>
 
-                                    <div class="field field-required field-third"
-                                         style="
-                          width: 100%;
-                          float: left;
-                          padding: 0.45em;
-                          box-sizing: border-box;
-                        ">
-                                        <div class="field-input-wrapper"
-                                             style="
-                            position: relative;
-                            font-size: 14px;
-                            line-height: 1.3em;
-                          ">
+                                    <div class="w-full float-left p-2">
+                                        <div class="relative leading-1">
                                             <label class="field-label" for="billing_address_phone">
                                                 Điện thoại:
                                             </label>
-                                            <input style="
-                              box-shadow: 0 0 0 1px #d9d9d9;
-                              transition: all 0.2s ease-out;
-                              background-color: white;
-                              color: #333333;
-                              border-radius: 4px;
-                              display: block;
-                              box-sizing: border-box;
-                              width: 100%;
+                                            <input class="block w-full rounded border-2 border-zinc-300" style="
                               padding: 0.94em 2.8em 0.94em 0.8em;
-                              word-break: normal;
-                            "
-                                                   autocomplete="false"
-                                                   placeholder="Điện thoại"
-                                                   autocapitalize="off"
-                                                   spellcheck="false"
-                                                   class="field-input"
-                                                   size="30"
-                                                   maxlength="15"
-                                                   type="tel"
-                                                   id="billing_address_phone"
-                                                   name="billing_address[phone]"
-                                                   value="" />
+                            " id="billing_address_phone"
+                                                   placeholder="Điện thoại" />
                                         </div>
                                     </div>
 
-                                    <div class="field field-required"
-                                         style="
-                          width: 100%;
-                          float: left;
-                          padding: 0.45em;
-                          box-sizing: border-box;
-                        ">
-                                        <div class="field-input-wrapper"
-                                             style="
-                            position: relative;
-                            font-size: 14px;
-                            line-height: 1.3em;
-                          ">
+                                    <div class="w-full float-left p-2">
+                                        <div class="relative leading-1">
                                             <label class="field-label"
-                                                   for="billing_address_address1">
+                                                   for="billing_address_address">
                                                 Địa chỉ:
                                             </label>
-                                            <input style="
-                              box-shadow: 0 0 0 1px #d9d9d9;
-                              transition: all 0.2s ease-out;
-                              background-color: white;
-                              color: #333333;
-                              border-radius: 4px;
-                              display: block;
-                              box-sizing: border-box;
-                              width: 100%;
+                                            <input class="block w-full rounded border-2 border-zinc-300" style="
                               padding: 0.94em 2.8em 0.94em 0.8em;
-                              word-break: normal;
-                            "
-                                                   placeholder="Địa chỉ"
-                                                   autocapitalize="off"
-                                                   spellcheck="false"
-                                                   class="field-input"
-                                                   size="30"
-                                                   type="text"
-                                                   id="billing_address_address1"
-                                                   name="billing_address[address1]"
-                                                   value="" />
+                            " id="billing_address_address"
+                                                   placeholder="Địa chỉ" />
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="step-footer p-4"
-                         style="
-                  display: flex;
-                  flex-direction: row-reverse;
-                  align-items: center;
-                  margin-top: 1.5em;
-                  z-index: 2;
-                  position: relative;
-                  zoom: 1;
-                ">
-                        <button type="submit"
-                                class="step-footer-continue-btn btn btn-primary"
-                                style="
-                    padding: 1em 1em;
-                    transition: background-color 0.2s ease-in-out,
-                      color 0.2s ease-in-out;
-                    position: relative;
-                  ">
-                            <span class="btn-content">Thanh toán</span>
-                            <i class="btn-spinner icon icon-button-spinner"></i>
+                    <div class="flex flex-row-reverse p-4 mt-4 relative items-center">
+                        <button class="relative text-white bg-red-600 rounded-sm p-3">
+                            <span>Thanh toán</span>
                         </button>
-                        <a style="
-                    flex: 1 1 auto;
-                    margin-right: 1em;
-                    float: left;
-                    display: block;
-                    text-decoration: none;
-                    color: #338dbc;
-                    transition: color 0.2s ease-in-out;
-                  "
-                           class="step-footer-previous-link"
+                        <a class="flex flex-auto ml-2 text-red-600 no-underline"
                            href="/cart">
                             Giỏ hàng
                         </a>
