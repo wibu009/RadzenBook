@@ -1,4 +1,10 @@
-﻿<MudGrid Justify="Justify.Center" Style="padding-top:30px;padding-bottom:20px;">
+﻿<div class="flex justify-center items-center mt-8">
+    <div>
+        <MudText Style="font-size:40px ;color:black"> @HeaderText </MudText>
+    </div>
+</div>
+
+<MudGrid Class="py-8" Justify="Justify.Center">
 
     <div class="wrapper">
         <ul class="products">
@@ -23,20 +29,21 @@
             }
         </ul>
     </div>
-
     <div style="padding-top:7px; margin-left: 990px;">
-        <span style="display: flex; align-items: center;">
-            <a href="/Product" style="text-decoration: none; display: flex; align-items: center;color:red;">
+        <a href="/Product">
+            <div class="flex items-center justify-end mr-96 text-red-600 text-md no-underline">
                 Xem thêm
-                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-right: 10px" />
-                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-left: -17px" />
-            </a>
-        </span>
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Style="font-size: medium; margin-right: 10px" />
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Style="font-size: medium; margin-left: -17px" />
+            </div>
+        </a>
     </div>
 
 </MudGrid>
 
 @code {
+    [Parameter]
+    public string? HeaderText { get; set; }
     public class ProductProduct
     {
         public string Title { get; set; }

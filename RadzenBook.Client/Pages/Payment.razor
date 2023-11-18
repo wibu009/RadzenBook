@@ -1,162 +1,153 @@
 ﻿@page "/payment"
-<div class="container mt-4 p-0">
-    <div class="row px-md-4 px-2 py-4">
-        <div class="grid gird-cols-8 md:grid-cols-1">
-            <h1 class="pb-2 fw-bold">Radzen book: Thanh toán</h1>
-            <div class="card">
-                <div>
-                    <div class="x-2 pt-3">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr style="position: relative; border-top: 1px solid #e6e6e6"
-                                   <td class="p-4 text-left">
-                                        <a
-                                           href="/products"
-                                           >
-                                            <img
-                                                 src="//product.hstatic.net/200000343865/product/6_4fda9c4d44814b78951d775bd8047cfe_medium.jpg"
-                                                 alt="Tý Quậy - Tập 6" />
-                                        </a>
-                                    </td>
-                                    <td class="p-4 text-left">
-                                        <a class="h4 block font-bold text-red-600 no-underline" st
-                                           href="/products">
-                                            Tý Quậy - Tập 6
-                                        </a>
+<div class="mt-4 px-2 py-4">
+    <h1 class="pb-2 text-3xl font-bold">Radzen book: Thanh toán</h1>
+    <div class="flex">
+        <div class="pt-3 mr-8">
+            <div>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr style="position: relative; border-top: 1px solid #e6e6e6">
+                            <td class="p-4 text-left">
+                                <a href="/products">
+                                    <img src="//product.hstatic.net/200000343865/product/6_4fda9c4d44814b78951d775bd8047cfe_medium.jpg"
+                                         alt="Tý Quậy - Tập 6" />
+                                </a>
+                            </td>
+                            <td class="p-4 text-left">
+                                <a class="h4 block font-bold text-red-600 no-underline" st
+                                   href="/products">
+                                    Tý Quậy - Tập 6
+                                </a>
 
-                                        Khuyến mãi: 1017960497 - Giảm vô thời hạn 10% cho toàn
-                                        bộ Sách Kim Đồng
+                                Khuyến mãi: 1017960497 - Giảm vô thời hạn 10% cho toàn
+                                bộ Sách Kim Đồng
 
-                                        <br />
+                                <br />
 
-                                        <a class="block text-red-600 no-underline"
-                                           "
-                                           href="/cart">
-                                            <small>Xóa</small>
-                                        </a>
-                                    </td>
-                                    <td class="p-4 text-left">
-                                        <span class="text-3xl font-bold leading-normal">
-                                            36,000₫
-                                        </span>
-                                    </td>
-                                    <td class="p-4 text-left">
-                                        <div class="mx-auto max-w-[150px] min-w-[75px]">
-                                            <input class="block py-1 px-4 text-center w-full border-1 border-neutral-200"
-                                                   type="number"
-                                                   value="1"
-                                                   min="1" />
-                                        </div>
-                                    </td>
-                                    <td class="text-left py-4 px-2"
-                                        data-label="Tổng tiền">
-                                        <span class="text-3xl font-bold leading-normal">
-                                            36,000₫
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="px-2 pt-3 md:px-4">
-                        <div>
-                            <div>
-                                <h2>Thông tin thanh toán</h2>
-                            </div>
-                            <div class="section-content section-customer-information no-mb">
-                                <input name="utf8" type="hidden" value="✓" />
-
-                                <p>
-                                    Bạn đã có tài khoản?
-                                    <a href="/account/login?urlredirect=%2Fcheckouts%2F186360f7d6a84274bfd608c73d760089%3Fstep%3D1">Đăng nhập</a>
-                                </p>
-
-                                <div class="fieldset">
-                                    <div class="w-full float-left p-2">
-                                        <div class="relative leading-1">
-                                            <label class="field-label"
-                                                   for="billing_address_full_name">
-                                                Họ và tên:
-                                            </label>
-                                            <input class="block w-full rounded border-2 border-zinc-300" style="
-                              padding: 0.94em 2.8em 0.94em 0.8em;
-                            " id="billing_address_full_name"
-                                                   placeholder=" Họ và tên" />
-                                        </div>
-                                    </div>
-
-                                    <div class="w-full float-left p-2">
-                                        <div class="relative leading-1">
-                                            <label class="field-label" for="checkout_user_email">
-                                                Email:
-                                            </label>
-                                            <input class="block w-full rounded border-2 border-zinc-300" style="
-                              padding: 0.94em 2.8em 0.94em 0.8em;
-                            " id="billing_user_email"
-                                                   placeholder="Email" />
-                                        </div>
-                                    </div>
-
-                                    <div class="w-full float-left p-2">
-                                        <div class="relative leading-1">
-                                            <label class="field-label" for="billing_address_phone">
-                                                Điện thoại:
-                                            </label>
-                                            <input class="block w-full rounded border-2 border-zinc-300" style="
-                              padding: 0.94em 2.8em 0.94em 0.8em;
-                            " id="billing_address_phone"
-                                                   placeholder="Điện thoại" />
-                                        </div>
-                                    </div>
-
-                                    <div class="w-full float-left p-2">
-                                        <div class="relative leading-1">
-                                            <label class="field-label"
-                                                   for="billing_address_address">
-                                                Địa chỉ:
-                                            </label>
-                                            <input class="block w-full rounded border-2 border-zinc-300" style="
-                              padding: 0.94em 2.8em 0.94em 0.8em;
-                            " id="billing_address_address"
-                                                   placeholder="Địa chỉ" />
-
-                                        </div>
-                                    </div>
+                                <a class="block text-red-600 no-underline" href="/cart">
+                                    <small>Xóa</small>
+                                </a>
+                            </td>
+                            <td class="p-4 text-left">
+                                <span class="text-3xl font-bold leading-normal">
+                                    36,000₫
+                                </span>
+                            </td>
+                            <td class="p-4 text-left">
+                                <div class="mx-auto max-w-[150px] min-w-[75px]">
+                                    <input class="block py-1 px-4 text-center w-full border-1 border-neutral-200"
+                                           type="number"
+                                           value="1"
+                                           min="1" />
                                 </div>
+                            </td>
+                            <td class="text-left py-4 px-2"
+                                data-label="Tổng tiền">
+                                <span class="text-3xl font-bold leading-normal">
+                                    36,000₫
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="px-2 pt-3 md:px-4">
+                <div>
+                    <h2>Thông tin thanh toán</h2>
+                </div>
+                <div>
+                    <p>
+                        Bạn đã có tài khoản?
+                        <a href="/account">Đăng nhập</a>
+                    </p>
+
+                    <div>
+                        <div class="w-full float-left p-2">
+                            <div class="relative leading-1">
+                                <label for="billing_address_full_name">
+                                    Họ và tên:
+                                </label>
+                                <input 
+                                    class="block w-full rounded border-2 border-zinc-300" 
+                                    style="padding: 0.94em 2.8em 0.94em 0.8em;" 
+                                    id="billing_address_full_name"
+                                    placeholder=" Họ và tên" 
+                                 />
+                            </div>
+                        </div>
+                        <div class="w-full float-left p-2">
+                            <div class="relative leading-1">
+                                <label for="checkout_user_email">
+                                    Email:
+                                </label>
+                                <input 
+                                    class="block w-full rounded border-2 border-zinc-300" 
+                                    style="padding: 0.94em 2.8em 0.94em 0.8em;" 
+                                    id="billing_user_email"
+                                    placeholder="Email" 
+                                />
+                            </div>
+                        </div>
+
+                        <div class="w-full float-left p-2">
+                            <div class="relative leading-1">
+                                <label for="billing_address_phone">
+                                    Điện thoại:
+                                </label>
+                                <input 
+                                    class="block w-full rounded border-2 border-zinc-300" 
+                                    style="padding: 0.94em 2.8em 0.94em 0.8em;" 
+                                    id="billing_address_phone"
+                                    placeholder="Điện thoại" 
+                                />
+                            </div>
+                        </div>
+                        <div class="w-full float-left p-2">
+                            <div class="relative leading-1">
+                                <label for="billing_address_address">
+                                    Địa chỉ:
+                                </label>
+                                <input 
+                                    class="block w-full rounded border-2 border-zinc-300" 
+                                    style="padding: 0.94em 2.8em 0.94em 0.8em;" 
+                                    id="billing_address_address"
+                                    placeholder="Địa chỉ" 
+                                />
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-row-reverse p-4 mt-4 relative items-center">
-                        <button class="relative text-white bg-red-600 rounded-sm p-3">
-                            <span>Thanh toán</span>
-                        </button>
-                        <a class="flex flex-auto ml-2 text-red-600 no-underline"
-                           href="/cart">
-                            Giỏ hàng
-                        </a>
-                    </div>
                 </div>
             </div>
+            <div class="flex flex-row-reverse p-4 mt-4 relative items-center">
+                <button class="relative text-white bg-red-600 rounded-sm p-3">
+                    <span>Thanh toán</span>
+                </button>
+                <a class="flex flex-auto ml-2 text-red-600 no-underline" href="/cart">
+                    Giỏ hàng
+                </a>
+            </div>
         </div>
-        <div class="col-lg-4 payment-summary">
-            <p class="fw-bold pt-lg-0 pt-4 pb-4">Thanh toán</p>
-            <div class="card px-md-3 px-2 pt-4">
-                <div class="d-flex justify-content-between b-bottom">
-                    <input type="text" class="ps-2" placeholder="Mã giảm giá" />
-                    <div class="btn btn-primary">Sử dụng</div>
+        <div class="px-4">
+            <p class="font-bold py-4">Thanh toán</p>
+            <div class="px-2 pt-4">
+                <div class="mb-4 flex justify-between">
+                    <input type="text" class="mx-2 px-4" placeholder="Mã giảm giá" />
+                    <button class="relative text-white bg-red-600 rounded-sm p-2">
+                        <span>Sử dụng</span>
+                    </button>
                 </div>
-                <div class="d-flex flex-column b-bottom">
-                    <div class="d-flex justify-content-between py-3">
-                        <small class="text-muted">[Tý quậy - Tập 6] x 1</small>
+                <div>
+                    <div class="flex justify-between py-3 leading-1">
+                        <p class="font-semibold pr-2">[Tý quậy - Tập 6] x 1</p>
                         <p>36000đ</p>
                     </div>
-                    <div class="d-flex justify-content-between pb-3">
-                        <small class="text-muted">Phí ship:</small>
+                    <div class="flex justify-between pb-3">
+                        <p class="font-semibold pr-2">Phí ship: </p>
                         <p>30000đ</p>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <small class="text-muted">Tổng tiền</small>
-                        <p>66000đ</p>
+                    <div class="pt-2 flex justify-between border-t-2 border-zinc-300 ">
+                        <p class="font-semibold pr-2">Tổng tiền: </p>
+                        <p class="font-bold">66000đ</p>
                     </div>
                 </div>
             </div>
