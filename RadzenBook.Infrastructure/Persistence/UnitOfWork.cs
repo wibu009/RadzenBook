@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using RadzenBook.Application.Common.Persistence;
-using RadzenBook.Application.Common.Persistence.Repositories;
 using RadzenBook.Domain.Common.Contracts;
 using RadzenBook.Infrastructure.Persistence.Repositories;
 
@@ -27,7 +26,7 @@ public sealed class UnitOfWork : IUnitOfWork, IAsyncDisposable
         //check if the repository is already in the dictionary
         if (_repositories.TryGetValue(type, out var repository))
         {
-            return (TIRepository) repository;
+            return (TIRepository)repository;
         }
 
         //get class implementing BaseRepository<TEntity, TKey>
@@ -35,23 +34,27 @@ public sealed class UnitOfWork : IUnitOfWork, IAsyncDisposable
 
         //get class implementing TRepository with DbContext as constructor parameter
         var repositoryType = Assembly.GetAssembly(baseRepositoryType)?.GetTypes()
-            .FirstOrDefault(t => t.GetConstructors().Any(c => c.GetParameters().Any(p => p.ParameterType == typeof(DbContext)) && t.GetInterfaces().Any(i => i == type)));
+            .FirstOrDefault(t => t.GetConstructors().Any(c =>
+                c.GetParameters().Any(p => p.ParameterType == typeof(DbContext)) &&
+                t.GetInterfaces().Any(i => i == type)));
 
-        var repositoryInstance = Activator.CreateInstance(repositoryType ?? throw new InvalidOperationException("Repository not found"), _context);
+        var repositoryInstance =
+            Activator.CreateInstance(repositoryType ?? throw new InvalidOperationException("Repository not found"),
+                _context);
         _repositories.TryAdd(type, repositoryInstance ?? throw new InvalidOperationException("Repository not found"));
-        return (TIRepository) repositoryInstance;
+        return (TIRepository)repositoryInstance;
     }
 
-    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) 
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         => await _context.SaveChangesAsync(cancellationToken);
 
-    public async Task BeginTransactionAsync(CancellationToken cancellationToken = default) 
+    public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         => await _context.Database.BeginTransactionAsync(cancellationToken);
 
-    public async Task CommitTransactionAsync(CancellationToken cancellationToken = default) 
+    public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
         => await _context.Database.CommitTransactionAsync(cancellationToken);
 
-    public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default) 
+    public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
         => await _context.Database.RollbackTransactionAsync(cancellationToken);
 
     public async ValueTask DisposeAsync()

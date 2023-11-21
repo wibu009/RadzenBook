@@ -43,14 +43,3 @@ msgstr "Cập nhật demo thành công"
 #: Result<T>.Message("Delete demo successfully")
 msgid "Delete demo successfully"
 msgstr "Xóa demo thành công"
-
-#: Address result message
-#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-#: Result<T>.Message("Address with id {0} does not exist")
-msgid "Address with id {0} does not exist"
-msgstr "Địa chỉ với id {0} không tồn tại"
-
-#: Result<T>.Message("Create address successfully")
-msgid "Create address successfully"
-msgstr "Tạo địa chỉ thành công"

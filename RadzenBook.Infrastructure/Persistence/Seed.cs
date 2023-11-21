@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using RadzenBook.Domain.Catalog;
 using RadzenBook.Domain.Common.Enums;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
@@ -8,7 +7,8 @@ namespace RadzenBook.Infrastructure.Persistence;
 
 public static class Seed
 {
-    public static async Task SeedData(this RadzenBookDbContext context, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+    public static async Task SeedData(this RadzenBookDbContext context, UserManager<AppUser> userManager,
+        RoleManager<AppRole> roleManager)
     {
         // Create roles if they don't exist
         var roles = new List<string> { RoleName.Manager, RoleName.Employee, RoleName.Customer };
@@ -36,7 +36,11 @@ public static class Seed
             // Create 3 employee accounts
             for (var i = 1; i <= 3; i++)
             {
-                var employeeUser = new AppUser { UserName = $"employee{i}", Email = $"employee{i}@example.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
+                var employeeUser = new AppUser
+                {
+                    UserName = $"employee{i}", Email = $"employee{i}@example.com", EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
                 await userManager.CreateAsync(employeeUser, "123456@Abc"); // Set a secure password
                 await userManager.AddToRoleAsync(employeeUser, RoleName.Employee);
             }
@@ -44,12 +48,16 @@ public static class Seed
             // Create 5 customer accounts
             for (var i = 1; i <= 5; i++)
             {
-                var customerUser = new AppUser { UserName = $"customer{i}", Email = $"customer{i}@example.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
+                var customerUser = new AppUser
+                {
+                    UserName = $"customer{i}", Email = $"customer{i}@example.com", EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
                 await userManager.CreateAsync(customerUser, "123456@Abc"); // Set a secure password
                 await userManager.AddToRoleAsync(customerUser, RoleName.Customer);
             }
         }
-        
+
         // Create 20 demos
         if (!context.Demos.Any())
         {
@@ -65,33 +73,11 @@ public static class Seed
 
             await context.Demos.AddRangeAsync(demoFakers);
         }
-        
-        // Create 20 addresses
-        if (!context.Addresses.Any())
-        {
-            var addressFakers = new Faker<Address>()
-                .RuleFor(a => a.Street, f => f.Address.StreetAddress())
-                .RuleFor(a => a.City, f => f.Address.City())
-                .RuleFor(a => a.State, f => f.Address.State())
-                .RuleFor(a => a.ZipCode, f => f.Address.ZipCode())
-                .RuleFor(a => a.Country, f => f.Address.Country())
-                .RuleFor(a => a.Email, f => f.Internet.Email())
-                .RuleFor(a => a.PhoneNumber, f => f.Phone.PhoneNumber("0#########"))
-                .RuleFor(a => a.FullName, f => f.Name.FullName())
-                .RuleFor(a => a.CreatedBy, "System")
-                .RuleFor(a => a.CreatedAt, DateTime.UtcNow)
-                .RuleFor(a => a.ModifiedBy, "System")
-                .RuleFor(a => a.ModifiedAt, DateTime.UtcNow)
-                .RuleFor(a => a.AppUserId, f => f.PickRandom(userManager.GetUsersInRoleAsync("customer").Result).Id)
-                .Generate(20);
 
-            await context.Addresses.AddRangeAsync(addressFakers);
-        }
-        
         // Create 20 photos
         if (!context.Photos.Any())
         {
-            var photoFakers = new Faker<Domain.Catalog.Photo>()
+            var photoFakers = new Faker<Domain.Catalog.ProductImage>()
                 .RuleFor(p => p.Url, f => f.Image.PicsumUrl())
                 .RuleFor(p => p.IsMain, false)
                 .RuleFor(p => p.Id, f => f.Random.AlphaNumeric(8))
