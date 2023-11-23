@@ -1,10 +1,11 @@
 ﻿@page "/"
 @using MudBlazor
+@inject IJSRuntime JSRuntime
 <PageTitle>Index</PageTitle>
-@* <link href="css/Test.css" rel="stylesheet" /> *@
+<link href="css/productItem.css" rel="stylesheet" />
 
 
-<MudCarousel Class="mud-width-full" Style="width:auto;height:720px;padding-top20px" AutoCycle="true" Interval="1000" TData="object">
+ <MudCarousel Class="mud-width-full" Style="width:auto;height:720px;padding-top20px" AutoCycle="true" Interval="1000" TData="object">
     <PreviousButtonTemplate>
         <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
             <span class="mud-icon-button-label">
@@ -78,16 +79,448 @@
     </ChildContent>
 </MudCarousel>
 
+
+
+
+ <MudGrid Justify="Justify.Center" Style="padding-top:30px">
+    <MudItem>
+        <MudPaper class="image-container">
+            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
+        </MudPaper>
+    </MudItem>
+    <MudItem>
+        <MudPaper class="image-container">
+            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
+        </MudPaper>
+    </MudItem>
+    <MudItem>
+        <MudPaper class="image-container">
+            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
+        </MudPaper>
+    </MudItem>
+    
+</MudGrid> 
+
+
+
+
+
 <div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
     <div>
-        <MudText Style="font-size:50px ;color:black">Sách Mới</MudText>
+        <MudText Style="font-size:40px ;color:black">Sách Mới</MudText>
     </div>
 </div>
 
 
+<MudGrid Justify="Justify.Center" Style="padding-top:30px;padding-bottom:20px;">
+
+    <div class="wrapper">
+		<ul class="products">
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+        </ul>      
+    </div>
+
+    <div style="padding-top:7px; margin-left: 990px;">
+        <span style="display: flex; align-items: center;">
+            <a href="/Product" style="text-decoration: none; display: flex; align-items: center;color:red;">
+                Xem thêm
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-right: 10px" />
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-left: -17px" />
+            </a>
+        </span>
+    </div>
+
+</MudGrid>
 
 
 
 
 
+
+
+
+
+
+
+
+
+<div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:40px ;color:black">Sách Bán Chạy</MudText>
+    </div>
+
+</div>
+
+<MudGrid Justify="Justify.Center" Style="padding-top:30px;padding-bottom:20px;">
+
+    <div class="wrapper">
+        <ul class="products">
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+        </ul>
+    </div>
+
+    <div style="padding-top:7px; margin-left: 990px;">
+        <span style="display: flex; align-items: center;">
+            <a href="#" style="text-decoration: none; display: flex; align-items: center;color:red;">
+                Xem thêm
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-right: 10px" />
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-left: -17px" />
+            </a>
+        </span>
+    </div>
+
+</MudGrid>
+
+
+
+
+<MudPaper Class="d-flex flex-column-reverse flex-grow-1 gap-4" Style="padding-top:30px" Elevation="0">
+    <MudImage Src="img/logo2.PNG"  Style=" height:150px"  /> 
+</MudPaper>
+
+
+
+<div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:40px ;color:black">Côm bô</MudText>
+    </div>
+</div>
+
+
+<MudGrid Justify="Justify.Center" Style="padding-top:30px;padding-bottom:20px;">
+
+    <div class="wrapper">
+        <ul class="products">
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+        </ul>
+    </div>
+
+    <div style="padding-top:7px; margin-left: 990px;">
+        <span style="display: flex; align-items: center;">
+            <a href="#" style="text-decoration: none; display: flex; align-items: center;color:red;">
+                Xem thêm
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-right: 10px" />
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-left: -17px" />
+            </a>
+        </span>
+    </div>
+
+</MudGrid>
+
+
+
+
+
+
+
+
+<MudPaper Class="d-flex flex-column-reverse flex-grow-1 gap-4" Style="padding-top:30px" Elevation="0">
+    <MudImage Src="img/logosach3.PNG" Style=" height:150px" />
+
+</MudPaper> 
+
+
+
+
+
+ <div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:40px ;color:black">MANGA-COMIC </MudText>
+    </div>
+</div> 
+
+<MudGrid Justify="Justify.Center" Style="padding-top:30px;padding-bottom:20px;">
+
+    <div class="wrapper">
+        <ul class="products">
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+
+            <MudItem md="3">
+                <li>
+                    <div class="product-item">
+                        <div class="product-top">
+                            <a href="#" class="product-thumb">
+                                <img src="img/sanpham.PNG" />
+                            </a>
+                            <a href="#" class="buy-now">Mua Ngay</a>
+                        </div>
+                        <div class="product-info">
+                            <a href="#">San Pham</a>
+                            <div class="product-price">$2,999</div>
+                        </div>
+                    </div>
+                </li>
+            </MudItem>
+        </ul>
+    </div>
+
+    <div style="padding-top:7px; margin-left: 990px;">
+        <span style="display: flex; align-items: center;">
+            <a href="#" style="text-decoration: none; display: flex; align-items: center;color:red;">
+                Xem thêm
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-right: 10px" />
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-left: -17px" />
+            </a>
+        </span>
+    </div>
+
+</MudGrid>
+
+
+
+@code {
+
+
+
+} 
+
+
+ 
 

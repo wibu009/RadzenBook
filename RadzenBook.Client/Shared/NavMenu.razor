@@ -1,26 +1,68 @@
-﻿<MudPaper Elevation="25" Style="padding-top:40px;padding-bottom:15px">
-    <MudToolBar>
-        <MudImage Src="img/SachLogo.PNG" Alt="logo" Style="width:100px;height:100px; margin-left:130px" />
+﻿<link href="css/Navbar.css" rel="stylesheet" />
 
 
-
-        <MudTextField @bind-Value="searchText" Placeholder="Tìm kiếm..." Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Secondary" Style="width:300px; height:35px;margin-left:20px" />
-
-
-        <MudSpacer />
-        <div style="margin-left:350px">
-            <MudLink Href="" Style="font-size:20px;color:black!important; margin-left:30px">Trang Chủ</MudLink>
-            <MudLink Href="counter" Style="font-size:20px;color:black !important; margin-left:30px">Tin Tức</MudLink>
-            <MudLink Href="fetchdata" Style="font-size:20px;color:black !important; margin-left:30px">Sản Phẩm</MudLink>
-            <MudLink Href="fetchdata" Style="font-size:20px;color:black !important; margin-left:30px">Shop</MudLink>
-            <MudLink Href="fetchdata" Style="font-size:20px;color:black!important; margin-left:30px">About</MudLink>
-
-            <MudIconButton Icon="@Icons.Material.Outlined.PeopleAlt" Color="Color.Inherit" Style="margin-left:120px" />
-            <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Secondary" Style="margin-left:20px" />
+<MudPaper Elevation="0">
+    <MudToolBar Class="d-flex justify-space-around flex-grow-1 gap-3"  >
+        <div style="display: flex; align-items: center;margin-left:100px">
+         <MudText Style="font-size:25px;color:red;">RadzenBook.com</MudText>
+            <MudIconButton Color="Color.Inherit" Style="margin-left:150px">
+                <MudIcon Icon="@Icons.Material.Filled.GridView" Style="font-size:25px" />
+                <MudIcon Icon="@Icons.Material.Filled.KeyboardArrowDown" />
+            </MudIconButton>
+         <MudTextField @bind-Value="searchText" Placeholder="Tìm kiếm..." Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Secondary" Style="width:400px; height:40px;;" />
         </div>
+
+        <div style="display: flex; align-items: center;margin-right:250px">
+            <div style="display: flex; flex-direction: column; ">
+                <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" />
+                <span style="font-size:15px; margin-top: -10px;">Thông Báo</span>
+            </div>
+              <div style="display: flex; flex-direction: column;margin-left:30px ">
+                 <MudIconButton Icon="@Icons.Material.Outlined.PeopleAlt" Color="Color.Inherit" />
+                 <span style="font-size:15px; margin-top: -10px;">Tài Khoản</span>
+              </div>
+
+            <div style="display: flex; flex-direction: column;margin-left:30px">
+                <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Secondary" />
+                <span style="font-size:15px; margin-top: -10px;">Giỏ Hàng</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column;margin-left:30px;width:110px">
+                <MudSelect @bind-Value="@country" Label="" Variant="Variant.Outlined" >
+                    <MudSelectItem Value="@("VN")">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg" height="14" class="mr-1" /> VN
+                    </MudSelectItem>
+                    <MudSelectItem Value="@("EN")">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Hungary.png" height="14" class="mr-1" /> EN
+                    </MudSelectItem>
+
+                </MudSelect>
+            </div>
+          
+        </div>
+
     </MudToolBar>
-</MudPaper>
+
+
+
+
+ </MudPaper>
+
+
+
+
+
+
+
+
+
+
+
+
 @code {
+
+    public bool ToolbarCheckBox { get; set; } = false;
+
 
 
     private string searchText = "";
@@ -29,6 +71,15 @@
     {
         Console.WriteLine("Đang tìm kiếm: " + searchText);
     }
+ 
+    string country = "VN";
 
 }
+
+
+
+
+
+
+
 

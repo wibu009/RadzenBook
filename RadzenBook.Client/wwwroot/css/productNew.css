@@ -1,0 +1,109 @@
+﻿@import url('https://fonts.googleapis.com/css2?family-Open+Sans:wght@400;600&display-swap');
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: 'Open Sans',sans-serif;
+}
+
+#col {
+	margin: 0 auto;
+}
+
+ul.product-news {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+	ul.product-news li {
+		padding-left: 20px;
+		padding-right: 20px;
+		box-sizing: border-box;
+		margin-bottom: 30px;
+		width: 240px;
+		height: 340px;
+	}
+	
+		ul.product-news li .product-items {
+			position: relative;
+			background-clip: padding-box;
+			border: 10px solid transparent;
+			border-radius: 20px;
+		}
+
+			ul.product-news li .product-items:before {
+				content: " ";
+				position: absolute;
+				inset: 0;
+				z-index: -1;
+				margin: -10px;
+				border-radius: inherit;
+				background-image: linear-gradient(to right bottom,#ffa400,#ff6bcb);
+			}
+
+		ul.product-news li img {
+			width: 230px;
+			height: 270px;
+			background-color: wheat;
+		}
+
+		ul.product-news li .product-infos {
+			padding: 10px 0px;
+		}
+
+			ul.product-news li .product-infos a {
+				display: block;
+				text-decoration: none;
+			}
+
+				ul.product-news li .product-infos a.product-name {
+					text-align: center;
+					font-size: 800;
+					color: #111;
+				}
+
+			ul.product-news li .product-infos .product-prices {
+				color: #111;
+				font-size: 600;
+			}
+
+		ul.product-news li .product-tops a.buy-nows {
+			text-transform: uppercase;
+			text-decoration: none;
+			text-align: center;
+			display: block;
+			background-color: #446084;
+			color: #fff;
+			padding: 10px 0px;
+			position: absolute;
+			bottom: -40px;
+			width: 230px;
+			transform: 0.25s ease-in-out;
+			opacity: 0.85;
+		}
+
+		ul.product-news li .product-tops {
+			position: relative;
+			overflow: hidden;
+		}
+
+		ul.product-news li:hover a.buy-nows {
+			bottom: 0px;
+		}
+
+		ul.product-news li .product-tops .product-thumbs {
+			display: block;
+		}
+
+		ul.product-news li:hover .product-tops .product-thumbs img {
+			filter: opacity(80%);
+		}
+
+		ul.product-news li .product-tops .product-thumbs img {
+			display: block;
+		}
