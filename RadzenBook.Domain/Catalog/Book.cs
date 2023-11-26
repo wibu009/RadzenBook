@@ -2,8 +2,6 @@
 
 public class Book : BaseEntity<Guid>
 {
-    public string Name { get; set; } = default!;
-    public string Description { get; set; } = default!;
     public string ISBN { get; set; } = default!;
     public string Language { get; set; } = default!;
     public int PageCount { get; set; } = default!;
