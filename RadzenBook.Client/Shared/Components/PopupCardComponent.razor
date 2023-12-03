@@ -1,0 +1,88 @@
+﻿<div class="modal @modalClass" tabindex="-1" role="dialog" style="display:@modalDisplay; overflow-y: auto;">
+    <div class="rounded transition-all w-72 bg-white p-1 leading-normal absolute shadow-lg top-24 right-[21.875rem]">
+        <h3 class="rounded overflow-hidden p-2 my-2 w-full text-white bg-red-600 relative text-md">
+            Giỏ hàng của tôi (1 sản phẩm)
+
+            <p class="absolute cursor-pointer text-white top-1 right-1"
+                  @onclick="Close"
+                  aria-hidden="true">
+                &times;
+            </p>
+        </h3>
+        <ul>
+            <li class="relative pb-1">
+                <div class="grid mg-left-15">
+                    <div class="box-border float-left align-top w-1/3">
+                        <div class="text-center pr-4">
+                            <a href="/products">
+                                <img src="//product.hstatic.net/200000343865/product/6_4fda9c4d44814b78951d775bd8047cfe_small.jpg"
+                                     alt="Tý Quậy - Tập 6" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-zinc-800">
+                        <div class="text-left">
+                            <a class="no-underline text-xs"
+                               href="/products/ty-quay-tap-6-2021">Tý Quậy - Tập 6</a>
+                        </div>
+                        <div class="text-left">
+                            <span class="mb-1">Số lượng: 1</span>
+                            <span class="mb-1">Giá/sp: 36,000₫</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="rounded overflow-hidden m-1 p-1 w-full text-zinc-800 bg-neutral-100">
+            Tạm tính: <span class="text-red-600">36,000₫</span>
+        </div>
+        <div>
+            <a class="text-red-600 border-2 border-red-600 rounded overflow-hidden inline-block w-[48%] p-2 text-center uppercase text-xs no-underline"
+               href="cart">
+                Xem giỏ hàng
+            </a>
+            <a class="text-white border-2 border-red-600 bg-red-600 rounded overflow-hidden inline-block w-[48%] p-2 text-center uppercase text-xs no-underline"
+               href="payment">Thanh toán</a>
+        </div>
+    </div>
+</div>
+
+@if (showBackdrop)
+{
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+
+    [Parameter]
+    public RenderFragment? Title { get; set; }
+
+    [Parameter]
+    public RenderFragment? Body { get; set; }
+
+    [Parameter]
+    public RenderFragment? Footer { get; set; }
+
+    public Guid Guid = Guid.NewGuid();
+
+    private string modalDisplay = "none;";
+    private string modalClass = "";
+    private bool showBackdrop = false;
+
+    public void Open()
+    {
+        modalDisplay = "block;";
+        modalClass = "show";
+        showBackdrop = true;
+        StateHasChanged();
+    }
+
+    public void Close()
+    {
+        modalDisplay = "none";
+        modalClass = "";
+        showBackdrop = false;
+        StateHasChanged();
+    }
+}

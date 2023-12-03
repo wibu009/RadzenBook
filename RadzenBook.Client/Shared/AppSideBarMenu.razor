@@ -1,0 +1,85 @@
+﻿<link href="css/Navbar.css" rel="stylesheet" />
+
+
+<MudPaper Elevation="0">
+    <MudToolBar Class="d-flex justify-space-around flex-grow-1 gap-3"  >
+        <div style="display: flex; align-items: center;margin-left:100px">
+         <MudText Style="font-size:25px;color:red;">RadzenBook.com</MudText>
+            <MudIconButton Color="Color.Inherit" Style="margin-left:150px">
+                <MudIcon Icon="@Icons.Material.Filled.GridView" Style="font-size:25px" />
+                <MudIcon Icon="@Icons.Material.Filled.KeyboardArrowDown" />
+            </MudIconButton>
+         <MudTextField @bind-Value="searchText" Placeholder="Tìm kiếm..." Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Secondary" Style="width:400px; height:40px;;" />
+        </div>
+
+        <div style="display: flex; align-items: center;margin-right:250px">
+            <div style="display: flex; flex-direction: column; ">
+                <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" />
+                <span style="font-size:15px; margin-top: -10px;">Thông Báo</span>
+            </div>
+              <div style="display: flex; flex-direction: column;margin-left:30px ">
+                 <MudIconButton Icon="@Icons.Material.Outlined.PeopleAlt" Color="Color.Inherit" />
+                 <span style="font-size:15px; margin-top: -10px;">Tài Khoản</span>
+              </div>
+
+            <div style="display: flex; flex-direction: column;margin-left:30px">
+                <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Secondary" />
+                <span style="font-size:15px; margin-top: -10px;">Giỏ Hàng</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column;margin-left:30px;width:110px">
+                <MudSelect @bind-Value="@country" Label="" Variant="Variant.Outlined" >
+                    <MudSelectItem Value="@("VN")">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg" height="14" class="mr-1" /> VN
+                    </MudSelectItem>
+                    <MudSelectItem Value="@("EN")">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Hungary.png" height="14" class="mr-1" /> EN
+                    </MudSelectItem>
+
+                </MudSelect>
+            </div>
+          
+        </div>
+
+    </MudToolBar>
+
+
+
+
+ </MudPaper>
+
+
+
+
+
+
+
+
+
+
+
+
+@code {
+
+    public bool ToolbarCheckBox { get; set; } = false;
+
+
+
+    private string searchText = "";
+
+    private void HandleSearch()
+    {
+        Console.WriteLine("Đang tìm kiếm: " + searchText);
+    }
+ 
+    string country = "VN";
+
+}
+
+
+
+
+
+
+
+

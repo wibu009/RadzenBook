@@ -1,0 +1,17 @@
+﻿<MudAppBar Elevation="0">
+    @if (ToggleDrawer != null)
+    {
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="@Color.Inherit" Edge="@Edge.Start" OnClick="@ToggleDrawer"/>
+    }
+    <MudSpacer/>
+    <MudIconButton Icon="@Icons.Material.Filled.Search" Color="Color.Inherit" Edge="Edge.End"/>
+    <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" Edge="Edge.End"/>
+    <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Inherit" Edge="Edge.End"/>
+</MudAppBar>
+
+@code {
+
+    [Parameter]
+    public Action? ToggleDrawer { get; set; }
+
+}
