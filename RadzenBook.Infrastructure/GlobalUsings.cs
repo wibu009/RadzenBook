@@ -15,3 +15,5 @@ global using Microsoft.Extensions.Localization;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.IdentityModel.Tokens;
 global using RadzenBook.Application.Common;
+global using RadzenBook.Application.Common.Persistence.Repositories;
+global using RadzenBook.Domain.Catalog;

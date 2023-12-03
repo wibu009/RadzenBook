@@ -1,5 +1,6 @@
 ﻿{
   "ConnectionStrings": {
+    //This is the connection string for the SQL Server database
     "LocalConnection": "Server=(localdb)\\mssqllocaldb;Database=RadzenBookDB;Trusted_Connection=True;MultipleActiveResultSets=true"
   }
 }

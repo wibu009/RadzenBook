@@ -7,17 +7,10 @@ namespace RadzenBook.Application.Catalog.Demo.Command;
 
 public class UpdateDemoRequest : IRequest<Result<Unit>>
 {
-    [JsonIgnore]
-    public Guid Id { get; set; }
+    [JsonIgnore] public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string DemoEnum { get; set; } = string.Empty;
-    
-    public static UpdateDemoRequest SetId(Guid id, UpdateDemoRequest request)
-    {
-        request.Id = id;
-        return request;
-    }
 }
 
 public class UpdateDemoRequestValidator : CustomValidator<UpdateDemoRequest>
@@ -54,20 +47,24 @@ public class UpdateDemoRequestHandler : IRequestHandler<UpdateDemoRequest, Resul
         _t = t.Create(typeof(UpdateDemoRequestHandler));
         _userAccessor = infrastructureServiceManager.UserAccessor;
     }
-    
+
 
     public async Task<Result<Unit>> Handle(UpdateDemoRequest request, CancellationToken cancellationToken = default)
     {
         try
         {
-            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().GetByIdAsync(request.Id, cancellationToken: cancellationToken);
+            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>()
+                .GetByIdAsync(request.Id, cancellationToken: cancellationToken);
             if (demo == null)
             {
-                return Result<Unit>.Failure(_t["Demo with id {0} does not exist.", request.Id], (int)HttpStatusCode.NotFound);
+                return Result<Unit>.Failure(_t["Demo with id {0} does not exist.", request.Id],
+                    (int)HttpStatusCode.NotFound);
             }
+
             _mapper.Map(request, demo);
             demo.ModifiedBy = _userAccessor.GetUsername();
-            await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().UpdateAsync(demo, cancellationToken);
+            await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>()
+                .UpdateAsync(demo, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result<Unit>.Success(_t["Update demo successfully"]);
         }

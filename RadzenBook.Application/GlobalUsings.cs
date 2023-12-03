@@ -1,4 +1,5 @@
-﻿global using AutoMapper;
+﻿global using System.Linq.Expressions;
+global using AutoMapper;
 global using FluentValidation;
 global using MediatR;
 global using Microsoft.Extensions.DependencyInjection;
@@ -10,3 +11,4 @@ global using RadzenBook.Application.Common.Models;
 global using RadzenBook.Application.Common.Persistence;
 global using RadzenBook.Application.Common.Persistence.Repositories;
 global using RadzenBook.Application.Common.Validation;
+global using RadzenBook.Domain.Catalog;
