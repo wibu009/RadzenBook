@@ -14,4 +14,6 @@ public class Customer : BaseEntity<Guid>
     public virtual Cart Cart { get; set; } = default!;
     public virtual ICollection<CustomerAddress> Addresses { get; set; } = new HashSet<CustomerAddress>();
     public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+    public virtual ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
+    public virtual ICollection<CustomerDiscountCode> DiscountCodes { get; set; } = new HashSet<CustomerDiscountCode>();
 }

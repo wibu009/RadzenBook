@@ -8,3 +8,9 @@ public enum ProductStatus
     Featured,
     New
 }
+
+public enum ProductType
+{
+    Book,
+    Other
+}

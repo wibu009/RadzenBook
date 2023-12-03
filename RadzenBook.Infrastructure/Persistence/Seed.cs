@@ -74,22 +74,6 @@ public static class Seed
             await context.Demos.AddRangeAsync(demoFakers);
         }
 
-        // Create 20 photos
-        if (!context.Photos.Any())
-        {
-            var photoFakers = new Faker<Domain.Catalog.ProductImage>()
-                .RuleFor(p => p.Url, f => f.Image.PicsumUrl())
-                .RuleFor(p => p.IsMain, false)
-                .RuleFor(p => p.Id, f => f.Random.AlphaNumeric(8))
-                .RuleFor(p => p.CreatedBy, "System")
-                .RuleFor(p => p.CreatedAt, DateTime.UtcNow)
-                .RuleFor(p => p.ModifiedBy, "System")
-                .RuleFor(p => p.ModifiedAt, DateTime.UtcNow)
-                .Generate(20);
-
-            await context.Photos.AddRangeAsync(photoFakers);
-        }
-
         await context.SaveChangesAsync();
     }
 }

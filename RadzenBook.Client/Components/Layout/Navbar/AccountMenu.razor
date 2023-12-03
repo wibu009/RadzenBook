@@ -1,0 +1,44 @@
+﻿@using RadzenBook.Client.Models.Auth
+<MudMenu ActivationEvent="MouseEvent.LeftClick" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+    <ActivatorContent>
+        <MudChip Size="Size.Large" Color="Color.Primary" Label="true">
+            <AvatarContent>
+                @if (_userInfo?.Avatar != null)
+                {
+                    <MudAvatar Src="@_userInfo.Avatar" Size="Size.Medium" Class="mr-2" Color="Color.Primary">
+                        <MudImage Src="@_userInfo.Avatar" Alt="Avatar"/>
+                    </MudAvatar>
+                }
+                else
+                {
+                    <MudAvatar Color="Color.Secondary" Size="Size.Medium" Class="mr-2">
+                        @(new string(_userInfo?.DisplayName?[0] ?? ' ', 1))
+                    </MudAvatar>
+                }
+            </AvatarContent>
+            <ChildContent>
+                @_userInfo?.DisplayName
+            </ChildContent>
+        </MudChip>
+    </ActivatorContent>
+    <ChildContent>
+        <MudMenuItem Icon="@Icons.Material.Filled.Person" Href="/profile">Profile</MudMenuItem>
+        <MudMenuItem Icon="@Icons.Material.Filled.Settings" Href="/settings">Settings</MudMenuItem>
+        <MudMenuItem Icon="@Icons.Material.Filled.Help" Href="/help">Help</MudMenuItem>
+        <MudMenuItem Icon="@Icons.Material.Filled.Feedback" Href="/feedback">Feedback</MudMenuItem>
+        <MudDivider/>
+        <MudMenuItem Icon="@Icons.Material.Filled.ExitToApp">Logout</MudMenuItem>
+    </ChildContent>
+</MudMenu>
+
+@code {
+
+    private readonly UserInfo? _userInfo = new()
+    {
+        Avatar = "https://res.cloudinary.com/wibu009/image/upload/v1686510291/vi18iexo8riv098wcuvq.png",
+        DisplayName = "John Doe",
+        Email = "demo@example.com",
+        Token = "1234567890"
+    };
+
+}

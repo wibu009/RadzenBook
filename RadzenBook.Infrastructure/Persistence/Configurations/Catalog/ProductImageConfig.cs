@@ -5,5 +5,6 @@ public class ProductImageConfig : IEntityTypeConfiguration<ProductImage>
     public void Configure(EntityTypeBuilder<ProductImage> builder)
     {
         builder.ToTable("ProductImages", SchemaName.Catalog);
+        builder.Property(x => x.ImageUrl).IsRequired();
     }
 }

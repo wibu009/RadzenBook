@@ -8,6 +8,6 @@ public enum DiscountType
 
 public enum CustomerDiscountCodeStatus
 {
-    Used,
-    Unused
+    Unused,
+    Used
 }
