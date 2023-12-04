@@ -11,9 +11,9 @@ public class Order : BaseEntity<Guid>
     public decimal? Discount { get; set; }
     public decimal? TotalPrice { get; set; }
     public Guid CustomerId { get; set; }
-    public virtual Customer Customer { get; set; } = default!;
+    public virtual Customer? Customer { get; set; }
     public Guid? ShippingAddressId { get; set; }
-    public virtual CustomerAddress ShippingAddress { get; set; } = default!;
+    public virtual CustomerAddress? ShippingAddress { get; set; }
     public virtual ICollection<Payment> Payments { get; set; } = new HashSet<Payment>();
     public virtual ICollection<OrderItem> Items { get; set; } = new HashSet<OrderItem>();
     public virtual ICollection<OrderProgress> Progresses { get; set; } = new HashSet<OrderProgress>();

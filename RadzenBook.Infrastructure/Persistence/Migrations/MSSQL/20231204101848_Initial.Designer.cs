@@ -12,7 +12,7 @@ using RadzenBook.Infrastructure.Persistence;
 namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    [Migration("20231201103122_Initial")]
+    [Migration("20231204101848_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,7 +135,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Alias")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Biography")
@@ -156,7 +155,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
@@ -204,14 +202,12 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Height")
                         .HasColumnType("float");
 
                     b.Property<string>("ISBN")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -219,7 +215,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("bit");
 
                     b.Property<string>("Language")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -248,7 +243,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
 
@@ -359,7 +353,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CartId")
+                    b.Property<Guid?>("CartId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -381,7 +375,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
@@ -411,7 +405,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -426,7 +419,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
@@ -441,7 +433,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CartId")
+                    b.Property<Guid?>("CartId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -456,12 +448,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -475,7 +465,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -488,17 +477,17 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Customers", "catalog");
                 });
@@ -510,12 +499,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AddressLine1")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddressLine2")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
@@ -523,22 +510,18 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ConsigneeName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ConsigneePhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -550,7 +533,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDefault")
@@ -568,12 +551,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ZipCode")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -598,10 +579,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("DiscountCodeId")
+                    b.Property<Guid?>("DiscountCodeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
@@ -676,7 +657,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -734,22 +714,18 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("BankAccountName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("BankAccountNumber")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("BankBranch")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("BankName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -768,26 +744,21 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmergencyContactName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("EmergencyContactPhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("EmergencyContactRelationship")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("EthnicOrigin")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -795,12 +766,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("int");
 
                     b.Property<string>("IdentificationCode")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("IdentificationIssuedCountry")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -808,7 +777,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IdentificationIssuedPlace")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
@@ -819,7 +787,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -832,22 +799,18 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PersonalEmail")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PersonalPhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("PersonalTaxCode")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Position")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -855,7 +818,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SocialInsuranceCode")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -877,12 +839,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AddressLine1")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddressLine2")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
@@ -890,12 +850,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -907,7 +865,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("EmployeeId")
+                    b.Property<Guid?>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
@@ -922,7 +880,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -962,7 +919,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
@@ -1015,18 +971,15 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal?>("ShippingCost")
-                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Tax")
-                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("TotalPrice")
-                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -1157,7 +1110,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("Paid")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
@@ -1210,6 +1162,9 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -1235,7 +1190,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("DiscountAmount")
@@ -1271,7 +1225,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -1299,7 +1252,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -1360,12 +1312,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -1381,12 +1331,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AddressLine1")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddressLine2")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
@@ -1394,12 +1342,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1425,12 +1371,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ZipCode")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -1479,7 +1423,6 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
@@ -1752,15 +1695,11 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 {
                     b.HasOne("RadzenBook.Domain.Catalog.Cart", "Cart")
                         .WithMany("Items")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CartId");
 
                     b.HasOne("RadzenBook.Domain.Catalog.Product", "Product")
                         .WithMany("CartItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Cart");
 
@@ -1771,18 +1710,14 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 {
                     b.HasOne("RadzenBook.Infrastructure.Identity.User.AppUser", null)
                         .WithOne("Customer")
-                        .HasForeignKey("RadzenBook.Domain.Catalog.Customer", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RadzenBook.Domain.Catalog.Customer", "UserId");
                 });
 
             modelBuilder.Entity("RadzenBook.Domain.Catalog.CustomerAddress", b =>
                 {
                     b.HasOne("RadzenBook.Domain.Catalog.Customer", "Customer")
                         .WithMany("Addresses")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.Navigation("Customer");
                 });
@@ -1791,15 +1726,11 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 {
                     b.HasOne("RadzenBook.Domain.Catalog.Customer", "Customer")
                         .WithMany("DiscountCodes")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("RadzenBook.Domain.Catalog.DiscountCode", "DiscountCode")
                         .WithMany("CustomerDiscountCodes")
-                        .HasForeignKey("DiscountCodeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DiscountCodeId");
 
                     b.Navigation("Customer");
 
@@ -1819,9 +1750,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 {
                     b.HasOne("RadzenBook.Domain.Catalog.Employee", "Employee")
                         .WithMany("Addresses")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeId");
 
                     b.Navigation("Employee");
                 });
@@ -1982,8 +1911,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 {
                     b.Navigation("Addresses");
 
-                    b.Navigation("Cart")
-                        .IsRequired();
+                    b.Navigation("Cart");
 
                     b.Navigation("DiscountCodes");
 

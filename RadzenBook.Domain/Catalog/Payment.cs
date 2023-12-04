@@ -7,5 +7,5 @@ public class Payment : BaseEntity<Guid>
     public PaymentStatus Status { get; set; }
     public PaymentMethod Method { get; set; }
     public Guid OrderId { get; set; }
-    public virtual Order Order { get; set; } = default!;
+    public virtual Order? Order { get; set; }
 }

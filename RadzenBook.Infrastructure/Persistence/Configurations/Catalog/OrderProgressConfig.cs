@@ -5,6 +5,5 @@ public class OrderProgressConfig : IEntityTypeConfiguration<OrderProgress>
     public void Configure(EntityTypeBuilder<OrderProgress> builder)
     {
         builder.ToTable("OrderProgresses", SchemaName.Catalog);
-        builder.Property(x => x.Status).IsRequired();
     }
 }

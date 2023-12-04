@@ -26,7 +26,9 @@ public static class Seed
             // Create a manager account
             var managerUser = new AppUser
             {
-                UserName = "manager", Email = "manager@example.com",
+                UserName = "manager",
+                Email = "manager@example.com",
+                DisplayName = "Manager",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true
             };
@@ -38,7 +40,10 @@ public static class Seed
             {
                 var employeeUser = new AppUser
                 {
-                    UserName = $"employee{i}", Email = $"employee{i}@example.com", EmailConfirmed = true,
+                    UserName = $"employee{i}",
+                    Email = $"employee{i}@example.com",
+                    DisplayName = $"Employee {i}",
+                    EmailConfirmed = true,
                     PhoneNumberConfirmed = true
                 };
                 await userManager.CreateAsync(employeeUser, "123456@Abc"); // Set a secure password
@@ -50,7 +55,10 @@ public static class Seed
             {
                 var customerUser = new AppUser
                 {
-                    UserName = $"customer{i}", Email = $"customer{i}@example.com", EmailConfirmed = true,
+                    UserName = $"customer{i}",
+                    Email = $"customer{i}@example.com",
+                    DisplayName = $"Customer {i}",
+                    EmailConfirmed = true,
                     PhoneNumberConfirmed = true
                 };
                 await userManager.CreateAsync(customerUser, "123456@Abc"); // Set a secure password

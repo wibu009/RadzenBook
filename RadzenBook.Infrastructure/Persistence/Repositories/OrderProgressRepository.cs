@@ -1,0 +1,8 @@
+﻿namespace RadzenBook.Infrastructure.Persistence.Repositories;
+
+public class OrderProgressRepository : BaseRepository<OrderProgress, Guid>, IOrderProgressRepository
+{
+    protected OrderProgressRepository(DbContext context) : base(context)
+    {
+    }
+}

@@ -2,28 +2,28 @@
 
 public class Employee : BaseEntity<Guid>
 {
-    public string FirstName { get; set; } = default!;
-    public string LastName { get; set; } = default!;
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
     public Sex Gender { get; set; }
-    public string EthnicOrigin { get; set; } = default!;
+    public string? EthnicOrigin { get; set; }
     public DateTime DateOfBirth { get; set; }
     public DateTime JoinedDate { get; set; }
-    public string PersonalPhoneNumber { get; set; } = default!;
-    public string PersonalEmail { get; set; } = default!;
-    public string Position { get; set; } = default!;
-    public string IdentificationCode { get; set; } = default!;
+    public string? PersonalPhoneNumber { get; set; }
+    public string? PersonalEmail { get; set; }
+    public string? Position { get; set; }
+    public string? IdentificationCode { get; set; }
     public DateTime IdentificationIssuedDate { get; set; }
-    public string IdentificationIssuedPlace { get; set; } = default!;
-    public string IdentificationIssuedCountry { get; set; } = default!;
-    public string SocialInsuranceCode { get; set; } = default!;
-    public string PersonalTaxCode { get; set; } = default!;
-    public string BankAccountNumber { get; set; } = default!;
-    public string BankAccountName { get; set; } = default!;
-    public string BankName { get; set; } = default!;
-    public string BankBranch { get; set; } = default!;
-    public string EmergencyContactName { get; set; } = default!;
-    public string EmergencyContactPhoneNumber { get; set; } = default!;
-    public string EmergencyContactRelationship { get; set; } = default!;
+    public string? IdentificationIssuedPlace { get; set; }
+    public string? IdentificationIssuedCountry { get; set; }
+    public string? SocialInsuranceCode { get; set; }
+    public string? PersonalTaxCode { get; set; }
+    public string? BankAccountNumber { get; set; }
+    public string? BankAccountName { get; set; }
+    public string? BankName { get; set; }
+    public string? BankBranch { get; set; }
+    public string? EmergencyContactName { get; set; }
+    public string? EmergencyContactPhoneNumber { get; set; }
+    public string? EmergencyContactRelationship { get; set; }
     public decimal Salary { get; set; }
     public decimal Bonus { get; set; }
     public Guid UserId { get; set; }

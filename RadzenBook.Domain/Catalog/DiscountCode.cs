@@ -2,7 +2,7 @@
 
 public class DiscountCode : BaseEntity<Guid>
 {
-    public string Code { get; set; } = default!;
+    public string? Code { get; set; }
     public decimal DiscountPercentage { get; set; }
     public decimal DiscountAmount { get; set; }
     public DiscountType DiscountType { get; set; }

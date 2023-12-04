@@ -24,8 +24,8 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Alias = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    Alias = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -47,8 +47,8 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -86,7 +86,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DiscountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DiscountType = table.Column<int>(type: "int", nullable: false),
@@ -112,7 +112,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -131,9 +131,9 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -206,6 +206,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                     Currency = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -231,12 +232,12 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    AddressLine2 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ZipCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    AddressLine2 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ZipCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     AddressType = table.Column<int>(type: "int", nullable: false),
                     PublisherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -286,15 +287,15 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Gender = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsGuest = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -309,8 +310,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         column: x => x.UserId,
                         principalSchema: "identity",
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -319,28 +319,28 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Gender = table.Column<int>(type: "int", nullable: false),
-                    EthnicOrigin = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EthnicOrigin = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     JoinedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PersonalPhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PersonalEmail = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Position = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    IdentificationCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PersonalPhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    PersonalEmail = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    Position = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    IdentificationCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     IdentificationIssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IdentificationIssuedPlace = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    IdentificationIssuedCountry = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    SocialInsuranceCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PersonalTaxCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    BankAccountNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    BankAccountName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    BankName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    BankBranch = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    EmergencyContactName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    EmergencyContactPhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    EmergencyContactRelationship = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    IdentificationIssuedPlace = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    IdentificationIssuedCountry = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    SocialInsuranceCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    PersonalTaxCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    BankAccountNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    BankAccountName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    BankName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    BankBranch = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmergencyContactName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmergencyContactPhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    EmergencyContactRelationship = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Bonus = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -486,10 +486,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ISBN = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Language = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ISBN = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Language = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Translator = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     PageCount = table.Column<int>(type: "int", nullable: false),
                     Weight = table.Column<double>(type: "float", nullable: false),
@@ -540,8 +540,8 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DiscountType = table.Column<int>(type: "int", nullable: false),
                     DiscountPercent = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
@@ -574,7 +574,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsMain = table.Column<bool>(type: "bit", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -627,17 +627,17 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ConsigneeName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ConsigneePhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    AddressLine2 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ZipCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    ConsigneeName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ConsigneePhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    AddressLine2 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    State = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    ZipCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     AddressType = table.Column<int>(type: "int", nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -652,8 +652,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         column: x => x.CustomerId,
                         principalSchema: "catalog",
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -662,8 +661,8 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DiscountCodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DiscountCodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -679,15 +678,13 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         column: x => x.CustomerId,
                         principalSchema: "catalog",
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_CustomerDiscountCodes_DiscountCodes_DiscountCodeId",
                         column: x => x.DiscountCodeId,
                         principalSchema: "catalog",
                         principalTable: "DiscountCodes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -696,7 +693,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -732,13 +729,13 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    AddressLine2 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    AddressLine2 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    State = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AddressType = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -753,8 +750,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         column: x => x.EmployeeId,
                         principalSchema: "catalog",
                         principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -797,8 +793,8 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -813,15 +809,13 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         column: x => x.CartId,
                         principalSchema: "catalog",
                         principalTable: "Carts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_CartItems_Products_ProductId",
                         column: x => x.ProductId,
                         principalSchema: "catalog",
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -834,10 +828,10 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                     Status = table.Column<int>(type: "int", nullable: false),
                     Paid = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Shipped = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ShippingCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ShippingCost = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ShippingAddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -932,7 +926,7 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Paid = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Paid = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Method = table.Column<int>(type: "int", nullable: false),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -1027,7 +1021,8 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                 schema: "catalog",
                 table: "Customers",
                 column: "UserId",
-                unique: true);
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeAddresses_EmployeeId",

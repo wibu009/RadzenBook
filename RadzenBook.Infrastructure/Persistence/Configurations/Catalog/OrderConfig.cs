@@ -6,9 +6,9 @@ public class OrderConfig : IEntityTypeConfiguration<Order>
     {
         builder.ToTable("Orders", SchemaName.Catalog);
         builder.Property(x => x.Discount).HasColumnType("decimal(18,2)");
-        builder.Property(x => x.TotalPrice).HasColumnType("decimal(18,2)").IsRequired();
-        builder.Property(x => x.ShippingCost).HasColumnType("decimal(18,2)").IsRequired();
-        builder.Property(x => x.Tax).HasColumnType("decimal(18,2)").IsRequired();
+        builder.Property(x => x.TotalPrice).HasColumnType("decimal(18,2)");
+        builder.Property(x => x.ShippingCost).HasColumnType("decimal(18,2)");
+        builder.Property(x => x.Tax).HasColumnType("decimal(18,2)");
         builder.HasMany(x => x.Payments)
             .WithOne(x => x.Order)
             .HasForeignKey(x => x.OrderId);
