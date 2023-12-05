@@ -2,7 +2,7 @@
 
 public class CustomerAddressRepository : BaseRepository<CustomerAddress, Guid>, ICustomerAddressRepository
 {
-    protected CustomerAddressRepository(DbContext context) : base(context)
+    public CustomerAddressRepository(DbContext context) : base(context)
     {
     }
 }

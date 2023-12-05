@@ -2,7 +2,7 @@
 
 public class CartRepository : BaseRepository<Cart, Guid>, ICartRepository
 {
-    protected CartRepository(DbContext context) : base(context)
+    public CartRepository(DbContext context) : base(context)
     {
     }
 }

@@ -2,7 +2,7 @@
 
 public class PublisherAddressRepository : BaseRepository<PublisherAddress, Guid>, IPublisherAddressRepository
 {
-    protected PublisherAddressRepository(DbContext context) : base(context)
+    public PublisherAddressRepository(DbContext context) : base(context)
     {
     }
 }

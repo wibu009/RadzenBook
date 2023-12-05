@@ -1,7 +1,7 @@
 ﻿using RadzenBook.Application.Common.Security;
 using RadzenBook.Domain.Common.Enums;
 
-namespace RadzenBook.Application.Catalog.Demo.Command;
+namespace RadzenBook.Application.Catalog.Demo;
 
 public class CreateDemoRequest : IRequest<Result<Unit>>
 {
@@ -35,8 +35,8 @@ public class CreateDemoRequestHandler : IRequestHandler<CreateDemoRequest, Resul
     private readonly ILogger<CreateDemoRequestHandler> _logger;
 
     public CreateDemoRequestHandler(
-        IUnitOfWork unitOfWork, 
-        IMapper mapper, 
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
         IStringLocalizerFactory t,
         IInfrastructureServiceManager infrastructureServiceManager,
         ILoggerFactory loggerFactory)
@@ -55,7 +55,8 @@ public class CreateDemoRequestHandler : IRequestHandler<CreateDemoRequest, Resul
             var demo = _mapper.Map<Domain.Catalog.Demo>(request);
             demo.CreatedBy = _userAccessor.GetUsername();
             demo.ModifiedBy = _userAccessor.GetUsername();
-            await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().CreateAsync(demo, cancellationToken);
+            await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>()
+                .CreateAsync(demo, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result<Unit>.Success(_t["Create demo successfully"]);
         }

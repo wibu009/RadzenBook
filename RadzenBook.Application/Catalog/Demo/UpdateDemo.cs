@@ -1,9 +1,7 @@
-﻿using System.Net;
-using System.Text.Json.Serialization;
-using RadzenBook.Application.Common.Security;
+﻿using RadzenBook.Application.Common.Security;
 using RadzenBook.Domain.Common.Enums;
 
-namespace RadzenBook.Application.Catalog.Demo.Command;
+namespace RadzenBook.Application.Catalog.Demo;
 
 public class UpdateDemoRequest : IRequest<Result<Unit>>
 {

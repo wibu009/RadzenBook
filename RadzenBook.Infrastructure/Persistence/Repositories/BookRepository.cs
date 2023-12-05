@@ -2,7 +2,7 @@
 
 public class BookRepository : BaseRepository<Book, Guid>, IBookRepository
 {
-    protected BookRepository(DbContext context) : base(context)
+    public BookRepository(DbContext context) : base(context)
     {
     }
 }

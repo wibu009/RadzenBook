@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Catalog.Demo.Command;
-using RadzenBook.Application.Catalog.Demo.Query;
-using RadzenBook.Infrastructure.Identity.Role;
+﻿using RadzenBook.Application.Catalog.Demo;
 
 namespace RadzenBook.Host.Controllers;
 
@@ -14,7 +12,7 @@ public class DemoController : BaseApiController
     public async Task<IActionResult> GetPagedDemos(
         [FromQuery] PagingParams pagingParams,
         CancellationToken cancellationToken)
-        => HandlePagedResult(await Mediator.Send(new GetDemoRequest { PagingParams = pagingParams },
+        => HandlePagedResult(await Mediator.Send(new GetDemoListRequest { PagingParams = pagingParams },
             cancellationToken));
 
     [HttpGet("{id:guid}")]

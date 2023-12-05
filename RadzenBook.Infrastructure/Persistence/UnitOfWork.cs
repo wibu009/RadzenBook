@@ -33,11 +33,9 @@ public sealed class UnitOfWork : IUnitOfWork, IAsyncDisposable
         var baseRepositoryType = typeof(BaseRepository<TEntity, TKey>);
 
         //get class implementing TRepository with DbContext as constructor parameter
-        var repositoryType = Assembly.GetAssembly(baseRepositoryType)?.GetTypes()
-            .FirstOrDefault(t => t.GetConstructors().Any(c =>
-                c.GetParameters().Any(p => p.ParameterType == typeof(DbContext)) &&
-                t.GetInterfaces().Any(i => i == type)));
-
+        var repositoryType = Assembly.GetAssembly(baseRepositoryType)?.GetTypes().FirstOrDefault(t =>
+            t.BaseType == baseRepositoryType && t.GetInterfaces().Any(i => i == type) && t.GetConstructors()
+                .Any(c => c.GetParameters().Any(p => p.ParameterType == typeof(DbContext))));
         var repositoryInstance =
             Activator.CreateInstance(repositoryType ?? throw new InvalidOperationException("Repository not found"),
                 _context);

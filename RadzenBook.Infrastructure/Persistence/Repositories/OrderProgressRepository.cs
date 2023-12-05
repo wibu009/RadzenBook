@@ -2,7 +2,7 @@
 
 public class OrderProgressRepository : BaseRepository<OrderProgress, Guid>, IOrderProgressRepository
 {
-    protected OrderProgressRepository(DbContext context) : base(context)
+    public OrderProgressRepository(DbContext context) : base(context)
     {
     }
 }

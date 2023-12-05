@@ -1,6 +1,6 @@
-﻿namespace RadzenBook.Application.Catalog.Photo;
+﻿namespace RadzenBook.Application.Catalog.ProductImage;
 
-public class PhotoDto
+public class ProductImageDto
 {
     public string Id { get; set; } = default!;
     public string Url { get; set; } = default!;

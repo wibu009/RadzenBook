@@ -1,6 +1,6 @@
 ﻿using RadzenBook.Application.Common.Security;
 
-namespace RadzenBook.Application.Catalog.Demo.Command;
+namespace RadzenBook.Application.Catalog.Demo;
 
 public class DeleteDemoRequest : IRequest<Result<Unit>>
 {
@@ -33,20 +33,23 @@ public class DeleteDemoRequestHandler : IRequestHandler<DeleteDemoRequest, Resul
     {
         try
         {
-            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().GetByIdAsync(request.Id, cancellationToken: cancellationToken);
+            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>()
+                .GetByIdAsync(request.Id, cancellationToken: cancellationToken);
             if (demo is null)
             {
                 return Result<Unit>.Failure(_t["Demo not found."]);
             }
 
-            await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().DeleteAsync(demo, cancellationToken);
+            await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>()
+                .DeleteAsync(demo, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Result<Unit>.Success(Unit.Value);
         }
         catch (Exception e)
         {
             _logger.LogError(e, e.Message);
-            throw HandleRequestException.Create(nameof(DeleteDemoRequest), nameof(DeleteDemoRequestHandler), e.Message, e);
+            throw HandleRequestException.Create(nameof(DeleteDemoRequest), nameof(DeleteDemoRequestHandler), e.Message,
+                e);
         }
     }
 }

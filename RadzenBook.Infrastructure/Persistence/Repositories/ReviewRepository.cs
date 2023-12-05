@@ -2,7 +2,7 @@
 
 public class ReviewRepository : BaseRepository<Review, Guid>, IReviewRepository
 {
-    protected ReviewRepository(DbContext context) : base(context)
+    public ReviewRepository(DbContext context) : base(context)
     {
     }
 }

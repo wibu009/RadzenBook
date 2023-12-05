@@ -2,7 +2,7 @@
 
 public class PublisherRepository : BaseRepository<Publisher, Guid>, IPublisherRepository
 {
-    protected PublisherRepository(DbContext context) : base(context)
+    public PublisherRepository(DbContext context) : base(context)
     {
     }
 }

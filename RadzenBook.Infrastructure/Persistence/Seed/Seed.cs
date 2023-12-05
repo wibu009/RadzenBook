@@ -82,6 +82,23 @@ public static class Seed
             await context.Demos.AddRangeAsync(demoFakers);
         }
 
+        // Create 20 authors
+        if (!context.Authors.Any())
+        {
+            var authorFakes = new Faker<Author>()
+                .RuleFor(a => a.FullName, f => f.Person.FullName)
+                .RuleFor(a => a.Alias, f => f.Person.UserName)
+                .RuleFor(a => a.Biography, f => f.Lorem.Paragraph())
+                .RuleFor(a => a.DateOfBirth, f => f.Person.DateOfBirth)
+                .RuleFor(a => a.CreatedBy, "System")
+                .RuleFor(a => a.CreatedAt, DateTime.UtcNow)
+                .RuleFor(a => a.ModifiedBy, "System")
+                .RuleFor(a => a.ModifiedAt, DateTime.UtcNow)
+                .Generate(20);
+
+            await context.Authors.AddRangeAsync(authorFakes);
+        }
+
         await context.SaveChangesAsync();
     }
 }

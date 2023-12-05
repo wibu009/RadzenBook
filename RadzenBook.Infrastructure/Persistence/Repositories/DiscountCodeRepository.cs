@@ -2,7 +2,7 @@
 
 public class DiscountCodeRepository : BaseRepository<DiscountCode, Guid>, IDiscountCodeRepository
 {
-    protected DiscountCodeRepository(DbContext context) : base(context)
+    public DiscountCodeRepository(DbContext context) : base(context)
     {
     }
 }

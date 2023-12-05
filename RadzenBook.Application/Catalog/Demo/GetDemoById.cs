@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Application.Catalog.Demo.Query;
+﻿namespace RadzenBook.Application.Catalog.Demo;
 
 public class GetDemoByIdRequest : IRequest<Result<DemoDto>>
 {
@@ -11,11 +11,11 @@ public class GetDemoByIdRequestHandler : IRequestHandler<GetDemoByIdRequest, Res
     private readonly IMapper _mapper;
     private readonly ILogger<GetDemoByIdRequestHandler> _logger;
     private readonly IStringLocalizer _t;
-    
+
     public GetDemoByIdRequestHandler(
         IUnitOfWork unitOfWork,
-        IMapper mapper, 
-        ILoggerFactory logger, 
+        IMapper mapper,
+        ILoggerFactory logger,
         IStringLocalizerFactory t)
     {
         _unitOfWork = unitOfWork;
@@ -28,11 +28,13 @@ public class GetDemoByIdRequestHandler : IRequestHandler<GetDemoByIdRequest, Res
     {
         try
         {
-            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>().GetByIdAsync(request.Id, cancellationToken: cancellationToken);
+            var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>()
+                .GetByIdAsync(request.Id, cancellationToken: cancellationToken);
             if (demo is null)
             {
                 return Result<DemoDto>.Failure("Demo not found.");
             }
+
             var demoDto = _mapper.Map<DemoDto>(demo);
             return Result<DemoDto>.Success(demoDto);
         }

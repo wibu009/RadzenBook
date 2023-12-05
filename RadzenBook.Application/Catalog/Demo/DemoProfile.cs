@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Catalog.Demo.Command;
-using RadzenBook.Application.Catalog.Demo.Query;
-using RadzenBook.Domain.Common.Enums;
+﻿using RadzenBook.Domain.Common.Enums;
 
 namespace RadzenBook.Application.Catalog.Demo;
 
@@ -19,6 +17,6 @@ public class DemoProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.DemoEnum, opt => opt.MapFrom(src => Enum.Parse<DemoEnum>(src.DemoEnum)))
             .ForMember(dest => dest.Description, opt => opt.Condition(src => !string.IsNullOrEmpty(src.Description)))
-            .ForMember(dest =>dest.Name, opt => opt.Condition(src => !string.IsNullOrEmpty(src.Name)));
+            .ForMember(dest => dest.Name, opt => opt.Condition(src => !string.IsNullOrEmpty(src.Name)));
     }
 }

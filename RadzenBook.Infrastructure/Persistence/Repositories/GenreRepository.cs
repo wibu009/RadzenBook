@@ -2,7 +2,7 @@
 
 public class GenreRepository : BaseRepository<Genre, Guid>, IGenreRepository
 {
-    protected GenreRepository(DbContext context) : base(context)
+    public GenreRepository(DbContext context) : base(context)
     {
     }
 }

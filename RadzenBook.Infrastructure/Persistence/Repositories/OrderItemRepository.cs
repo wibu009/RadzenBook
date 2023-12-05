@@ -2,7 +2,7 @@
 
 public class OrderItemRepository : BaseRepository<OrderItem, Guid>, IOrderItemRepository
 {
-    protected OrderItemRepository(DbContext context) : base(context)
+    public OrderItemRepository(DbContext context) : base(context)
     {
     }
 }

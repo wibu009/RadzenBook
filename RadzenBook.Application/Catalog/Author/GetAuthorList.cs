@@ -1,0 +1,62 @@
+﻿namespace RadzenBook.Application.Catalog.Author;
+
+public class GetAuthorListRequest : IRequest<Result<PaginatedList<AuthorDto>>>
+{
+    public AuthorPagingParams PagingParams { get; set; } = default!;
+}
+
+public class GetAuthorListRequestHandler : IRequestHandler<GetAuthorListRequest, Result<PaginatedList<AuthorDto>>>
+{
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+    private readonly ILogger<GetAuthorListRequestHandler> _logger;
+
+    public GetAuthorListRequestHandler(
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        ILoggerFactory logger,
+        IStringLocalizerFactory t)
+    {
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+        _logger = logger.CreateLogger<GetAuthorListRequestHandler>();
+        t.Create(typeof(GetAuthorListRequestHandler));
+    }
+
+    public async Task<Result<PaginatedList<AuthorDto>>> Handle(GetAuthorListRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            Expression<Func<Domain.Catalog.Author, bool>>? filter = null;
+            if (!string.IsNullOrEmpty(request.PagingParams.Name) || !string.IsNullOrEmpty(request.PagingParams.Alias))
+            {
+                filter = author =>
+                    (string.IsNullOrEmpty(request.PagingParams.Name) ||
+                     author.FullName!.Contains(request.PagingParams.Name) &&
+                     string.IsNullOrEmpty(request.PagingParams.Alias) ||
+                     author.Alias!.Contains(request.PagingParams.Alias!));
+            }
+
+            var authors = await _unitOfWork.GetRepository<IAuthorRepository, Domain.Catalog.Author, Guid>()
+                .GetPagedAsync(filter: filter,
+                    pageNumber: request.PagingParams.PageNumber,
+                    pageSize: request.PagingParams.PageSize,
+                    cancellationToken: cancellationToken);
+            var totalCount = await _unitOfWork.GetRepository<IAuthorRepository, Domain.Catalog.Author, Guid>()
+                .CountAsync(filter: filter, cancellationToken: cancellationToken);
+
+            var authorsDto = _mapper.Map<List<AuthorDto>>(authors);
+            var authorsDtoPaginated = new PaginatedList<AuthorDto>(authorsDto, totalCount,
+                request.PagingParams.PageNumber,
+                request.PagingParams.PageSize);
+
+            return Result<PaginatedList<AuthorDto>>.Success(authorsDtoPaginated);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, e.Message);
+            throw HandleRequestException.Create(nameof(Handle), nameof(GetAuthorListRequestHandler), e.Message, e);
+        }
+    }
+}

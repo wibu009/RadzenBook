@@ -2,7 +2,7 @@
 
 public class ProductRepository : BaseRepository<Product, Guid>, IProductRepository
 {
-    protected ProductRepository(DbContext context) : base(context)
+    public ProductRepository(DbContext context) : base(context)
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace RadzenBook.Domain.Common.Enums;
 
-public enum Sex
+public enum Gender
 {
     NotKnown,
     Male,

@@ -1,7 +1,10 @@
 ﻿global using System.Linq.Expressions;
+global using System.Net;
+global using System.Text.Json.Serialization;
 global using AutoMapper;
 global using FluentValidation;
 global using MediatR;
+global using Microsoft.AspNetCore.Http;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Localization;
 global using Microsoft.Extensions.Logging;

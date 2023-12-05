@@ -2,7 +2,7 @@
 
 public class EmployeeAddressRepository : BaseRepository<EmployeeAddress, Guid>, IEmployeeAddressRepository
 {
-    protected EmployeeAddressRepository(DbContext context) : base(context)
+    public EmployeeAddressRepository(DbContext context) : base(context)
     {
     }
 }

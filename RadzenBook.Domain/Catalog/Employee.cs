@@ -4,7 +4,7 @@ public class Employee : BaseEntity<Guid>
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
-    public Sex Gender { get; set; }
+    public Gender Gender { get; set; }
     public string? EthnicOrigin { get; set; }
     public DateTime DateOfBirth { get; set; }
     public DateTime JoinedDate { get; set; }
