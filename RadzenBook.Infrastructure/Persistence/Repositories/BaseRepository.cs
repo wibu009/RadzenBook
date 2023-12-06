@@ -176,6 +176,8 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
     {
         try
         {
+            entity.CreatedAt = DateTime.UtcNow;
+            entity.ModifiedAt = DateTime.UtcNow;
             await DbSet.AddAsync(entity, cancellationToken);
         }
         catch (Exception e)

@@ -7,7 +7,6 @@ public class Product : BaseEntity<Guid>
     public CurrencyUnit Currency { get; set; }
     public decimal UnitPrice { get; set; }
     public ProductStatus Status { get; set; }
-    public ProductType Type { get; set; }
     public Guid CategoryId { get; set; }
     public virtual Category Category { get; set; } = new();
     public virtual Book Book { get; set; } = new();

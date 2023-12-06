@@ -43,3 +43,41 @@ msgstr "Update demo successfully"
 #: Result<T>.Message("Delete demo successfully")
 msgid "Delete demo successfully"
 msgstr "Delete demo successfully"
+
+#: Author result message
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: Result<T>.Message("Create author successfully")
+msgid "Create author successfully"
+msgstr "Create author successfully"
+
+#: Result<T>.Message("Update author successfully")
+msgid "Update author successfully"
+msgstr "Update author successfully"
+
+#: Result<T>.Message("Delete author successfully")
+msgid "Delete author successfully"
+msgstr "Delete author successfully"
+
+#: Result<T>.Message("Author not found")
+msgid "Author not found"
+msgstr "Author not found"
+
+#: Category result message
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: Result<T>.Message("Create category successfully")
+msgid "Create category successfully"
+msgstr "Create category successfully"
+
+#: Result<T>.Message("Update category successfully")
+msgid "Update category successfully"
+msgstr "Update category successfully"
+
+#: Result<T>.Message("Delete category successfully")
+msgid "Delete category successfully"
+msgstr "Delete category successfully"
+
+#: Result<T>.Message("Category not found")
+msgid "Category not found"
+msgstr "Category not found"

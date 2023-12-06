@@ -2,7 +2,7 @@
 using RadzenBook.Application.Common.Persistence;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
-using RadzenBook.Infrastructure.Persistence.Repositories;
+using RadzenBook.Infrastructure.Persistence.Seed;
 
 namespace RadzenBook.Infrastructure.Persistence;
 
@@ -13,7 +13,7 @@ public static class Startup
         services.AddDbContextPool<RadzenBookDbContext>(options =>
         {
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            
+
             var connectionString = env == "Development"
                 ? configuration.GetConnectionString("LocalConnection")
                 : configuration.GetConnectionString("RemoteConnection");
@@ -23,13 +23,13 @@ public static class Startup
 
             options.UseSqlServer(connectionString);
         });
-        
+
         services.AddScoped<IUnitOfWork>(provider =>
             new UnitOfWork(provider.GetRequiredService<RadzenBookDbContext>()));
-        
+
         return services;
     }
-    
+
     public static async Task ApplyMigrations(this IHost host)
     {
         using var scope = host.Services.CreateScope();

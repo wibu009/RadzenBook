@@ -16,13 +16,13 @@ public class DeleteAuthorRequestHandler : IRequestHandler<DeleteAuthorRequest, R
 
     public DeleteAuthorRequestHandler(
         IUnitOfWork unitOfWork,
-        ILoggerFactory logger,
+        ILoggerFactory loggerFactory,
         IStringLocalizerFactory t,
         IInfrastructureServiceManager infrastructureServiceManager)
     {
         _unitOfWork = unitOfWork;
         _photoAccessor = infrastructureServiceManager.PhotoAccessor;
-        _logger = logger.CreateLogger<DeleteAuthorRequestHandler>();
+        _logger = loggerFactory.CreateLogger<DeleteAuthorRequestHandler>();
         _t = t.Create(typeof(DeleteAuthorRequestHandler));
     }
 
@@ -34,18 +34,13 @@ public class DeleteAuthorRequestHandler : IRequestHandler<DeleteAuthorRequest, R
                 .GetByIdAsync(request.Id, cancellationToken: cancellationToken);
             if (author is null)
             {
-                return Result<Unit>.Failure(_t["Author not found."]);
-            }
-
-            if (!string.IsNullOrEmpty(author.ImageUrl))
-            {
-                await _photoAccessor.DeletePhotoByUrlAsync(author.ImageUrl);
+                return Result<Unit>.Failure(_t["Author not found"]);
             }
 
             await _unitOfWork.GetRepository<IAuthorRepository, Domain.Catalog.Author, Guid>()
-                .DeleteAsync(author, cancellationToken: cancellationToken);
+                .SoftDeleteAsync(author, cancellationToken: cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            return Result<Unit>.Success(_t["Author deleted successfully."]);
+            return Result<Unit>.Success(_t["Author deleted successfully"]);
         }
         catch (Exception e)
         {

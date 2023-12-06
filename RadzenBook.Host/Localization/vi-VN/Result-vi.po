@@ -43,3 +43,41 @@ msgstr "Cập nhật demo thành công"
 #: Result<T>.Message("Delete demo successfully")
 msgid "Delete demo successfully"
 msgstr "Xóa demo thành công"
+
+#: Author result message
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: Result<T>.Message("Create author successfully")
+msgid "Create author successfully"
+msgstr "Tạo tác giả thành công"
+
+#: Result<T>.Message("Update author successfully")
+msgid "Update author successfully"
+msgstr "Cập nhật tác giả thành công"
+
+#: Result<T>.Message("Delete author successfully")
+msgid "Delete author successfully"
+msgstr "Xóa tác giả thành công"
+
+#: Result<T>.Message("Author not found")
+msgid "Author not found"
+msgstr "Không tìm thấy tác giả"
+
+#: Category result message
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: Result<T>.Message("Create category successfully")
+msgid "Create category successfully"
+msgstr "Tạo danh mục thành công"
+
+#: Result<T>.Message("Update category successfully")
+msgid "Update category successfully"
+msgstr "Cập nhật danh mục thành công"
+
+#: Result<T>.Message("Delete category successfully")
+msgid "Delete category successfully"
+msgstr "Xóa danh mục thành công"
+
+#: Result<T>.Message("Category not found")
+msgid "Category not found"
+msgstr "Không tìm thấy danh mục"

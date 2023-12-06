@@ -14,12 +14,12 @@ public class GetAuthorListRequestHandler : IRequestHandler<GetAuthorListRequest,
     public GetAuthorListRequestHandler(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        ILoggerFactory logger,
+        ILoggerFactory loggerFactory,
         IStringLocalizerFactory t)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
-        _logger = logger.CreateLogger<GetAuthorListRequestHandler>();
+        _logger = loggerFactory.CreateLogger<GetAuthorListRequestHandler>();
         t.Create(typeof(GetAuthorListRequestHandler));
     }
 

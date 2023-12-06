@@ -21,7 +21,6 @@ public class CreateAuthorRequestValidator : CustomValidator<CreateAuthorRequest>
             .NotEmpty().WithMessage(t["FullName is required"])
             .MaximumLength(50).WithMessage(t["FullName must not exceed {0} characters", 450]);
         RuleFor(x => x.Alias)
-            .NotEmpty().WithMessage(t["Alias is required"])
             .MaximumLength(450).WithMessage(t["Alias must not exceed {0} characters", 450]);
         RuleFor(x => x.Biography)
             .MaximumLength(2000).WithMessage(t["Biography must not exceed {0} characters", 2000]);

@@ -98,3 +98,45 @@ msgstr "Mô tả không được vượt quá {0} ký tự"
 #: WithMessage((_, demoEnum) => T["DemoEnum is not valid"])
 msgid "DemoEnum is not valid"
 msgstr "DemoEnum không hợp lệ"
+
+#: Author validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, fullName) => T["FullName is required"])
+msgid "FullName is required"
+msgstr "Họ tên là bắt buộc"
+
+#: WithMessage((_, fullName) => T["FullName must not exceed {0} characters"])
+msgid "FullName must not exceed {0} characters"
+msgstr "Họ tên không được vượt quá {0} ký tự"
+
+#: WithMessage((_, fullName) => T["Alias must not exceed {0} characters"])
+msgid "Alias must not exceed {0} characters"
+msgstr "Bút danh không được vượt quá {0} ký tự"
+
+#: WithMessage((_, alias) => T["Biography must not exceed {0} characters"])
+msgid "Biography must not exceed {0} characters"
+msgstr "Tiểu sử không được vượt quá {0} ký tự"
+
+#: WithMessage((_, alias) => T["DateOfBirth must be less than today"])
+msgid "DateOfBirth must be less than today"
+msgstr "Ngày sinh phải nhỏ hơn ngày hiện tại"
+
+#: WithMessage((_, alias) => T["DateOfDeath must be greater than DateOfBirth"])
+msgid "DateOfDeath must be greater than DateOfBirth"
+msgstr "Ngày mất phải lớn hơn ngày sinh"
+
+#: Category validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, name) => T["Title is required"])
+msgid "Title is required"
+msgstr "Tiêu đề là bắt buộc"
+
+#: WithMessage((_, name) => T["Title must not exceed {0} characters"])
+msgid "Title must not exceed {0} characters"
+msgstr "Tiêu đề không được vượt quá {0} ký tự"
+
+#: WithMessage((_, name) => T["Description must not exceed {0} characters"])
+msgid "Description must not exceed {0} characters"
+msgstr "Mô tả không được vượt quá {0} ký tự"

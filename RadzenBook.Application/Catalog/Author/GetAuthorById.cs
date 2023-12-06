@@ -15,12 +15,12 @@ public class GetAuthorByIdRequestHandler : IRequestHandler<GetAuthorByIdRequest,
     public GetAuthorByIdRequestHandler(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        ILoggerFactory logger,
+        ILoggerFactory loggerFactory,
         IStringLocalizerFactory t)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
-        _logger = logger.CreateLogger<GetAuthorByIdRequestHandler>();
+        _logger = loggerFactory.CreateLogger<GetAuthorByIdRequestHandler>();
         _t = t.Create(typeof(GetAuthorByIdRequestHandler));
     }
 

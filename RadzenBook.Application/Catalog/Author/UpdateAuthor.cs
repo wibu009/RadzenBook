@@ -73,7 +73,7 @@ public class UpdateAuthorRequestHandler : IRequestHandler<UpdateAuthorRequest, R
             if (request.Image is not null)
             {
                 var photoUploadResult = !string.IsNullOrEmpty(author.ImageUrl)
-                    ? await _photoAccessor.UpdatePhotoByUrlAsync(request.Image, author.ImageUrl)
+                    ? await _photoAccessor.UpdatePhotoAsync(request.Image, author.ImageUrl)
                     : await _photoAccessor.AddPhotoAsync(request.Image);
 
                 author.ImageUrl = photoUploadResult.Url;

@@ -30,7 +30,7 @@ public class AuthService : IAuthService
     #endregion
 
     #region Constructor
-    
+
     public AuthService(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
@@ -38,7 +38,7 @@ public class AuthService : IAuthService
         ILoggerFactory loggerFactory,
         IStringLocalizerFactory t,
         IConfiguration config,
-        IHttpContextAccessor httpContextAccessor, 
+        IHttpContextAccessor httpContextAccessor,
         ICacheService cacheService)
     {
         _userManager = userManager;
@@ -52,22 +52,26 @@ public class AuthService : IAuthService
         _googleAuthService = new GoogleAuthService(config, httpContextAccessor);
         _facebookAuthService = new FacebookAuthService(config, httpContextAccessor);
     }
-    
+
     #endregion
-    
+
     #region Public Methods
-    
+
     public async Task<Result<UserAuthDto>> LoginAsync(LoginRequest loginRequest)
     {
         try
         {
             var user = await _userManager.Users
                 .SingleOrDefaultAsync(x => x.UserName == loginRequest.Username || x.Email == loginRequest.Username);
-            if (user == null) return Result<UserAuthDto>.Failure(_t["Incorrect username or password"], (int)HttpStatusCode.Unauthorized);
-            
+            if (user == null)
+                return Result<UserAuthDto>.Failure(_t["Incorrect username or password"],
+                    (int)HttpStatusCode.Unauthorized);
+
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginRequest.Password, false);
-            if (!result.Succeeded) return Result<UserAuthDto>.Failure(_t["Incorrect username or password"], (int)HttpStatusCode.Unauthorized);
-            
+            if (!result.Succeeded)
+                return Result<UserAuthDto>.Failure(_t["Incorrect username or password"],
+                    (int)HttpStatusCode.Unauthorized);
+
             // if (!user.EmailConfirmed) return Result<UserAuthDto>.Failure("Email not confirmed", (int)HttpStatusCode.Unauthorized);
             var userAuthDto = CreateUserAuthDto(user);
             await SetRefreshTokenAsync(user);
@@ -86,17 +90,19 @@ public class AuthService : IAuthService
     {
         try
         {
-            var clientUrl =_httpContextAccessor.HttpContext!.Request.GetUrl().IsNullOrEmpty() 
-                ? _authenticationSettings.DefaultClientAppUrl 
-                : _httpContextAccessor.HttpContext.Request.GetUrl();
+            var clientUrl = _httpContextAccessor.HttpContext!.Request.GetUrlFromRequest().IsNullOrEmpty()
+                ? _authenticationSettings.DefaultClientAppUrl
+                : _httpContextAccessor.HttpContext.Request.GetUrlFromRequest();
             var clientIp = _httpContextAccessor.HttpContext.GetIpAddress();
             var state = Guid.NewGuid().ToString();
             _cacheService.Set(state, Tuple.Create(clientUrl, clientIp), TimeSpan.FromMinutes(5));
-            
+
             return await Task.FromResult(provider.ToLower() switch
             {
-                "facebook" => Result<string>.Success(data: _facebookAuthService.GetLoginLinkUrl(state), statusCode: (int)HttpStatusCode.Redirect),
-                "google" => Result<string>.Success(data: _googleAuthService.GetLoginLinkUrl(state), statusCode: (int)HttpStatusCode.Redirect),
+                "facebook" => Result<string>.Success(data: _facebookAuthService.GetLoginLinkUrl(state),
+                    statusCode: (int)HttpStatusCode.Redirect),
+                "google" => Result<string>.Success(data: _googleAuthService.GetLoginLinkUrl(state),
+                    statusCode: (int)HttpStatusCode.Redirect),
                 _ => Result<string>.Failure(_t["Invalid provider"], (int)HttpStatusCode.BadRequest)
             });
         }
@@ -107,7 +113,8 @@ public class AuthService : IAuthService
         }
     }
 
-    public async Task<Result<string>> ExternalLoginCallbackAsync(string provider, string code, string? error = "", string? state = "")
+    public async Task<Result<string>> ExternalLoginCallbackAsync(string provider, string code, string? error = "",
+        string? state = "")
     {
         try
         {
@@ -117,7 +124,7 @@ public class AuthService : IAuthService
                 "facebook" => await _facebookAuthService.GetUserFromCode(code),
                 _ => Result<string>.Failure(_t["Invalid provider"], (int)HttpStatusCode.BadRequest)
             };
-            
+
             if (user == null)
             {
                 _logger.LogError("External login error: {RemoteError}", error);
@@ -126,7 +133,7 @@ public class AuthService : IAuthService
 
             var (clientUrl, clientIp) = _cacheService.Get<Tuple<string, string>>(state!)!;
             await _cacheService.RemoveAsync(state!);
-            
+
             var signInCode = _tokenService.GenerateToken();
 
             var userExist = await _userManager.FindByEmailAsync(user.Email as string);
@@ -137,7 +144,7 @@ public class AuthService : IAuthService
                     data: clientUrl!.AddQueryParam("signInCode", signInCode),
                     statusCode: (int)HttpStatusCode.Redirect);
             }
-            
+
             var appUser = new AppUser
             {
                 UserName = user.Email,
@@ -146,13 +153,13 @@ public class AuthService : IAuthService
                 AvatarUrl = user.Picture,
                 EmailConfirmed = true
             };
-            
+
             await _userManager.CreateAsync(appUser);
             await _userManager.AddToRoleAsync(appUser, RoleName.Customer);
-            
+
             _logger.LogInformation("User {UserName} registered successfully", appUser.UserName);
             await _cacheService.SetAsync(signInCode, Tuple.Create(appUser.Id, clientIp), TimeSpan.FromMinutes(5));
-            
+
             return Result<string>.Success(
                 data: clientUrl!.AddQueryParam("signInCode", signInCode),
                 statusCode: (int)HttpStatusCode.Redirect);
@@ -169,8 +176,9 @@ public class AuthService : IAuthService
         try
         {
             var userExist = await _userManager.FindByNameAsync(registerRequest.Username);
-            if (userExist != null) return Result<UserAuthDto>.Failure(_t["Username already exists"], (int)HttpStatusCode.BadRequest);
-            
+            if (userExist != null)
+                return Result<UserAuthDto>.Failure(_t["Username already exists"], (int)HttpStatusCode.BadRequest);
+
             var user = new AppUser
             {
                 UserName = registerRequest.Username,
@@ -180,7 +188,7 @@ public class AuthService : IAuthService
 
             await _userManager.CreateAsync(user, registerRequest.Password);
             await _userManager.AddToRoleAsync(user, RoleName.Customer);
-            
+
             var userAuthDto = CreateUserAuthDto(user);
             _logger.LogInformation("User {UserName} registered successfully", user.UserName);
             return Result<UserAuthDto>.Success(userAuthDto);
@@ -191,13 +199,13 @@ public class AuthService : IAuthService
             throw ServiceException.Create(nameof(RegisterAsync), nameof(AuthService), e.Message, e);
         }
     }
-    
+
     public async Task<Result<UserAuthDto>> RefreshTokenAsync(string? signInCode = null)
     {
         try
         {
             AppUser? user;
-            
+
             if (!signInCode.IsNullOrEmpty())
             {
                 var (userId, clientIp) = _cacheService.Get<Tuple<Guid, string>>(signInCode!)!;
@@ -206,38 +214,44 @@ public class AuthService : IAuthService
                     _logger.LogError("Invalid sign signInCode");
                     return Result<UserAuthDto>.Failure(_t["Invalid sign signInCode"], (int)HttpStatusCode.Unauthorized);
                 }
+
                 await _cacheService.RemoveAsync(signInCode!);
-                
+
                 if (clientIp != _httpContextAccessor.HttpContext!.GetIpAddress())
                 {
                     _logger.LogError("Invalid request ip: {ClientIp}", clientIp);
                     return Result<UserAuthDto>.Failure(_t["Invalid sign signInCode"], (int)HttpStatusCode.Unauthorized);
                 }
-                
+
                 user = await _userManager.FindByIdAsync(userId.ToString());
-                if (user == null) return Result<UserAuthDto>.Failure(_t["Invalid sign signInCode"], (int)HttpStatusCode.Unauthorized);
-                
+                if (user == null)
+                    return Result<UserAuthDto>.Failure(_t["Invalid sign signInCode"], (int)HttpStatusCode.Unauthorized);
+
                 await SetRefreshTokenAsync(user);
                 _logger.LogInformation("User {UserName} refreshed token successfully", user.UserName);
-                
+
                 return Result<UserAuthDto>.Success(CreateUserAuthDto(user));
             }
 
             var refreshToken = _httpContextAccessor.HttpContext!.Request.Cookies["refreshToken"];
-            
-            if (string.IsNullOrEmpty(refreshToken)) return Result<UserAuthDto>.Failure(_t["Invalid refresh token"], (int)HttpStatusCode.Unauthorized);
-            
-            user = await _userManager.Users.Include(x => x.RefreshTokens).SingleOrDefaultAsync(x => x.RefreshTokens.Any(t => t.Token == refreshToken));
-            if (user == null) return Result<UserAuthDto>.Failure(_t["Invalid refresh token"], (int)HttpStatusCode.Unauthorized);
-            
+
+            if (string.IsNullOrEmpty(refreshToken))
+                return Result<UserAuthDto>.Failure(_t["Invalid refresh token"], (int)HttpStatusCode.Unauthorized);
+
+            user = await _userManager.Users.Include(x => x.RefreshTokens)
+                .SingleOrDefaultAsync(x => x.RefreshTokens.Any(t => t.Token == refreshToken));
+            if (user == null)
+                return Result<UserAuthDto>.Failure(_t["Invalid refresh token"], (int)HttpStatusCode.Unauthorized);
+
             var oldRefreshToken = user.RefreshTokens.Single(x => x.Token == refreshToken);
-            if (!oldRefreshToken.IsActive) return Result<UserAuthDto>.Failure(_t["Invalid refresh token"], (int)HttpStatusCode.Unauthorized);
+            if (!oldRefreshToken.IsActive)
+                return Result<UserAuthDto>.Failure(_t["Invalid refresh token"], (int)HttpStatusCode.Unauthorized);
             oldRefreshToken.Revoked = DateTime.UtcNow;
             await _userManager.UpdateAsync(user);
-            
+
             await SetRefreshTokenAsync(user);
             _logger.LogInformation("User {UserName} refreshed token successfully", user.UserName);
-            
+
             return Result<UserAuthDto>.Success(CreateUserAuthDto(user));
         }
         catch (Exception e)
@@ -246,9 +260,9 @@ public class AuthService : IAuthService
             throw ServiceException.Create(nameof(RefreshTokenAsync), nameof(AuthService), e.Message, e);
         }
     }
-    
+
     #endregion
-    
+
     #region Private Methods
 
     private async Task SetRefreshTokenAsync(AppUser user)
@@ -260,17 +274,17 @@ public class AuthService : IAuthService
             Expires = DateTime.UtcNow.AddDays(_authenticationSettings.JwtSettings.RefreshTokenExpirationInDays),
         });
         await _userManager.UpdateAsync(user);
-        
+
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
             Expires = DateTime.UtcNow.AddDays(_authenticationSettings.JwtSettings.RefreshTokenExpirationInDays),
         };
         _httpContextAccessor.HttpContext!.Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
-        
+
         _logger.LogInformation("User {UserName} set refresh token successfully", user.UserName);
     }
-    
+
     private UserAuthDto CreateUserAuthDto(AppUser user)
     {
         var userAuthDto = new UserAuthDto
@@ -283,6 +297,6 @@ public class AuthService : IAuthService
 
         return userAuthDto;
     }
-    
+
     #endregion
 }
