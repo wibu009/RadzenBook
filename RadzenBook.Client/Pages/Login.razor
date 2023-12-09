@@ -1,63 +1,59 @@
 ﻿@page "/login"
-@using Microsoft.AspNetCore.WebUtilities;
 @inject IAuthService AuthService
-@inject ILocalStorageService LocalStorage
 @inject NavigationManager NavigationManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject ICartService CartService
 
-<PageTitle>Login</PageTitle>
+<PageTitle>Đăng nhập</PageTitle>
 
-<EditForm Model="user" OnValidSubmit="HandleLogin" >
-    <DataAnnotationsValidator />
-    <div class="mb-3">
-        <label for="email">Email</label>
-        <InputText id="email" @bind-Value="user.Email" class="form-control"></InputText>
-        <ValidationMessage For="@(() => user.Email)" />
+<link href="css/app.css" rel="stylesheet" />
+
+<div class="container mt-4 p-0">
+    <h1 class="page-title">Đăng nhập</h1>
+    <div class="row px-md-4 px-2 py-4">
+        <div class="col-lg-8">
+            <EditForm Model="user" OnValidSubmit="HandleLogin">
+                <DataAnnotationsValidator />
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField Label="Email" @bind-Value="user.Email"
+                                      For="@(() => user.Email)"></MudTextField>
+                    </MudCardContent>
+                    <MudCardContent>
+                        <MudTextField Label="Mật khẩu" @bind-Value="user.Password"
+                                      For="@(() => user.Password)"></MudTextField>
+                    </MudCardContent>
+                </MudCard>
+                <div class="text-danger">
+                    <span>@errorMessage</span>
+                </div>
+                <div class="mt-4">
+                    <div> Bạn chưa có tài khoản ? </div>
+                    <MudButton OnClick="PlaceRegister">
+                        Đăng ký
+                    </MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" Style="float: right;">
+                        Đăng nhập
+                    </MudButton>
+                </div>
+            </EditForm>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="password">Password</label>
-        <InputText id="password" @bind-Value="user.Password" class="form-control" type="password"></InputText>
-        <ValidationMessage For="@(() => user.Password)" />
-    </div>
-    <button type="submit" class="btn btn-primary"> Login </button>
-</EditForm>
-<div class="text-danger">
-    <span>@errorMessage</span>
 </div>
 
+
+
 @code {
+
     private UserLoginDTO user = new UserLoginDTO();
 
     private string errorMessage = string.Empty;
 
-    private string returnUrl = string.Empty;
-
-    protected override void OnInitialized()
+    private async Task PlaceRegister()
     {
-        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
-        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("returnUrl", out var url))
-        {
-            returnUrl = url;
-        }
+        NavigationManager.NavigateTo("register");
     }
 
     private async Task HandleLogin()
     {
-        var result = await AuthService.Login(user);
-        if (result.Success)
-        {
-            errorMessage = string.Empty;
-
-            await LocalStorage.SetItemAsync("authToken", result.Data);
-            await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            await CartService.StoreCartItems(true);
-            await CartService.GetCartItemsCount();
-            NavigationManager.NavigateTo(returnUrl);
-        }
-        else
-        {
-            errorMessage = result.Message;
-        }
+        Console.WriteLine("Login...");
     }
 }

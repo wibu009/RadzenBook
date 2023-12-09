@@ -4,11 +4,11 @@ namespace RadzenBook.Client.Models
 {
     public class UserRegisterDTO
     {
-        [Required(ErrorMessage = "Email is required"), EmailAddress(ErrorMessage = "The Email field is not valid")]
+        [Required(ErrorMessage = "Không được để trống email"), EmailAddress(ErrorMessage = "Email không hợp lệ")]
         public string Email { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Password is required"), StringLength(100, MinimumLength = 6, ErrorMessage = "Password have to shorter than 100 characters & minimum characters is 6")]
+        [Required(ErrorMessage = "Mật khẩu không được để trống"), StringLength(100, MinimumLength = 6, ErrorMessage = "Mật khẩu phải chứa ít nhất 6 ký tự & không dài quá 100 ký tự")]
         public string Password { get; set; } = string.Empty;
-        [Compare("Password", ErrorMessage = "The passwords do not match")]
+        [Compare("Password", ErrorMessage = "Mật khẩu không trùng khớp")]
         public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

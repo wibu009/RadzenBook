@@ -1,0 +1,105 @@
+﻿@inject IOrderService OrderService
+@inject NavigationManager NavigationManager
+
+<div>
+
+    @if (order != null && order.Items.Count != 0)
+    {
+        <MudTable Items="order.Items" Hover="true" Striped="true" Dense="true" Class="mb-2">
+            <HeaderContent>
+                <MudTh></MudTh>
+                <MudTh>Sản phẩm</MudTh>
+                <MudTh>Đơn giá</MudTh>
+                <MudTh>Số lượng</MudTh>
+                <MudTh>Tổng giá</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Image"><MudImage Src="@context.ImageUrl" Width="100" Height="100" /></MudTd>
+                <MudTd DataLabel="Sản phẩm">@context.Title</MudTd>
+                <MudTd DataLabel="Đơn giá">@context.Price ₫</MudTd>
+                <MudNumericField @bind-Value="@context.Quantity"
+                             For="@(() => @context.Quantity)"
+                             Min="1"
+                             Style="width:100px; margin-top:48px;"></MudNumericField>
+                <MudTd DataLabel="Tổng giá">@(context.Price * context.Quantity) ₫</MudTd>
+                <MudTd>
+                    <MudIconButton Icon="@Icons.Material.Filled.Cancel"
+                               Color="Color.Error"
+                               Variant="Variant.Filled"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+
+    <div class="px-md-4 px-2 pt-3">
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Thông tin thanh toán</h2>
+            </div>
+            <div class="section-content section-customer-information no-mb">
+                <p class="section-content-text">
+                    Bạn đã có tài khoản?
+                    <a class="text-primary cursor-pointer" @onclick="PlaceLogin">Đăng nhập</a>
+                </p>
+
+                <EditForm Model="userInfo" OnValidSubmit="PostInfo">
+                    <DataAnnotationsValidator />
+                    <MudCard>
+                        <MudCardContent>
+                            <MudTextField Label="Họ và tên" @bind-Value="userInfo.CustomerName"
+                                          For="@(() => userInfo.CustomerName)"></MudTextField>
+                        </MudCardContent>
+                        <MudCardContent>
+                            <MudTextField Label="Email" @bind-Value="userInfo.Email"
+                                          For="@(() => userInfo.Email)"></MudTextField>
+                        </MudCardContent>
+                        <MudCardContent>
+                            <MudTextField Label="Số điện thoại" @bind-Value="userInfo.PhoneNumber"
+                                          For="@(() => userInfo.PhoneNumber)"></MudTextField>
+                        </MudCardContent>
+                        <MudCardContent>
+                            <MudTextField Label="Địa chỉ" @bind-Value="userInfo.Address"
+                                          For="@(() => userInfo.Address)"></MudTextField>
+                        </MudCardContent>
+                    </MudCard>
+                    <div class="mt-4">
+                        <MudButton OnClick="PlaceCart">
+                            Giỏ hàng
+                        </MudButton>
+                        <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" Style="float: right;">
+                            Thanh toán
+                        </MudButton>
+                    </div>
+                </EditForm>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private OrderItemResponseDTO order = new OrderItemResponseDTO();
+
+    private CreateUnauthorizedUserInfoDTO userInfo = new CreateUnauthorizedUserInfoDTO();
+
+    protected override async Task OnInitializedAsync()
+    {
+        order = OrderService.GetOrderItems();
+    }
+
+    private void PostInfo()
+    {
+        Console.WriteLine(order);
+    }
+
+    private async Task PlaceCart()
+    {
+        NavigationManager.NavigateTo("cart");
+    }
+
+    private async Task PlaceLogin()
+    {
+        NavigationManager.NavigateTo("login");
+    }
+
+}

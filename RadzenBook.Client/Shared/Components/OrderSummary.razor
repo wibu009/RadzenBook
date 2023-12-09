@@ -1,0 +1,39 @@
+﻿@inject IOrderService OrderService
+
+<div class="col-lg-4 payment-summary">
+    <p class="fw-bold pt-lg-0 pt-4 pb-4">Thanh toán</p>
+    <div class="card px-md-3 px-2 pt-4">
+        <div class="d-flex justify-content-between b-bottom">
+            <input type="text" class="ps-2" placeholder="Mã giảm giá" />
+            <div class="btn btn-primary">Sử dụng</div>
+        </div>
+        <div class="d-flex flex-column b-bottom">
+            @foreach(var item in orderItems)
+            {
+                <div class="d-flex justify-content-between py-3">
+                    <small class="text-muted">[@item.Title] x @item.Quantity</small>
+                    <p>@item.Price đ</p>
+                </div>
+            }
+            <div class="d-flex justify-content-between pb-3">
+                <small class="text-muted">Phí ship:</small>
+                <p>@order.ShippingCost</p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <small class="text-muted">Tổng tiền</small>
+                <p>@(orderItems.Sum(item => (item.Price * item.Quantity)) + order.ShippingCost ) đ</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private OrderItemResponseDTO order = new OrderItemResponseDTO();
+    List<CartItemResponseDTO> orderItems = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        order = OrderService.GetOrderItems();
+        orderItems = order.Items;
+    }
+}

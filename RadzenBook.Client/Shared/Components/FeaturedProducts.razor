@@ -1,0 +1,60 @@
+﻿@inject IBookService BookService
+
+<div style="display: flex; justify-content: center; align-items: center;padding-top:30px;">
+    <div>
+        <MudText Style="font-size:40px ;color:black">@HeaderText</MudText>
+    </div>
+</div>
+
+
+<MudGrid Justify="Justify.Center" Style="padding-top:30px;padding-bottom:20px;">
+
+    <div class="wrapper">
+        <ul class="products">
+            @foreach (var book in Books)
+            {
+                <MudItem md="3">
+                    <li>
+                        <div class="product-item">
+                            <div class="product-top">
+                                <a href="#" class="product-thumb">
+                                    <img src="@book.ImageUrl" />
+                                </a>
+                                <a href="#" class="buy-now">Mua Ngay</a>
+                            </div>
+                            <div class="product-info">
+                                <a href="#">@book.Title</a>
+                                <div class="product-price">@book.Price ₫</div>
+                            </div>
+                        </div>
+                    </li>
+                </MudItem>
+            }
+        </ul>
+    </div>
+
+    <div style="padding-top:7px; margin-left: 990px;">
+        <span style="display: flex; align-items: center;">
+            <a href="/Product" style="text-decoration: none; display: flex; align-items: center;color:red;">
+                Xem thêm
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-right: 10px" />
+                <MudIcon Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Secondary" Style="font-size: medium; margin-left: -17px" />
+            </a>
+        </span>
+    </div>
+
+</MudGrid>
+
+@code {
+
+    [Parameter]
+    public string? HeaderText { get; set; }
+
+    private List<Book> Books { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Books = BookService.GetFeaturedBooks();
+    }
+
+}

@@ -14,7 +14,7 @@
         </div>
     </NextButtonTemplate>
     <ChildContent>
-        @foreach (var item in carouselItem)
+        @foreach (var item in CarouselItem)
         {
             <MudCarouselItem>
                 <div class="carousel-slide" style="background-image: @item;  background-size: cover; background-position: center; height: 100%; width: 100%;">
@@ -32,11 +32,12 @@
                 </div>
             </MudCarouselItem>
         }
+
     </ChildContent>
 </MudCarousel>
 
 @code {
-    List<string> carouselItem  = new List<string>
+    private List<string> CarouselItem = new List<string>
     {
         "url(img/slider10.jpg)",
         "url(img/slider_1.jpg)",

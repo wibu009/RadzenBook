@@ -1,0 +1,15 @@
+﻿<MudIconButton Color="Color.Inherit" Style="margin-left:150px">
+    <MudIcon Icon="@Icons.Material.Filled.GridView" Style="font-size:25px" />
+    <MudIcon Icon="@Icons.Material.Filled.KeyboardArrowDown" />
+</MudIconButton>
+<MudTextField @bind-Value="searchText" Placeholder="Tìm kiếm..." Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Secondary" Style="width:400px; height:40px;" />
+
+@code {
+    private string searchText = "";
+
+    private void HandleSearch()
+    {
+        Console.WriteLine("Đang tìm kiếm: " + searchText);
+    }
+
+}

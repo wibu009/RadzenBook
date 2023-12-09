@@ -1,48 +1,15 @@
-﻿<MudPaper Elevation="0">
+﻿<link href="css/Navbar.css" rel="stylesheet" />
+
+<MudPaper Elevation="0">
     <MudToolBar Class="d-flex justify-space-around flex-grow-1 gap-3">
-        <div class="flex items-center ml-24">
-            <MudText Style="font-size:25px;color:red;">RadzenBook.com</MudText>
+        <div style="display: flex; align-items: center;margin-left:100px">
+            <MudLink Href="/" Color="Color.Error" Style="font-size:25px; text-decoration: none;">RadzenBook</MudLink>
+           <SearchBar />
         </div>
-
-        <Search />
-
         <div style="display: flex; align-items: center;margin-right:250px">
-            <div style="display: flex; flex-direction: column; ">
-                <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" />
-                <span style="font-size:15px; margin-top: -10px;">Thông Báo</span>
-            </div>
-            <div style="display: flex; flex-direction: column;margin-left:30px ">
-                <UserButton />
-            </div>
-
-            <div style=" display: flex; flex-direction: column;margin-left:30px">
-                <CartButton />
-            </div>
-
-            <div style="display: flex; flex-direction: column;margin-left:30px;width:110px">
-                <MudSelect @bind-Value="@country" Label="" Variant="Variant.Outlined">
-                    <MudSelectItem Value="@("VN")">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg" height="14" class="mr-1" /> VN
-                    </MudSelectItem>
-                    <MudSelectItem Value="@("EN")">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Hungary.png" height="14" class="mr-1" /> EN
-                    </MudSelectItem>
-
-                </MudSelect>
-            </div>
-
+            <UserButton />
+            <CartButton />
+            <LanguageButton />
         </div>
-
     </MudToolBar>
-
 </MudPaper>
-
-@code {
-    string country = "VN";
-}
-
-
-
-
-
-

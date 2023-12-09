@@ -4,9 +4,9 @@ namespace RadzenBook.Client.Models
 {
     public class UserLoginDTO
     {
-        [Required(ErrorMessage = "Email is required"), EmailAddress(ErrorMessage = "The Email field is not valid")]
+        [Required(ErrorMessage = "Không được để trống Email"), EmailAddress(ErrorMessage = "Email không hợp lệ")]
         public string Email { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = "Không được để trống mật khẩu")]
         public string Password { get; set; } = string.Empty;
     }
 }

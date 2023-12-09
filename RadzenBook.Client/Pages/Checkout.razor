@@ -1,0 +1,26 @@
+﻿@page "/checkout"
+
+<PageTitle>Thanh Toán</PageTitle>
+
+<link href="css/app.css" rel="stylesheet" />
+
+<div class="container mt-4 p-0">
+    <div class="row px-md-4 px-2 py-4">
+        <h1 class="page-title">Thanh toán</h1>
+        <div class="col-lg-8">
+            @if (!isInfo)
+            {
+                <Order />
+            }
+            else
+            {
+                <Payment />
+            }
+        </div>
+        <OrderSummary />
+    </div>
+</div>
+
+@code {
+    private bool isInfo = false;
+}

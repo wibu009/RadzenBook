@@ -1,0 +1,16 @@
+﻿<div style="display: flex; flex-direction: column;margin-left:30px;width:110px">
+    <MudSelect @bind-Value="@country" Label="" Variant="Variant.Outlined">
+        <MudSelectItem Value="@("VN")">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg" height="14" class="mr-1" /> VN
+        </MudSelectItem>
+        <MudSelectItem Value="@("EN")">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Hungary.png" height="14" class="mr-1" /> EN
+        </MudSelectItem>
+
+    </MudSelect>
+</div>
+
+@code {
+    string country = "VN";
+}
+

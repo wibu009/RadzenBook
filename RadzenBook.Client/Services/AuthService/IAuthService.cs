@@ -1,6 +1,4 @@
-﻿using RadzenBook.Client.Models;
-
-namespace RadzenBook.Client.Services.AuthService
+﻿namespace RadzenBook.Client.Services.AuthService
 {
     public interface IAuthService
     {

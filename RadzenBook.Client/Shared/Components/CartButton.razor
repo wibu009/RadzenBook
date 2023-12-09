@@ -1,27 +1,88 @@
-﻿@inject ISyncLocalStorageService LocalStorage
-@inject ICartService CartService
-@implements IDisposable
+﻿@inject ICartService CartService
+@inject NavigationManager NavigationManager
 
-<a href="cart" class="btn btn-info">
-    <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" />
-    <span class="badge">@GetProductCount()</span>
-</a>
+<link href="css/popcart.css" rel="stylesheet" />
+
+<div style="display: flex; flex-direction: column;margin-left:30px">
+    <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Inherit" OnClick="@ToggleCart" @onfocusout="HideCart"></MudIconButton>
+    <span style="font-size:15px; margin-top: -10px;">Giỏ Hàng</span>
+</div>
+
+<MudPopover Open="@_isShowCart" Fixed="true" Class="mt-16 px-4 pt-4">
+    <div class="popcart-container">
+        <h3 class="pop-title">
+            Giỏ hàng của tôi (1 sản phẩm)
+        </h3>
+        <ul class="row row-cols-1">
+            @foreach (var item in cartItems)
+            {
+                <li class="row">
+                    <div>
+                        <div>
+                            <a>
+                                <img src="@item.ImageUrl"
+                                     alt="@item.Title" />
+                            </a>
+                        </div>
+                        <div class="popcart-items">
+                            <div>
+                                <a class="items-title">
+                                    @item.Title
+                                </a>
+                            </div>
+                            <div>
+                                <span>Số lượng: @item.Quantity</span> <br />
+                                <span>Giá/sp: @item.Price ₫</span>
+                            </div>
+                            <a class="remove-items-btn"> Xóa </a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+        <div class="popcart-total">
+            Tạm tính (@cartItems.Count): <span class="total">
+                @cartItems.Sum(item => item.Price * item.Quantity) ₫
+            </span>
+        </div>
+        <div class="popcart-actions">
+            <a class="btn-cart" @onclick="PlaceCart">Xem giỏ hàng</a>
+            <a class="btn-payment" @onclick="Checkout">Thanh toán</a>
+        </div>
+    </div>
+</MudPopover>
 
 @code {
+    private bool _isShowCart;
 
-    protected override void OnInitialized()
+    private void ToggleCart()
     {
-        CartService.OnChange += StateHasChanged;
+        if (_isShowCart)
+            _isShowCart = false;
+        else
+            _isShowCart = true;
     }
 
-    public void Dispose()
+    private List<CartItemResponseDTO> cartItems = new List<CartItemResponseDTO>();
+
+    protected override async Task OnInitializedAsync()
     {
-        CartService.OnChange -= StateHasChanged;
+        cartItems = CartService.GetCartItems();
     }
 
-    private int GetProductCount()
+    private async Task HideCart()
     {
-        var count = LocalStorage.GetItem<int>("cartItemsCount");
-        return count;
+        await Task.Delay(200);
+        _isShowCart = false;
+    }
+
+    private async Task PlaceCart()
+    {
+        NavigationManager.NavigateTo("cart");
+    }
+
+    private async Task Checkout()
+    {
+        NavigationManager.NavigateTo("checkout");
     }
 }

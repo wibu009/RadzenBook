@@ -1,153 +1,31 @@
 ﻿using RadzenBook.Client.Models;
-using System.Net.Http.Json;
 
 namespace RadzenBook.Client.Services.CartService
 {
     public class CartService : ICartService
     {
-        private readonly ILocalStorageService _localStorage;
-        private readonly HttpClient _http;
-        private readonly AuthenticationStateProvider _authStateProvider;
-
-        public CartService(ILocalStorageService localStorage, HttpClient http, AuthenticationStateProvider authStateProvider)
+        public List<CartItemResponseDTO> GetCartItems()
         {
-            _localStorage = localStorage;
-            _http = http;
-            _authStateProvider = authStateProvider;
-        }
-        public event Action OnChange;
-
-        public async Task AddToCart(CartItem cartItem)
-        {
-            if ((await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated)
+            List<CartItemResponseDTO> result = new List<CartItemResponseDTO>
             {
-                await _http.PostAsJsonAsync("api/cart/add", cartItem);
-            }
-            else
-            {
-                var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
-                if (cart == null)
+                new CartItemResponseDTO
                 {
-                    cart = new List<CartItem>();
+                      ProductId = 1,
+                      Title = "Cây Cam Ngọt Của Tôi",
+                      ImageUrl = "https://salt.tikicdn.com/cache/750x750/ts/product/5e/18/24/2a6154ba08df6ce6161c13f4303fa19e.jpg.webp",
+                      Price = 75600,
+                      Quantity = 1
+                },
+                new CartItemResponseDTO
+                {
+                      ProductId = 2,
+                      Title = "Nhà Giả Kim (Tái Bản 2020)",
+                      ImageUrl = "https://salt.tikicdn.com/cache/750x750/ts/product/45/3b/fc/aa81d0a534b45706ae1eee1e344e80d9.jpg.webp",
+                      Price = 55300,
+                      Quantity = 2
                 }
-
-                var sameItem = cart.Find(x => x.ProductId == cartItem.ProductId && x.ProductTypeId == cartItem.ProductTypeId);
-                if (sameItem == null)
-                {
-                    cart.Add(cartItem);
-                }
-                else
-                {
-                    sameItem.Quantity += cartItem.Quantity;
-                }
-
-                await _localStorage.SetItemAsync("cart", cart);
-            }
-
-            await GetCartItemsCount();
-        }
-
-        public async Task DeleteItem(Guid productId, Guid productTypeId)
-        {
-            if (await IsUserAuthenticated())
-            {
-                var res = await _http.DeleteAsync($"api/cart/{productId}/{productTypeId}");
-            }
-            else
-            {
-                var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
-                if (cart == null)
-                {
-                    return;
-                }
-                var cartItem = cart.FirstOrDefault(x => x.ProductId == productId && x.ProductTypeId == productTypeId);
-                cart.Remove(cartItem);
-
-                await _localStorage.SetItemAsync("cart", cart);
-            }
-        }
-
-        public async Task GetCartItemsCount()
-        {
-            if (await IsUserAuthenticated())
-            {
-                var result = await _http.GetFromJsonAsync<ServiceResponse<int>>("api/cart/count");
-                var count = result.Data;
-
-                await _localStorage.SetItemAsync<int>("cartItemsCount", count);
-            }
-            else
-            {
-                var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
-                await _localStorage.SetItemAsync<int>("cartItemsCount", cart != null ? cart.Count : 0);
-            }
-
-            OnChange.Invoke();
-        }
-
-        public async Task<List<CartItemResponseDTO>> GetCartProduct()
-        {
-            if (await IsUserAuthenticated())
-            {
-                var res = await _http.GetFromJsonAsync<ServiceResponse<List<CartItemResponseDTO>>>("api/cart");
-                return res.Data;
-            }
-            else
-            {
-                var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
-                if (cart == null)
-                {
-                    return new List<CartItemResponseDTO>();
-                }
-                var result = await _http.PostAsJsonAsync("api/cart/products", cart);
-                var cartProduct = await result.Content.ReadFromJsonAsync<ServiceResponse<List<CartItemResponseDTO>>>();
-                return cartProduct.Data;
-            }
-        }
-
-        public async Task StoreCartItems(bool emptyLocalCart)
-        {
-            var localCart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
-            if (localCart != null)
-            {
-                await _http.PostAsJsonAsync("api/cart/store-product", localCart);
-            }
-
-            if (emptyLocalCart)
-            {
-                await _localStorage.RemoveItemAsync("cart");
-            }
-        }
-
-        public async Task UpdateQuantity(CartItemResponseDTO item)
-        {
-            if (await IsUserAuthenticated())
-            {
-                var req = new CartItem
-                {
-                    ProductId = item.ProductId,
-                    Quantity = item.Quantity,
-                    ProductTypeId = item.ProductTypeId
-                };
-                await _http.PutAsJsonAsync("api/cart/update-quantity", req);
-            }
-            else
-            {
-                var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
-                if (cart == null)
-                {
-                    return;
-                }
-                var cartItem = cart.FirstOrDefault(x => x.ProductId == item.ProductId && x.ProductTypeId == item.ProductTypeId);
-                cartItem.Quantity = item.Quantity;
-                await _localStorage.SetItemAsync("cart", cart);
-            }
-
-            OnChange.Invoke();
-        }
-        private async Task<bool> IsUserAuthenticated()
-        {
-            return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
+            };
+            return result;
         }
     }
 }

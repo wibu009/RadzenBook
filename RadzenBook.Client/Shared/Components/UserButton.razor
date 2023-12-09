@@ -1,48 +1,12 @@
-﻿@inject ILocalStorageService LocalStorage
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject NavigationManager NavigationManager
-@inject ICartService CartService
-
-<div class="dropdown">
-    <button @onclick="ToggleUserMenu" @onfocusout="HideUserMenu" class="btn btn-secondary dropdown-toggle user-button">
-        <MudIconButton Icon="@Icons.Material.Outlined.PeopleAlt" Color="Color.Inherit" />
-    </button>
-    <div class="dropdown-menu dropdown-menu-right @UserMenuCssClass">
-        <AuthorizeView>
-            <Authorized>
-                <a href="profile" class="dropdown-item">Profile</a>
-                <hr />
-                <button class="dropdown-item" @onclick="Logout">Logout</button>
-            </Authorized>
-            <NotAuthorized>
-                <a href="login?returnUrl=@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)" class="dropdown-item">Login</a>
-                <a href="register" class="dropdown-item">Register</a>
-            </NotAuthorized>
-        </AuthorizeView>
-    </div>
-</div>
-
-@code {
-    private bool showUserMenu = false;
-
-    private string UserMenuCssClass => showUserMenu ? "show-menu" : null;
-
-    private void ToggleUserMenu()
-    {
-        showUserMenu = !showUserMenu;
-    }
-
-    private async Task HideUserMenu()
-    {
-        await Task.Delay(200);
-        showUserMenu = false;
-    }
-
-    private async Task Logout()
-    {
-        await LocalStorage.RemoveItemAsync("authToken");
-        await CartService.GetCartItemsCount();
-        await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        NavigationManager.NavigateTo("");
-    }
-}
+﻿<MudMenu ActivationEvent="MouseEvent.LeftClick" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+    <ActivatorContent>
+        <div style="display: flex; flex-direction: column;margin-left:30px">
+            <MudIconButton Icon="@Icons.Material.Outlined.PeopleAlt" Color="Color.Inherit" />
+            <span style="font-size:15px; margin-top: -10px;">Tài Khoản</span>
+        </div>
+    </ActivatorContent>
+    <ChildContent>
+        <MudMenuItem Icon="@Icons.Material.Filled.Login" Href="/login">Đăng nhập</MudMenuItem>
+        <MudMenuItem Icon="@Icons.Material.Filled.People" Href="/register">Đăng ký</MudMenuItem>
+    </ChildContent>
+</MudMenu>

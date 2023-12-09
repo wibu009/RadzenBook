@@ -1,41 +1,19 @@
 ﻿@page "/"
-@using MudBlazor
-@inject IJSRuntime JSRuntime
-<PageTitle>Index</PageTitle>
+
+<PageTitle>RadzenBook</PageTitle>
+
 <link href="css/productItem.css" rel="stylesheet" />
 
-<CarouselComponent />
+<Carousel />
 
-<MudGrid Justify="Justify.Center" Style="padding-top:30px">
-    <MudItem>
-        <MudPaper class="image-container">
-            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
-        </MudPaper>
-    </MudItem>
-    <MudItem>
-        <MudPaper class="image-container">
-            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
-        </MudPaper>
-    </MudItem>
-    <MudItem>
-        <MudPaper class="image-container">
-            <img src="img/sanpham.PNG" alt="Your Image Description" width="350px" height="250px">
-        </MudPaper>
-    </MudItem>
+<FeaturedProducts HeaderText="Sách mới" />
 
-</MudGrid>
+<FeaturedProducts HeaderText="Sách bán chạy" />
 
-<ProductListComoponent HeaderText="Sách mới" />
+<Banner BackgroundImage="img/logo2.PNG" />
 
-<ProductListComoponent HeaderText="Sách bán chạy" />
+<FeaturedProducts HeaderText="Combo" />
 
-<BannerHomeComponent BackgoundImage="img/logo2.PNG" />
+<Banner BackgroundImage="img/logosach3.PNG" />
 
-<ProductListComoponent HeaderText="Combo" />
-
-<BannerHomeComponent BackgoundImage="img/logosach3.PNG" />
-
-<ProductListComoponent HeaderText="Managa-Comic" />
-
-
-
+<FeaturedProducts HeaderText="Managa-Comic" />

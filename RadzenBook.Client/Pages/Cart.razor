@@ -1,92 +1,66 @@
 ﻿@page "/cart"
+@inject ICartService CartService
+@inject NavigationManager NavigationManager
 
-<div class="text-md font-[Roboto] text-zinc-800 font-light leading-normal overflow-hidden tracking-wide">
-    <main class="main-content" role="main">
-        <div class="py-12 px-8">
-            <h1 class="pl-4 pb-8 ml-4 text-lg text-bold text-zinc-800 uppercase">
-                Giỏ hàng
-            </h1>
-            <div class="w-full">
-                <table class="mb-4">
-                    <thead class="relative border-y-2 border-neutral-200">
-                        <tr>
-                            <th class="p-4 text-center leading-normal" colspan="2">
-                                Sản phẩm
-                            </th>
-                            <th class="p-4 text-center leading-normal">Đơn giá</th>
-                            <th class="p-4 text-center leading-normal">Số lượng</th>
-                            <th class="p-4 text-center leading-normal">Tổng giá</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="relative border-t-2 border-neutral-200">
-                            <td class="p-4 text-left">
-                                <a href="/products">
-                                    <img src="//product.hstatic.net/200000343865/product/6_4fda9c4d44814b78951d775bd8047cfe_medium.jpg"
-                                         alt="Tý Quậy - Tập 6" />
-                                </a>
-                            </td>
-                            <td class="p-4 text-left">
-                                <a class="h4 block text-red-600 font-bold" href="/products">
-                                    Tý Quậy - Tập 6
-                                </a>
+<PageTitle>Giỏ Hàng</PageTitle>
 
-                                Khuyến mãi: 1017960497 - Giảm vô thời hạn 10% cho toàn bộ
-                                Sách Kim Đồng
+<link href="css/cart.css" rel="stylesheet" />
 
-                                <br />
+<div class="cart-container">
+    <div class="wrapper">
+        <h1>
+            Giỏ hàng
+        </h1>
 
-                                <a class="block text-red-600" href="/cart">
-                                    <small>Xóa</small>
-                                </a>
-                            </td>
-                            <td class="p-4 text-left">
-                                <span class="text-3xl font-bold leading-normal">
-                                    36,000₫
-                                </span>
-                            </td>
-                            <td class="p-4 text-left">
-                                <div class="mx-auto max-w-[150px] min-w-[75px]">
-                                    <input class="block py-1 px-4 text-center w-full border-1 border-neutral-200"
-                                           type="number"
-                                           value="1"
-                                           min="1" />
-                                </div>
-                            </td>
-                            <td class="p-4 text-left">
-                                <span class="text-3xl font-bold leading-normal">
-                                    36,000₫
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="grid grid-cols-1 my-6 py-6 relative">
-                    <div class="box-border float-left pl-6 align-top">
-                        <label class="block cursor-pointer"
-                               for="CartSpecialInstructions">Ghi chú</label>
-                        <textarea class="w-full p-2 border-2 border-neutral-200"
-                                  name="note"
-                                  id="CartSpecialInstructions"></textarea>
-                    </div>
 
-                    <div class="pl-6 align-top text-right">
-                        <p class="ml-2">
-                            <span>Tạm tính:</span>
-                            <span class="text-xl font-bold leading-normal">
-                                36,000₫
-                            </span>
-                        </p>
+        <MudTable Items="cartItems" Hover="true" Striped="true" Dense="true" Class="mb-2">
+            <HeaderContent>
+                <MudTh></MudTh>
+                <MudTh>Sản phẩm</MudTh>
+                <MudTh>Đơn giá</MudTh>
+                <MudTh>Số lượng</MudTh>
+                <MudTh>Tổng giá</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Image"><MudImage Src="@context.ImageUrl" Width="100" Height="100" /></MudTd>
+                <MudTd DataLabel="Title">@context.Title</MudTd>
+                <MudTd DataLabel="Price">@context.Price ₫</MudTd>
+                <MudNumericField @bind-Value="@context.Quantity"
+                                 For="@(() => @context.Quantity)"
+                                 Min="1"
+                                 Style="width:100px; margin-top:48px;"></MudNumericField>
+                <MudTd DataLabel="Total">@(context.Price * context.Quantity) ₫</MudTd>
+                <MudTd>
+                    <MudIconButton Icon="@Icons.Material.Filled.Cancel"
+                                   Color="Color.Error"
+                                   Variant="Variant.Filled"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
 
-                        <button class="py-1 px-4 text-white bg-red-600 text-center font-bold cursor-pointer">
-                            Cập nhật
-                        </button>
-                        <button class="py-1 px-4 text-white bg-red-600 text-center font-bold cursor-pointer">
-                            Thanh toán
-                        </button>
-                    </div>
-                </div>
-            </div>
+
+        <div class="cart-footer">
+            <p style="margin: 0 0 15px 0">
+                <span style="margin: 0 0 0 10px;">Tạm tính:</span>
+                <span class="h3 cart-total"> @cartItems.Sum(item => item.Price * item.Quantity) ₫</span>
+            </p>
+            <button class="btn-checkout" @onclick="Checkout">
+                Thanh toán
+            </button>
         </div>
-    </main>
+    </div>
 </div>
+
+@code {
+    private List<CartItemResponseDTO> cartItems = new List<CartItemResponseDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        cartItems = CartService.GetCartItems();
+    }
+
+    private async Task Checkout()
+    {
+        NavigationManager.NavigateTo("checkout");
+    }
+}
