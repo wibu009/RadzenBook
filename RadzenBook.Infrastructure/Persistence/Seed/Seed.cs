@@ -13,6 +13,7 @@ public static partial class Seed
         await SeedDemos(context);
         await SeedAuthors(context);
         await SeedCategories(context);
+        await SeedGenres(context);
 
         await context.SaveChangesAsync();
     }

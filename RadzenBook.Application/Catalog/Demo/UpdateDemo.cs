@@ -1,5 +1,4 @@
-﻿using RadzenBook.Application.Common.Security;
-using RadzenBook.Domain.Common.Enums;
+﻿using RadzenBook.Domain.Common.Enums;
 
 namespace RadzenBook.Application.Catalog.Demo;
 

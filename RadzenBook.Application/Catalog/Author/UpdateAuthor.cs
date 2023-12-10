@@ -1,5 +1,4 @@
 ﻿using RadzenBook.Application.Common.Photo;
-using RadzenBook.Application.Common.Security;
 
 namespace RadzenBook.Application.Catalog.Author;
 

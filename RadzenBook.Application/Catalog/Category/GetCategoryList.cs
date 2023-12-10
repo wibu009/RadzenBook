@@ -33,6 +33,7 @@ public class GetCategoryListRequestHandler : IRequestHandler<GetCategoryListRequ
                         x.Title!.Contains(request.PagingParams.Title),
                     pageNumber: request.PagingParams.PageNumber,
                     pageSize: request.PagingParams.PageSize,
+                    includeProperties: "Products",
                     cancellationToken: cancellationToken);
             var totalCount = await _unitOfWork.GetRepository<ICategoryRepository, Domain.Catalog.Category, Guid>()
                 .CountAsync(
@@ -42,12 +43,6 @@ public class GetCategoryListRequestHandler : IRequestHandler<GetCategoryListRequ
                     cancellationToken: cancellationToken);
 
             var categoriesDto = _mapper.Map<List<CategoryDto>>(categories);
-            foreach (var categoryDto in categoriesDto)
-            {
-                categoryDto.TotalProducts = await _unitOfWork
-                    .GetRepository<IProductRepository, Product, Guid>()
-                    .CountAsync(filter: x => x.CategoryId == categoryDto.Id, cancellationToken: cancellationToken);
-            }
 
             var categoriesDtoPaginated = new PaginatedList<CategoryDto>(categoriesDto, totalCount,
                 request.PagingParams.PageNumber,

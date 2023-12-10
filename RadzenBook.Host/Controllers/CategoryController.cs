@@ -2,6 +2,7 @@
 
 namespace RadzenBook.Host.Controllers;
 
+[ApiVersion(ApiVersionName.V2)]
 public class CategoryController : BaseApiController
 {
     [HttpGet]

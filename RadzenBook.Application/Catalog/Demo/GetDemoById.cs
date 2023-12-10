@@ -31,10 +31,7 @@ public class GetDemoByIdRequestHandler : IRequestHandler<GetDemoByIdRequest, Res
             var demo = await _unitOfWork.GetRepository<IDemoRepository, Domain.Catalog.Demo, Guid>()
                 .GetByIdAsync(request.Id, cancellationToken: cancellationToken);
             if (demo is null)
-            {
                 return Result<DemoDto>.Failure("Demo not found.");
-            }
-
             var demoDto = _mapper.Map<DemoDto>(demo);
             return Result<DemoDto>.Success(demoDto);
         }

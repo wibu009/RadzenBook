@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Common.Security;
-
-namespace RadzenBook.Application.Catalog.Category;
+﻿namespace RadzenBook.Application.Catalog.Category;
 
 public class DeleteCategoryRequest : IRequest<Result<Unit>>
 {
@@ -37,6 +35,7 @@ public class DeleteCategoryRequestHandler : IRequestHandler<DeleteCategoryReques
                 .GetByIdAsync(request.Id, cancellationToken: cancellationToken);
             if (category == null)
                 return Result<Unit>.Failure(_t["Category not found"]);
+            category.ModifiedBy = _userAccessor.GetUsername();
             await _unitOfWork.GetRepository<ICategoryRepository, Domain.Catalog.Category, Guid>()
                 .SoftDeleteAsync(category, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
