@@ -30,18 +30,10 @@ public class GetCategoryByIdHandler : IRequestHandler<GetCategoryByIdRequest, Re
         try
         {
             var category = await _unitOfWork.GetRepository<ICategoryRepository, Domain.Catalog.Category, Guid>()
-                .GetByIdAsync(request.Id, cancellationToken: cancellationToken);
-
+                .GetByIdAsync(request.Id, cancellationToken: cancellationToken, includeProperties: "Products");
             if (category == null)
-            {
-                return Result<CategoryDto>.Failure(_t["Category not found."]);
-            }
-
+                return Result<CategoryDto>.Failure(_t["Category not found"]);
             var categoryDto = _mapper.Map<CategoryDto>(category);
-            categoryDto.TotalProducts = await _unitOfWork
-                .GetRepository<IProductRepository, Domain.Catalog.Product, Guid>()
-                .CountAsync(filter: x => x.CategoryId == categoryDto.Id, cancellationToken: cancellationToken);
-
             return Result<CategoryDto>.Success(categoryDto);
         }
         catch (Exception e)

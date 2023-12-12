@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Common.Security;
-
-namespace RadzenBook.Application.Catalog.Demo;
+﻿namespace RadzenBook.Application.Catalog.Demo;
 
 public class DeleteDemoRequest : IRequest<Result<Unit>>
 {

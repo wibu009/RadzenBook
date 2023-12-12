@@ -13,5 +13,6 @@ global using RadzenBook.Application.Common.Exceptions;
 global using RadzenBook.Application.Common.Models;
 global using RadzenBook.Application.Common.Persistence;
 global using RadzenBook.Application.Common.Persistence.Repositories;
+global using RadzenBook.Application.Common.Security;
 global using RadzenBook.Application.Common.Validation;
 global using RadzenBook.Domain.Catalog;

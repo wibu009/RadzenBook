@@ -1,6 +1,4 @@
-﻿using RadzenBook.Application.Common.Security;
-
-namespace RadzenBook.Application.Catalog.Category;
+﻿namespace RadzenBook.Application.Catalog.Category;
 
 public class UpdateCategoryRequest : IRequest<Result<Unit>>
 {
