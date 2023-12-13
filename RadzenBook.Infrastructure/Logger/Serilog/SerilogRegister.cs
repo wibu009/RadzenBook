@@ -9,9 +9,15 @@ public static class SerilogRegister
 {
     public static WebApplicationBuilder UseSerilogging(this WebApplicationBuilder builder)
     {
-        var connectionString = builder.Environment.IsDevelopment()
-            ? builder.Configuration.GetConnectionString("LocalConnection")
-            : builder.Configuration.GetConnectionString("RemoteConnection");
+        var proEnv = Environment.GetEnvironmentVariable("PROVIDER_ENVIRONMENT");
+
+        var connectionString = proEnv switch
+        {
+            "Development" => builder.Configuration.GetConnectionString("LocalConnection"),
+            "Production" => builder.Configuration.GetConnectionString("RemoteConnection"),
+            "Docker" => builder.Configuration.GetConnectionString("DockerConnection"),
+            _ => throw new NullReferenceException("Connection string is missing")
+        };
 
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
@@ -34,9 +40,9 @@ public static class SerilogRegister
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();
-        
+
         builder.Host.UseSerilog();
-        
+
         return builder;
     }
 }

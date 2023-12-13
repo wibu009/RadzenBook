@@ -12,11 +12,15 @@ public static class Startup
     {
         services.AddDbContextPool<RadzenBookDbContext>(options =>
         {
-            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var proEnv = Environment.GetEnvironmentVariable("PROVIDER_ENVIRONMENT");
 
-            var connectionString = env == "Development"
-                ? configuration.GetConnectionString("LocalConnection")
-                : configuration.GetConnectionString("RemoteConnection");
+            var connectionString = proEnv switch
+            {
+                "Development" => configuration.GetConnectionString("LocalConnection"),
+                "Production" => configuration.GetConnectionString("RemoteConnection"),
+                "Docker" => configuration.GetConnectionString("DockerConnection"),
+                _ => throw new NullReferenceException("Connection string is missing")
+            };
 
             if (string.IsNullOrEmpty(connectionString))
                 throw new NullReferenceException("Connection string is missing");
