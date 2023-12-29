@@ -27,8 +27,10 @@ public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TK
         CancellationToken cancellationToken = default);
 
     Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task CreateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
     Task DeleteByIdAsync(TKey id, CancellationToken cancellationToken = default);
 
@@ -36,7 +38,7 @@ public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TK
 
     Task DeleteByPropsAsync(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
 
-    Task DeleteRangeAsync(IList<TEntity> entities, CancellationToken cancellationToken = default);
+    Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
     Task SoftDeleteByIdAsync(TKey id, CancellationToken cancellationToken = default);
 
@@ -44,5 +46,5 @@ public interface IBaseRepository<TEntity, in TKey> where TEntity : BaseEntity<TK
 
     Task SoftDeleteByPropsAsync(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
 
-    Task SoftDeleteRangeAsync(IList<TEntity> entities, CancellationToken cancellationToken = default);
+    Task SoftDeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 }

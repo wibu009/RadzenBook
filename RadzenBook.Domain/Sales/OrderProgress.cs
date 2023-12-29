@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Domain.Catalog;
+﻿namespace RadzenBook.Domain.Sales;
 
 public class OrderProgress : BaseEntity<Guid>
 {

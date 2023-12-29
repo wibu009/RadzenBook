@@ -17,6 +17,7 @@ public class CategoryController : BaseApiController
     [HttpGet("{id:guid}")]
     [SwaggerOperation(Summary = "Get category by id")]
     [SwaggerResponse(StatusCodes.Status200OK, "Get category by id", typeof(CategoryDto))]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "Category not found")]
     public async Task<IActionResult> GetCategoryById(
         [FromRoute] Guid id,
         CancellationToken cancellationToken)

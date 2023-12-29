@@ -1,6 +1,7 @@
 ﻿{
   "ConnectionStrings": {
     //This is the connection string for the SQL Server database
-    "LocalConnection": "Server=(localdb)\\mssqllocaldb;Database=RadzenBookDB;Trusted_Connection=True;MultipleActiveResultSets=true"
+    "LocalConnection": "Server=(localdb)\\mssqllocaldb;Database=RadzenBookDB;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "DockerConnection": "Server=localhost;Database=RadzenBookDB;User=sa;Password=Your_password123"
   }
 }

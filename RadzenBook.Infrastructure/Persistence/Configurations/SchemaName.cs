@@ -5,4 +5,5 @@ public static class SchemaName
     public const string Default = "dbo";
     public const string Identity = "identity";
     public const string Catalog = "catalog";
+    public const string Sales = "sales";
 }

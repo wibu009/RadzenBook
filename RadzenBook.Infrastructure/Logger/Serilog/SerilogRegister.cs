@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using RadzenBook.Infrastructure.Persistence.Configurations;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
@@ -13,8 +14,8 @@ public static class SerilogRegister
 
         var connectionString = proEnv switch
         {
-            "Development" => builder.Configuration.GetConnectionString("LocalConnection"),
-            "Production" => builder.Configuration.GetConnectionString("RemoteConnection"),
+            "Local" => builder.Configuration.GetConnectionString("LocalConnection"),
+            "Server" => builder.Configuration.GetConnectionString("RemoteConnection"),
             "Docker" => builder.Configuration.GetConnectionString("DockerConnection"),
             _ => throw new NullReferenceException("Connection string is missing")
         };
@@ -33,7 +34,7 @@ public static class SerilogRegister
                 {
                     TableName = "Logs",
                     AutoCreateSqlTable = true,
-                    SchemaName = "dbo",
+                    SchemaName = SchemaName.Default
                 },
                 restrictedToMinimumLevel: LogEventLevel.Error)
             .CreateLogger();

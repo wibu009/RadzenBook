@@ -16,8 +16,8 @@ public static class Startup
 
             var connectionString = proEnv switch
             {
-                "Development" => configuration.GetConnectionString("LocalConnection"),
-                "Production" => configuration.GetConnectionString("RemoteConnection"),
+                "Local" => configuration.GetConnectionString("LocalConnection"),
+                "Server" => configuration.GetConnectionString("RemoteConnection"),
                 "Docker" => configuration.GetConnectionString("DockerConnection"),
                 _ => throw new NullReferenceException("Connection string is missing")
             };
