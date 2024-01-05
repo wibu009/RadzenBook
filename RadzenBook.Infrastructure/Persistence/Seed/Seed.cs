@@ -11,6 +11,8 @@ public static partial class Seed
         await SeedRoles(roleManager);
         await SeedUsers(userManager);
         await SeedDemos(context);
+        await SeedCustomer(context);
+        await SeedCustomerAddress(context);
         await SeedAuthors(context);
         await SeedCategories(context);
         await SeedGenres(context);
