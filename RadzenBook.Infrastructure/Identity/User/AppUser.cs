@@ -12,6 +12,7 @@ public class AppUser : IdentityUser<Guid>
     public DateTime ModifiedAt { get; set; } = DateTime.UtcNow;
     public bool IsDeleted { get; set; } = false;
     public string? AvatarUrl { get; set; } = string.Empty;
-    public virtual ICollection<Domain.Catalog.Address> Addresses { get; set; } = new List<Domain.Catalog.Address>();
+    public virtual Customer Customer { get; set; } = new();
+    public virtual Employee Employee { get; set; } = new();
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }

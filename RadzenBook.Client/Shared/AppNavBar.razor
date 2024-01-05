@@ -1,0 +1,28 @@
+﻿@using System.Drawing
+@using RadzenBook.Client.Models.Auth
+@using Color = MudBlazor.Color
+@using Size = MudBlazor.Size
+@using RadzenBook.Client.Components.Layout.Navbar
+
+<MudAppBar Color="Color.Primary" Fixed="true" WrapContent="true" Dense="true" Class="pt-2 pb-2 pl-10 pr-10">
+    @if (ToggleDrawer != null)
+    {
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="@Color.Inherit" Edge="@Edge.Start" Size="Size.Medium" Variant="Variant.Outlined" OnClick="@ToggleDrawer"/>
+    }
+
+    <MudSpacer/>
+    <SearchBar/>
+    <MudDivider DividerType="DividerType.FullWidth" Vertical="true" Class="ml-1 mr-1"/>
+    <TranslateMenu/>
+    <MudDivider DividerType="DividerType.FullWidth" Vertical="true" Class="ml-1 mr-1"/>
+    <CartMenu/>
+    <MudDivider DividerType="DividerType.FullWidth" Vertical="true" Class="ml-1 mr-1"/>
+    <AccountMenu/>
+</MudAppBar>
+
+@code {
+
+    [Parameter]
+    public Action? ToggleDrawer { get; set; }
+
+}

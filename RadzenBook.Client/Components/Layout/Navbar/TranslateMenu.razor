@@ -1,0 +1,22 @@
+﻿<MudMenu Color="Color.Transparent" ActivationEvent="MouseEvent.LeftClick" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+    <ActivatorContent>
+        <MudChip Icon="@Icons.Material.Filled.Language" Color="Color.Primary" Size="Size.Large" Label="true">@_selectedLanguage.Item2</MudChip>
+    </ActivatorContent>
+    <ChildContent>
+        @foreach (var language in _languages)
+        {
+            <MudMenuItem OnClick="@(() => _selectedLanguage = language)">@language.Item2</MudMenuItem>
+        }
+    </ChildContent>
+</MudMenu>
+
+@code {
+    private Tuple<string, string> _selectedLanguage = new Tuple<string, string>("en-US", "English");
+
+    private readonly List<Tuple<string, string>> _languages = new()
+    {
+        new Tuple<string, string>("en-US", "English"),
+        new Tuple<string, string>("vi-VN", "Tiếng Việt"),
+    };
+
+}

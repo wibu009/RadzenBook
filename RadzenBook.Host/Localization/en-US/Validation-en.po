@@ -1,9 +1,29 @@
-#: Common
+#: Common validation messages
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #: WithMessage((_, username) => T["Request cannot be null"])
 msgid "Request cannot be null"
 msgstr "Request cannot be null"
+
+#: WithMessage((_, username) => T["Phone Number is required"])
+msgid "Phone Number is required"
+msgstr "Phone Number is required"
+
+#: WithMessage((_, phoneNumber) => T["Phone Number is not valid"])
+msgid "Phone Number is not valid"
+msgstr "Phone Number is not valid"
+
+#: WithMessage((_, email) => T["Email is required"])
+msgid "Email is required"
+msgstr "Email is required"
+
+#: WithMessage((_, email) => T["Email must not exceed {0} characters"])
+msgid "Email must not exceed {0} characters"
+msgstr "Email must not exceed {0} characters"
+
+#: WithMessage((_, email) => T["Email is not valid"])
+msgid "Email is not valid"
+msgstr "Email is not valid"
 
 #: Login and Register validation messages
 #: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,18 +60,6 @@ msgstr "Confirm Password is required"
 msgid "Confirm Password must match Password"
 msgstr "Confirm Password must match Password"
 
-#: WithMessage((_, email) => T["Email is required"])
-msgid "Email is required"
-msgstr "Email is required"
-
-#: WithMessage((_, email) => T["Email must not exceed {0} characters"])
-msgid "Email must not exceed {0} characters"
-msgstr "Email must not exceed {0} characters"
-
-#: WithMessage((_, email) => T["Email is not valid"])
-msgid "Email is not valid"
-msgstr "Email is not valid"
-
 #: WithMessage((_, displayName) => T["Display Name is required"])
 msgid "Display Name is required"
 msgstr "Display Name is required"
@@ -63,10 +71,6 @@ msgstr "Display Name must not exceed {0} characters"
 #: WithMessage((_, displayName) => T["Display Name must be at least {0} characters long"])
 msgid "Display Name must be at least {0} characters long"
 msgstr "Display Name must be at least {0} characters long"
-
-#: WithMessage((_, phoneNumber) => T["Phone Number is required"])
-msgid "Phone Number is not valid"
-msgstr "Phone Number is not valid"
 
 # WithMessage((_, accessToken) => T["AccessToken is required"])
 msgid "AccessToken is required"
@@ -94,3 +98,45 @@ msgstr "Description must not exceed {0} characters"
 #: WithMessage((_, demoEnum) => T["DemoEnum is not valid"])
 msgid "DemoEnum is not valid"
 msgstr "DemoEnum is not valid"
+
+#: Author validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, fullName) => T["FullName is required"])
+msgid "FullName is required"
+msgstr "FullName is required"
+
+#: WithMessage((_, fullName) => T["FullName must not exceed {0} characters"])
+msgid "FullName must not exceed {0} characters"
+msgstr "FullName must not exceed {0} characters"
+
+#: WithMessage((_, fullName) => T["Alias must not exceed {0} characters"])
+msgid "Alias must not exceed {0} characters"
+msgstr "Alias must not exceed {0} characters"
+
+#: WithMessage((_, alias) => T["Biography must not exceed {0} characters"])
+msgid "Biography must not exceed {0} characters"
+msgstr "Biography must not exceed {0} characters"
+
+#: WithMessage((_, alias) => T["DateOfBirth must be less than today"])
+msgid "DateOfBirth must be less than today"
+msgstr "DateOfBirth must be less than today"
+
+#: WithMessage((_, alias) => T["DateOfDeath must be greater than DateOfBirth"])
+msgid "DateOfDeath must be greater than DateOfBirth"
+msgstr "DateOfDeath must be greater than DateOfBirth"
+
+#: Category validation messages
+#: -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#: WithMessage((_, name) => T["Title is required"])
+msgid "Title is required"
+msgstr "Title is required"
+
+#: WithMessage((_, name) => T["Title must not exceed {0} characters"])
+msgid "Title must not exceed {0} characters"
+msgstr "Title must not exceed {0} characters"
+
+#: WithMessage((_, name) => T["Description must not exceed {0} characters"])
+msgid "Description must not exceed {0} characters"
+msgstr "Description must not exceed {0} characters"

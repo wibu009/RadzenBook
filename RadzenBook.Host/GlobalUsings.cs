@@ -5,4 +5,5 @@ global using RadzenBook.Application.Common;
 global using RadzenBook.Application.Common.Models;
 global using RadzenBook.Infrastructure.ApiVersion;
 global using RadzenBook.Infrastructure.Common.Extensions;
+global using RadzenBook.Infrastructure.Identity.Role;
 global using Swashbuckle.AspNetCore.Annotations;

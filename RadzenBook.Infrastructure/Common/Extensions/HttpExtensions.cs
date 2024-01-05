@@ -4,9 +4,11 @@ namespace RadzenBook.Infrastructure.Common.Extensions;
 
 public static class HttpExtensions
 {
-    public static void AddPaginationHeader(this HttpResponse response, int currentPage, int itemsPerPage, int totalItems, int totalPages)
+    public static void AddPaginationHeader(this HttpResponse response, int currentPage, int itemsPerPage,
+        int totalItems, int totalPages)
     {
-        var paginationHeader = new {
+        var paginationHeader = new
+        {
             currentPage,
             itemsPerPage,
             totalItems,
@@ -15,7 +17,7 @@ public static class HttpExtensions
 
         response.Headers.Add("Pagination", JsonSerializer.Serialize(paginationHeader));
     }
-    
+
     public static string GetIpAddress(this HttpContext context)
     {
         var ip = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
@@ -23,10 +25,11 @@ public static class HttpExtensions
         {
             ip = context.Connection.RemoteIpAddress?.ToString();
         }
+
         return ip ?? string.Empty;
     }
-    
-    public static string GetUrl(this HttpRequest request)
+
+    public static string GetUrlFromRequest(this HttpRequest request)
     {
         return request.Headers.TryGetValue("Referer", out var header) ? header.ToString() : string.Empty;
     }

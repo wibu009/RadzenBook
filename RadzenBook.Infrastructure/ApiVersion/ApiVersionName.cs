@@ -11,5 +11,4 @@ public static class ApiVersionName
     public const string V7 = "7.0";
     public const string V8 = "8.0";
     public const string V9 = "9.0";
-    public const string V10 = "10.0";
 }

@@ -1,0 +1,21 @@
+﻿<MudMenu Color="Color.Transparent" ActivationEvent="MouseEvent.LeftClick" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+    <ActivatorContent>
+        <MudChip Color="@Color.Primary" Size="Size.Large" Label="true">
+            @if (CartCount > 0)
+            {
+                <MudBadge Color="@Color.Secondary" Content="@CartCount" Max="99" Overlap="true" Bordered="true" Elevation="CartCount">
+                    <MudIcon Icon="@Icons.Material.Filled.ShoppingCart"/>
+                </MudBadge>
+            }
+            else
+            {
+                <MudIcon Icon="@Icons.Material.Filled.ShoppingCart"/>
+            }
+        </MudChip>
+    </ActivatorContent>
+    <ChildContent></ChildContent>
+</MudMenu>
+
+@code {
+        private const int CartCount = 10;
+}

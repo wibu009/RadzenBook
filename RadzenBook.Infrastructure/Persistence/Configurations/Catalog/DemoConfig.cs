@@ -1,6 +1,4 @@
-﻿using RadzenBook.Domain.Catalog;
-
-namespace RadzenBook.Infrastructure.Persistence.Configurations.Catalog;
+﻿namespace RadzenBook.Infrastructure.Persistence.Configurations.Catalog;
 
 public class DemoConfig : IEntityTypeConfiguration<Demo>
 {
