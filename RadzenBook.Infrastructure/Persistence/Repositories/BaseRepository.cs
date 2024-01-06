@@ -186,6 +186,25 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
     }
 
+    public virtual async Task CreateRangeAsync(IEnumerable<TEntity> entities,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            foreach (var entity in entities)
+            {
+                entity.CreatedAt = DateTime.UtcNow;
+                entity.ModifiedAt = DateTime.UtcNow;
+            }
+
+            await DbSet.AddRangeAsync(entities, cancellationToken);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
     public virtual async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         try
@@ -196,6 +215,24 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         catch (Exception e)
         {
             throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
+        }
+    }
+
+    public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            foreach (var entity in entities)
+            {
+                entity.ModifiedAt = DateTime.UtcNow;
+            }
+
+            await Task.Run(() => DbSet.UpdateRange(entities), cancellationToken);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
         }
     }
 
@@ -238,7 +275,8 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
     }
 
-    public virtual async Task DeleteRangeAsync(IList<TEntity> entities, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities,
+        CancellationToken cancellationToken = default)
     {
         try
         {
@@ -291,7 +329,7 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
     }
 
-    public virtual async Task SoftDeleteRangeAsync(IList<TEntity> entities,
+    public virtual async Task SoftDeleteRangeAsync(IEnumerable<TEntity> entities,
         CancellationToken cancellationToken = default)
     {
         try

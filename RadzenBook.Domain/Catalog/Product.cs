@@ -1,4 +1,6 @@
-﻿namespace RadzenBook.Domain.Catalog;
+﻿using RadzenBook.Domain.Sales;
+
+namespace RadzenBook.Domain.Catalog;
 
 public class Product : BaseEntity<Guid>
 {

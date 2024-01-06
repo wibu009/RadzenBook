@@ -1,10 +1,12 @@
-﻿namespace RadzenBook.Infrastructure.Persistence.Configurations.Catalog;
+﻿using RadzenBook.Domain.Sales;
+
+namespace RadzenBook.Infrastructure.Persistence.Configurations.Sales;
 
 public class CustomerConfig : IEntityTypeConfiguration<Customer>
 {
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
-        builder.ToTable("Customers", SchemaName.Catalog);
+        builder.ToTable("Customers", SchemaName.Sales);
         builder.Property(x => x.FirstName).HasMaxLength(200);
         builder.Property(x => x.LastName).HasMaxLength(200);
         builder.Property(x => x.Email).HasMaxLength(450);

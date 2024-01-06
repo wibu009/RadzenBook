@@ -1,4 +1,6 @@
-﻿namespace RadzenBook.Infrastructure.Persistence.Repositories;
+﻿using RadzenBook.Application.Common.Exceptions;
+
+namespace RadzenBook.Infrastructure.Persistence.Repositories;
 
 public class BookRepository : BaseRepository<Book, Guid>, IBookRepository
 {

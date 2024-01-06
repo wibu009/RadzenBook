@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using RadzenBook.Infrastructure.Identity;
+using RadzenBook.Domain.Sales;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.Token;
 using RadzenBook.Infrastructure.Identity.User;
