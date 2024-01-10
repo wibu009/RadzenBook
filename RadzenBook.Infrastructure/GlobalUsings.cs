@@ -1,4 +1,5 @@
 ﻿global using System.Net;
+global using Bogus;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Http;
@@ -17,3 +18,4 @@ global using Microsoft.IdentityModel.Tokens;
 global using RadzenBook.Application.Common;
 global using RadzenBook.Application.Common.Persistence.Repositories;
 global using RadzenBook.Domain.Catalog;
+global using RadzenBook.Domain.Common.Enums;

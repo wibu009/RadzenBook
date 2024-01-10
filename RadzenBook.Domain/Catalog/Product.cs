@@ -4,6 +4,8 @@ namespace RadzenBook.Domain.Catalog;
 
 public class Product : BaseEntity<Guid>
 {
+    public string? Title { get; set; }
+    public string? Description { get; set; }
     public decimal ImportPrice { get; set; }
     public decimal SalePrice { get; set; }
     public CurrencyUnit Currency { get; set; }

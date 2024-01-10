@@ -1,7 +1,10 @@
 ﻿{
-  "ConnectionStrings": {
-    //This is the connection string for the SQL Server database
-    "LocalConnection": "Server=(localdb)\\mssqllocaldb;Database=RadzenBookDB;Trusted_Connection=True;MultipleActiveResultSets=true",
-    "DockerConnection": "Server=localhost;Database=RadzenBookDB;User=sa;Password=Your_password123"
+  //if you want to use a different database provider, change the DatabaseProvider value to one of the following: MSSQL, SQLite, PostgreSQL, MySQL
+  //if you want to use a different database environment, change the DatabaseEnvironment value to one of the following: Local, Server, Docker
+  //if you want to use a different connection string, change the ConnectionStrings value
+  "DatabaseSettings": {
+    "DatabaseProvider": "SqlServer",
+    "DatabaseEnvironment": "Local",
+    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=RadzenBookDB;Trusted_Connection=True;MultipleActiveResultSets=true"
   }
 }

@@ -5,6 +5,7 @@ public class ProductConfig : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.ToTable("Products", SchemaName.Catalog);
+        builder.Property(x => x.Title).HasMaxLength(400);
         builder.Property(x => x.ImportPrice).HasColumnType("decimal(18,2)");
         builder.Property(x => x.SalePrice).HasColumnType("decimal(18,2)");
         builder.Property(x => x.UnitPrice).HasColumnType("decimal(18,2)");

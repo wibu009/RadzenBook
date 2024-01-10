@@ -2,7 +2,7 @@
 using RadzenBook.Application.Common.Persistence;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
-using RadzenBook.Infrastructure.Persistence.Seed;
+using RadzenBook.Infrastructure.Persistence.DataInitialization;
 
 namespace RadzenBook.Infrastructure.Persistence;
 
@@ -12,20 +12,29 @@ public static class Startup
     {
         services.AddDbContextPool<RadzenBookDbContext>(options =>
         {
-            var proEnv = Environment.GetEnvironmentVariable("PROVIDER_ENVIRONMENT");
-
-            var connectionString = proEnv switch
-            {
-                "Local" => configuration.GetConnectionString("LocalConnection"),
-                "Server" => configuration.GetConnectionString("RemoteConnection"),
-                "Docker" => configuration.GetConnectionString("DockerConnection"),
-                _ => throw new NullReferenceException("Connection string is missing")
-            };
+            var databaseSettings = configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>()!;
+            var connectionString = databaseSettings.ConnectionString;
 
             if (string.IsNullOrEmpty(connectionString))
                 throw new NullReferenceException("Connection string is missing");
 
-            options.UseSqlServer(connectionString);
+            switch (databaseSettings.DatabaseProvider)
+            {
+                case "SqlServer":
+                    options.UseSqlServer(connectionString);
+                    break;
+                case "PostgreSql":
+                    options.UseNpgsql(connectionString);
+                    break;
+                case "Sqlite":
+                    options.UseSqlite(connectionString);
+                    break;
+                case "MySql":
+                    options.UseMySQL(connectionString);
+                    break;
+                default:
+                    throw new NullReferenceException("Database provider is missing");
+            }
         });
 
         services.AddScoped<IUnitOfWork>(provider =>

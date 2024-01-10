@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using RadzenBook.Infrastructure.Persistence;
 using RadzenBook.Infrastructure.Persistence.Configurations;
 using Serilog;
 using Serilog.Events;
@@ -10,34 +11,52 @@ public static class SerilogRegister
 {
     public static WebApplicationBuilder UseSerilogging(this WebApplicationBuilder builder)
     {
-        var proEnv = Environment.GetEnvironmentVariable("PROVIDER_ENVIRONMENT");
+        var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>()!;
+        var connectionString = databaseSettings.ConnectionString;
+        var databaseProvider = databaseSettings.DatabaseProvider;
 
-        var connectionString = proEnv switch
-        {
-            "Local" => builder.Configuration.GetConnectionString("LocalConnection"),
-            "Server" => builder.Configuration.GetConnectionString("RemoteConnection"),
-            "Docker" => builder.Configuration.GetConnectionString("DockerConnection"),
-            _ => throw new NullReferenceException("Connection string is missing")
-        };
-
-        Log.Logger = new LoggerConfiguration()
+        var loggerConfiguration = new LoggerConfiguration()
             .WriteTo.Console()
             .WriteTo.File(
                 path: "Logs/log-.txt",
                 rollingInterval: RollingInterval.Day,
                 restrictedToMinimumLevel: LogEventLevel.Information,
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u}] {Message:lj}{NewLine}{Exception}"
-            )
-            .WriteTo.MSSqlServer(
-                connectionString: connectionString,
-                sinkOptions: new MSSqlServerSinkOptions
-                {
-                    TableName = "Logs",
-                    AutoCreateSqlTable = true,
-                    SchemaName = SchemaName.Default
-                },
-                restrictedToMinimumLevel: LogEventLevel.Error)
-            .CreateLogger();
+            );
+
+        switch (databaseProvider)
+        {
+            case "SqlServer":
+                loggerConfiguration.WriteTo.MSSqlServer(
+                    connectionString: connectionString,
+                    sinkOptions: new MSSqlServerSinkOptions
+                    {
+                        TableName = "Logs",
+                        AutoCreateSqlTable = true
+                    });
+                break;
+            case "PostgreSql":
+                loggerConfiguration.WriteTo.PostgreSQL(
+                    connectionString: connectionString,
+                    tableName: "Logs",
+                    needAutoCreateTable: true);
+                break;
+            case "Sqlite":
+                loggerConfiguration.WriteTo.SQLite(
+                    tableName: "Logs",
+                    sqliteDbPath: connectionString,
+                    batchSize: 1);
+                break;
+            case "MySql":
+                loggerConfiguration.WriteTo.MySQL(
+                    connectionString: connectionString,
+                    tableName: "Logs");
+                break;
+            default:
+                throw new NullReferenceException("Database provider is missing");
+        }
+
+        Log.Logger = loggerConfiguration.CreateLogger();
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();

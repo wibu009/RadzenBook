@@ -2,8 +2,6 @@
 
 public class Book : BaseEntity<Guid>
 {
-    public string? Title { get; set; }
-    public string? Description { get; set; }
     public string? ISBN { get; set; }
     public string? Language { get; set; }
     public string? Translator { get; set; }
