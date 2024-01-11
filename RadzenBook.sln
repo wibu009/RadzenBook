@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Host", "RadzenBook.Host\RadzenBook.Host.csproj", "{9492F668-9149-4CD2-94CD-B6261F9B4B9E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5C1E629D-E3EE-465A-BD4A-70B08367F445}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Application", "RadzenBook.Application\RadzenBook.Application.csproj", "{ED5E4E58-CE77-4567-A611-421DCDAC194E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Host", "src\RadzenBook.Host\RadzenBook.Host.csproj", "{9492F668-9149-4CD2-94CD-B6261F9B4B9E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Domain", "RadzenBook.Domain\RadzenBook.Domain.csproj", "{CBD15BB7-5FBE-4BA5-8341-1E877F85D0DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Application", "src\RadzenBook.Application\RadzenBook.Application.csproj", "{ED5E4E58-CE77-4567-A611-421DCDAC194E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Infrastructure", "RadzenBook.Infrastructure\RadzenBook.Infrastructure.csproj", "{B7D52A4C-BA25-46E6-85D3-2D9EFF0C3FA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Domain", "src\RadzenBook.Domain\RadzenBook.Domain.csproj", "{CBD15BB7-5FBE-4BA5-8341-1E877F85D0DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadzenBook.Client", "RadzenBook.Client\RadzenBook.Client.csproj", "{7F47590F-42EA-4254-AA7E-5A10A7B1ECC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadzenBook.Infrastructure", "src\RadzenBook.Infrastructure\RadzenBook.Infrastructure.csproj", "{B7D52A4C-BA25-46E6-85D3-2D9EFF0C3FA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadzenBook.Client", "src\RadzenBook.Client\RadzenBook.Client.csproj", "{7F47590F-42EA-4254-AA7E-5A10A7B1ECC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{69803501-9A19-4ED7-9611-8FB483188CD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadzenBook.Infrastructure.Test", "tests\RadzenBook.Infrastructure.Test\RadzenBook.Infrastructure.Test.csproj", "{14E45667-0206-4F0B-B7A1-2DA44ECD7136}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86A78770-E0D3-419F-8E4E-70FE77AAA297}"
 	ProjectSection(SolutionItems) = preProject
@@ -47,11 +53,23 @@ Global
 		{7F47590F-42EA-4254-AA7E-5A10A7B1ECC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F47590F-42EA-4254-AA7E-5A10A7B1ECC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F47590F-42EA-4254-AA7E-5A10A7B1ECC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E45667-0206-4F0B-B7A1-2DA44ECD7136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14E45667-0206-4F0B-B7A1-2DA44ECD7136}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E45667-0206-4F0B-B7A1-2DA44ECD7136}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E45667-0206-4F0B-B7A1-2DA44ECD7136}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AC6CC874-A2FF-418A-88B5-4C9E21FD65A1}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED5E4E58-CE77-4567-A611-421DCDAC194E} = {5C1E629D-E3EE-465A-BD4A-70B08367F445}
+		{7F47590F-42EA-4254-AA7E-5A10A7B1ECC8} = {5C1E629D-E3EE-465A-BD4A-70B08367F445}
+		{CBD15BB7-5FBE-4BA5-8341-1E877F85D0DD} = {5C1E629D-E3EE-465A-BD4A-70B08367F445}
+		{9492F668-9149-4CD2-94CD-B6261F9B4B9E} = {5C1E629D-E3EE-465A-BD4A-70B08367F445}
+		{B7D52A4C-BA25-46E6-85D3-2D9EFF0C3FA2} = {5C1E629D-E3EE-465A-BD4A-70B08367F445}
+		{14E45667-0206-4F0B-B7A1-2DA44ECD7136} = {69803501-9A19-4ED7-9611-8FB483188CD7}
 	EndGlobalSection
 EndGlobal

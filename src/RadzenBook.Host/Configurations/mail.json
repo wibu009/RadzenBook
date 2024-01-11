@@ -1,0 +1,7 @@
+{
+  "SendGridSettings": {
+    "ApiKey": "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",
+    "FromEmail": "radzenbook@gmail.com",
+    "FromName": "RadzenBook"
+  }
+}

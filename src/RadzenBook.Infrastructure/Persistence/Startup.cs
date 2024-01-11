@@ -2,7 +2,7 @@
 using RadzenBook.Application.Common.Persistence;
 using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
-using RadzenBook.Infrastructure.Persistence.DataInitialization;
+using RadzenBook.Infrastructure.Persistence.Initialization;
 
 namespace RadzenBook.Infrastructure.Persistence;
 

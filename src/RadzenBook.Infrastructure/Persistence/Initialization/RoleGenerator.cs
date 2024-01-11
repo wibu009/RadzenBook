@@ -1,6 +1,6 @@
 ﻿using RadzenBook.Infrastructure.Identity.Role;
 
-namespace RadzenBook.Infrastructure.Persistence.DataInitialization;
+namespace RadzenBook.Infrastructure.Persistence.Initialization;
 
 public static class RoleGenerator
 {

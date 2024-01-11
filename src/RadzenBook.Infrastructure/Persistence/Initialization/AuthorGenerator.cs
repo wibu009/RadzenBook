@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Infrastructure.Persistence.DataInitialization;
+﻿namespace RadzenBook.Infrastructure.Persistence.Initialization;
 
 public static class AuthorGenerator
 {

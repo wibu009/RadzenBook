@@ -1,7 +1,7 @@
 ﻿using RadzenBook.Infrastructure.Identity.Role;
 using RadzenBook.Infrastructure.Identity.User;
 
-namespace RadzenBook.Infrastructure.Persistence.DataInitialization;
+namespace RadzenBook.Infrastructure.Persistence.Initialization;
 
 public static class Seed
 {
