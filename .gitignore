@@ -6,8 +6,8 @@
 # My Stuff
 .vscode/
 .idea/
-RadzenBook.Host/Configurations/*.json
-!RadzenBook.Host/Configurations/*.development.json
+src/RadzenBook.Host/Configurations/*.json
+!src/RadzenBook.Host/Configurations/*.development.json
 
 #Log files
 .Logs/

@@ -1,7 +1,0 @@
-{
-  "DatabaseSettings": {
-    "DatabaseProvider": "SqlServer",
-    "DatabaseEnvironment": "Server",
-    "ConnectionString": "Server=mssql-143652-0.cloudclusters.net,10001;Database=RadzenBookDB;User Id=admin;Password=Pa$$w0rd;MultipleActiveResultSets=true;Trusted_Connection=True;Encrypt=False;Integrated Security=False"
-  }
-}
