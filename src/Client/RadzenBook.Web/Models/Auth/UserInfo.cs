@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Client.Models.Auth;
+﻿namespace RadzenBook.Web.Models.Auth;
 
 public class UserInfo
 {

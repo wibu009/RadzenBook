@@ -12,7 +12,7 @@ using RadzenBook.Infrastructure.Persistence;
 namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    [Migration("20240109125941_Initial")]
+    [Migration("20240111112109_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

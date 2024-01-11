@@ -50,7 +50,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Persistence\Migrations\MSSQL\"/>
+        <Folder Include="Persistence\Migrations\"/>
     </ItemGroup>
 
 </Project>

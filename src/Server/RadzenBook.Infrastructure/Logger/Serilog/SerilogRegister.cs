@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using RadzenBook.Infrastructure.Persistence;
-using RadzenBook.Infrastructure.Persistence.Configurations;
+﻿using RadzenBook.Infrastructure.Persistence;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;

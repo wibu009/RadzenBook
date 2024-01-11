@@ -1,8 +1,7 @@
 ﻿@using System.Drawing
-@using RadzenBook.Client.Models.Auth
 @using Color = MudBlazor.Color
 @using Size = MudBlazor.Size
-@using RadzenBook.Client.Components.Layout.Navbar
+@using RadzenBook.Web.Components.Layout.Navbar
 
 <MudAppBar Color="Color.Primary" Fixed="true" WrapContent="true" Dense="true" Class="pt-2 pb-2 pl-10 pr-10">
     @if (ToggleDrawer != null)
@@ -22,7 +21,6 @@
 
 @code {
 
-    [Parameter]
-    public Action? ToggleDrawer { get; set; }
+    [Parameter] public Action? ToggleDrawer { get; set; }
 
 }
