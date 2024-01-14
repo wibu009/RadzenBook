@@ -1,0 +1,2 @@
+msgid "test string 1"
+msgstr "kiểm tra chuỗi 1 trong tiếng việt"

@@ -10,9 +10,9 @@ public static class Startup
     {
         var localizationSettings = configuration.GetSection("LocalizationSettings").Get<LocalizationSettings>();
         if (localizationSettings!.EnableLocalization is false ||
-            string.IsNullOrEmpty(localizationSettings.ResourcesPath) is true) return services;
-        
-        services.AddPortableObjectLocalization();
+            string.IsNullOrWhiteSpace(localizationSettings.ResourcesPath)) return services;
+
+        services.AddPortableObjectLocalization(options => options.ResourcesPath = localizationSettings.ResourcesPath);
         services.Configure<RequestLocalizationOptions>(options =>
         {
             if (localizationSettings.SupportedCultures != null)
@@ -34,16 +34,16 @@ public static class Startup
             };
         });
         services.AddSingleton<ILocalizationFileLocationProvider, PoFileLocationProvider>();
-        
+
         //set default language in cookie
 
         return services;
     }
-    
+
     public static IApplicationBuilder UsePoLocalization(this IApplicationBuilder app)
     {
         app.UseRequestLocalization();
-        
+
         return app;
     }
 }
