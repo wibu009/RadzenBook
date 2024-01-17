@@ -10,6 +10,7 @@ public class Product : BaseEntity<Guid>
     public decimal SalePrice { get; set; }
     public string? Currency { get; set; }
     public decimal UnitPrice { get; set; }
+    public int Quantity { get; set; }
     public ProductStatus Status { get; set; }
     public Guid CategoryId { get; set; }
     public virtual Category Category { get; set; } = new();

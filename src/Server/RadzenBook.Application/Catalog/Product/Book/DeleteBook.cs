@@ -2,85 +2,75 @@
 
 namespace RadzenBook.Application.Catalog.Product.Book;
 
-public class DeleteBookRequest : IRequest<Result<Unit>>
+public class DeleteBookRequest : DeleteProductRequest
 {
-    public Guid Id { get; set; }
 }
 
-public class DeleteBookRequestValidator : CustomValidator<DeleteBookRequest>
+public class DeleteBookRequestValidator : DeleteProductRequestValidator<DeleteBookRequest>
 {
     public DeleteBookRequestValidator(IStringLocalizer<DeleteBookRequestValidator> t) : base(t)
     {
-        RuleFor(x => x.Id)
-            .NotEmpty().WithMessage(t["Id is required"]);
     }
 }
 
-public class DeleteBookRequestHandler : IRequestHandler<DeleteBookRequest, Result<Unit>>
+public class DeleteBookRequestHandler : DeleteProductRequestHandler<DeleteBookRequest>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IStringLocalizer _t;
-    private readonly IUserAccessor _userAccessor;
-    private readonly ILogger<DeleteBookRequestHandler> _logger;
-
-    public DeleteBookRequestHandler(
-        IUnitOfWork unitOfWork,
-        IStringLocalizerFactory t,
-        IInfrastructureServiceManager infrastructureServiceManager,
-        ILoggerFactory loggerFactory)
+    protected DeleteBookRequestHandler(
+        IUnitOfWork unitOfWork, 
+        IMapper mapper, 
+        IStringLocalizerFactory t, 
+        IInfrastructureServiceManager infrastructureServiceManager, 
+        ILoggerFactory loggerFactory) : 
+        base(unitOfWork, mapper, t, infrastructureServiceManager, loggerFactory)
     {
-        _unitOfWork = unitOfWork;
-        _logger = loggerFactory.CreateLogger<DeleteBookRequestHandler>();
-        _t = t.Create(typeof(DeleteBookRequestHandler));
-        _userAccessor = infrastructureServiceManager.UserAccessor;
     }
-
-    public async Task<Result<Unit>> Handle(DeleteBookRequest request, CancellationToken cancellationToken)
+    
+    public override async Task<Result<Unit>> Handle(DeleteBookRequest request, CancellationToken cancellationToken)
     {
         try
         {
             // Retrieve the book from the database
-            var product = await _unitOfWork.GetRepository<IProductRepository, Domain.Catalog.Product, Guid>()
+            var product = await UnitOfWork.GetRepository<IProductRepository, Domain.Catalog.Product, Guid>()
                 .GetByIdAsync(request.Id, includeProperties: "Book", cancellationToken: cancellationToken);
 
             // Check if the book exists
             if (product == null)
-                return Result<Unit>.Failure(_t["Book not found"]);
+                return Result<Unit>.Failure(T["Book not found"]);
 
             // Check if the book is already deleted
             if (product.IsDeleted)
-                return Result<Unit>.Failure(_t["Book not found"]);
+                return Result<Unit>.Failure(T["Book not found"]);
 
             // Delete Product
-            await _unitOfWork.GetRepository<IProductRepository, Domain.Catalog.Product, Guid>()
+            await UnitOfWork.GetRepository<IProductRepository, Domain.Catalog.Product, Guid>()
                 .SoftDeleteAsync(product, cancellationToken);
 
             // Delete Book
-            await _unitOfWork.GetRepository<IBookRepository, Domain.Catalog.Book, Guid>()
+            await UnitOfWork.GetRepository<IBookRepository, Domain.Catalog.Book, Guid>()
                 .SoftDeleteByPropsAsync(x => x.ProductId == request.Id, cancellationToken);
 
             //Delete Product Images
-            await _unitOfWork.GetRepository<IProductImageRepository, ProductImage, string>()
+            await UnitOfWork.GetRepository<IProductImageRepository, ProductImage, string>()
                 .SoftDeleteByPropsAsync(x => x.ProductId == product.Id, cancellationToken);
 
             //Delete Product Discounts
-            await _unitOfWork.GetRepository<IProductDiscountRepository, ProductDiscount, Guid>()
+            await UnitOfWork.GetRepository<IProductDiscountRepository, ProductDiscount, Guid>()
                 .SoftDeleteByPropsAsync(x => x.ProductId == product.Id, cancellationToken);
 
             //Delete Cart Items
-            await _unitOfWork.GetRepository<ICartItemRepository, CartItem, Guid>()
+            await UnitOfWork.GetRepository<ICartItemRepository, CartItem, Guid>()
                 .SoftDeleteByPropsAsync(x => x.ProductId == product.Id, cancellationToken);
 
             //Delete Reviews
-            await _unitOfWork.GetRepository<IReviewRepository, Review, Guid>()
+            await UnitOfWork.GetRepository<IReviewRepository, Review, Guid>()
                 .SoftDeleteByPropsAsync(x => x.ProductId == product.Id, cancellationToken);
 
             // Return a success result
-            return Result<Unit>.Success(_t["Book deleted successfully"]);
+            return Result<Unit>.Success(T["Book deleted successfully"]);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, e.Message);
+            Logger.LogError(e, e.Message);
             throw HandleRequestException.Create(nameof(Handle), nameof(DeleteBookRequestHandler), e.Message, e);
         }
     }
