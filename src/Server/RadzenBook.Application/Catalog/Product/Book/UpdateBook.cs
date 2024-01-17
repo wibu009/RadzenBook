@@ -14,8 +14,9 @@ public class UpdateBookRequest : IRequest<Result<Unit>>
     public int PageCount { get; set; }
     public decimal ImportPrice { get; set; }
     public decimal SalePrice { get; set; }
-    public CurrencyUnit Currency { get; set; }
+    public string? Currency { get; set; }
     public decimal UnitPrice { get; set; }
+    public int Quantity { get; set; }
     public double Weight { get; set; }
     public double Width { get; set; }
     public double Height { get; set; }
@@ -25,7 +26,7 @@ public class UpdateBookRequest : IRequest<Result<Unit>>
     public DateTime? PublishDate { get; set; }
     public Guid? AuthorId { get; set; }
     public List<Guid>? GenreIds { get; set; }
-    public List<ProductImageDto>? Images { get; set; }
+    public List<string>? ImagesIds { get; set; }
     public List<IFormFile>? NewImages { get; set; }
     public Guid? PublisherId { get; set; }
     public Guid CategoryId { get; set; }
@@ -150,7 +151,7 @@ public class UpdateBookRequestHandler : IRequestHandler<UpdateBookRequest, Resul
             .GetAsync(x => x.ProductId == product.Id, cancellationToken: cancellationToken);
 
         // Convert the existing images and request images to sets for easy comparison
-        var requestImageIds = new HashSet<string>(request.Images!.Select(x => x.Id)!);
+        var requestImageIds = new HashSet<string>(request.ImagesIds ?? new List<string>());
 
         var imagesToDelete = existingImages.Where(x => !requestImageIds.Contains(x.Id)).ToList();
 

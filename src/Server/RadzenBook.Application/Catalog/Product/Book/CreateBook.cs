@@ -13,8 +13,9 @@ public class CreateBookRequest : IRequest<Result<Unit>>
     public int PageCount { get; set; }
     public decimal ImportPrice { get; set; }
     public decimal SalePrice { get; set; }
-    public CurrencyUnit Currency { get; set; }
+    public string? Currency { get; set; }
     public decimal UnitPrice { get; set; }
+    public int Quantity { get; set; }
     public double Weight { get; set; }
     public double Width { get; set; }
     public double Height { get; set; }
@@ -61,6 +62,9 @@ public class CreateBookRequestValidator : CustomValidator<CreateBookRequest>
         RuleFor(x => x.UnitPrice)
             .NotEmpty().WithMessage(t["UnitPrice is required"])
             .GreaterThan(0).WithMessage(t["UnitPrice must be greater than {0}", 0]);
+        RuleFor(x => x.Quantity)
+            .NotEmpty().WithMessage(t["Quantity is required"])
+            .GreaterThanOrEqualTo(0).WithMessage(t["Quantity must be greater than or equal to {0}", 0]);
         RuleFor(x => x.Weight)
             .NotEmpty().WithMessage(t["Weight is required"])
             .GreaterThan(0).WithMessage(t["Weight must be greater than {0}", 0]);
