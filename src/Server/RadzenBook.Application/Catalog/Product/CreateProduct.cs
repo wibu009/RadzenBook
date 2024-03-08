@@ -15,9 +15,11 @@ public class CreateProductRequest : IRequest<Result<Unit>>
     public List<IFormFile>? Images { get; set; }
 }
 
-public class CreateProductRequestValidator<TProductCreateRequest> : CustomValidator<TProductCreateRequest> where TProductCreateRequest : CreateProductRequest
+public class CreateProductRequestValidator<TProductCreateRequest> : CustomValidator<TProductCreateRequest>
+    where TProductCreateRequest : CreateProductRequest
 {
-    protected CreateProductRequestValidator(IStringLocalizer<CreateProductRequestValidator<TProductCreateRequest>> t) : base(t)
+    protected CreateProductRequestValidator(IStringLocalizer<CreateProductRequestValidator<TProductCreateRequest>> t) :
+        base(t)
     {
         RuleFor(x => x.Title)
             .NotEmpty().WithMessage(t["Title is required"])
@@ -44,7 +46,7 @@ public class CreateProductRequestValidator<TProductCreateRequest> : CustomValida
     }
 }
 
-public class CreateProductRequestHandler<TProductCreateRequest> : 
+public class CreateProductRequestHandler<TProductCreateRequest> :
     IRequestHandler<TProductCreateRequest, Result<Unit>> where TProductCreateRequest : CreateProductRequest
 {
     protected readonly IUnitOfWork UnitOfWork;
@@ -68,7 +70,8 @@ public class CreateProductRequestHandler<TProductCreateRequest> :
         UserAccessor = infrastructureServiceManager.UserAccessor;
         PhotoAccessor = infrastructureServiceManager.PhotoAccessor;
     }
-    
+
+
     public virtual async Task<Result<Unit>> Handle(TProductCreateRequest request, CancellationToken cancellationToken)
     {
         //override this method in the derived class

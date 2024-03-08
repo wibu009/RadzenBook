@@ -15,16 +15,16 @@ public class DeleteBookRequestValidator : DeleteProductRequestValidator<DeleteBo
 
 public class DeleteBookRequestHandler : DeleteProductRequestHandler<DeleteBookRequest>
 {
-    protected DeleteBookRequestHandler(
-        IUnitOfWork unitOfWork, 
-        IMapper mapper, 
-        IStringLocalizerFactory t, 
-        IInfrastructureServiceManager infrastructureServiceManager, 
-        ILoggerFactory loggerFactory) : 
+    public DeleteBookRequestHandler(
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        IStringLocalizerFactory t,
+        IInfrastructureServiceManager infrastructureServiceManager,
+        ILoggerFactory loggerFactory) :
         base(unitOfWork, mapper, t, infrastructureServiceManager, loggerFactory)
     {
     }
-    
+
     public override async Task<Result<Unit>> Handle(DeleteBookRequest request, CancellationToken cancellationToken)
     {
         try

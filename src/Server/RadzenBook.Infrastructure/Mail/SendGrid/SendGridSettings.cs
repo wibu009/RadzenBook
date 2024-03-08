@@ -1,4 +1,4 @@
-﻿namespace RadzenBook.Infrastructure.Mail;
+﻿namespace RadzenBook.Infrastructure.Mail.SendGrid;
 
 public class SendGridSettings
 {

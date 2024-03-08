@@ -7,10 +7,11 @@ public class DeleteProductRequest : IRequest<Result<Unit>>
     public Guid Id { get; set; }
 }
 
-public class DeleteProductRequestValidator<TDeleteProductRequest> : CustomValidator<TDeleteProductRequest> 
+public class DeleteProductRequestValidator<TDeleteProductRequest> : CustomValidator<TDeleteProductRequest>
     where TDeleteProductRequest : DeleteProductRequest
 {
-    protected DeleteProductRequestValidator(IStringLocalizer<DeleteProductRequestValidator<TDeleteProductRequest>> t) : base(t)
+    protected DeleteProductRequestValidator(IStringLocalizer<DeleteProductRequestValidator<TDeleteProductRequest>> t) :
+        base(t)
     {
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage(t["Id is required"]);

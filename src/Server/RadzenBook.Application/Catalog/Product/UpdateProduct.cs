@@ -19,10 +19,11 @@ public class UpdateProductRequest : IRequest<Result<Unit>>
     public List<IFormFile>? NewImages { get; set; }
 }
 
-public class UpdateProductRequestValidator<TUpdateProductRequest> : CustomValidator<TUpdateProductRequest> 
+public class UpdateProductRequestValidator<TUpdateProductRequest> : CustomValidator<TUpdateProductRequest>
     where TUpdateProductRequest : UpdateProductRequest
 {
-    protected UpdateProductRequestValidator(IStringLocalizer<UpdateProductRequestValidator<TUpdateProductRequest>> t) : base(t)
+    protected UpdateProductRequestValidator(IStringLocalizer<UpdateProductRequestValidator<TUpdateProductRequest>> t) :
+        base(t)
     {
         RuleFor(x => x.Title)
             .MaximumLength(200).WithMessage(t["Title must not exceed {0} characters", 200]);
@@ -60,16 +61,14 @@ public class UpdateProductRequestHandler<TUpdateProductRequest> : IRequestHandle
         IMapper mapper,
         IStringLocalizerFactory t,
         IInfrastructureServiceManager infrastructureServiceManager,
-        IUserAccessor userAccessor,
-        IPhotoAccessor photoAccessor,
-        ILogger<UpdateProductRequestHandler<TUpdateProductRequest>> logger)
+        ILoggerFactory logger)
     {
         UnitOfWork = unitOfWork;
         Mapper = mapper;
         T = t.Create(typeof(UpdateProductRequestValidator<TUpdateProductRequest>));
-        UserAccessor = userAccessor;
-        PhotoAccessor = photoAccessor;
-        Logger = logger;
+        UserAccessor = infrastructureServiceManager.UserAccessor;
+        PhotoAccessor = infrastructureServiceManager.PhotoAccessor;
+        Logger = logger.CreateLogger<UpdateProductRequestHandler<TUpdateProductRequest>>();
     }
 
     public virtual async Task<Result<Unit>> Handle(TUpdateProductRequest request, CancellationToken cancellationToken)
@@ -77,7 +76,7 @@ public class UpdateProductRequestHandler<TUpdateProductRequest> : IRequestHandle
         //override this method in derived class
         return await Task.FromResult(Result<Unit>.Success(T["Product updated successfully"]));
     }
-    
+
     protected async Task UpdateImages(TUpdateProductRequest request, Domain.Catalog.Product product,
         CancellationToken cancellationToken)
     {

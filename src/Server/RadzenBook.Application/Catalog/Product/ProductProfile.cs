@@ -2,9 +2,12 @@
 
 namespace RadzenBook.Application.Catalog.Product;
 
-public class ProductProfile : Profile
+public class ProductProfile<TProductDto> : Profile
+    where TProductDto : ProductDto
 {
-    public ProductProfile()
+    protected ProductProfile()
     {
+        CreateMap<Domain.Catalog.Product, TProductDto>();
+        CreateMap<TProductDto, Domain.Catalog.Product>();
     }
 }

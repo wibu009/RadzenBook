@@ -47,15 +47,14 @@ public class UpdateBookRequestValidator : UpdateProductRequestValidator<UpdateBo
 public class UpdateBookRequestHandler : UpdateProductRequestHandler<UpdateBookRequest>
 {
     public UpdateBookRequestHandler(
-        IUnitOfWork unitOfWork, 
-        IMapper mapper, 
-        IStringLocalizerFactory t, 
-        IInfrastructureServiceManager infrastructureServiceManager, 
-        IUserAccessor userAccessor, 
-        IPhotoAccessor photoAccessor, ILogger<UpdateProductRequestHandler<UpdateBookRequest>> logger) : base(unitOfWork, mapper, t, infrastructureServiceManager, userAccessor, photoAccessor, logger)
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        IStringLocalizerFactory t,
+        IInfrastructureServiceManager infrastructureServiceManager,
+        ILoggerFactory logger) : base(unitOfWork, mapper, t, infrastructureServiceManager, logger)
     {
     }
-    
+
     public override async Task<Result<Unit>> Handle(UpdateBookRequest request, CancellationToken cancellationToken)
     {
         try
