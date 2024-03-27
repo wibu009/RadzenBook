@@ -29,7 +29,8 @@ public class GetAuthorListRequestHandler : IRequestHandler<GetAuthorListRequest,
         try
         {
             Expression<Func<Domain.Catalog.Author, bool>>? filter = null;
-            if (!string.IsNullOrEmpty(request.PagingParams.Name) || !string.IsNullOrEmpty(request.PagingParams.Alias))
+            if (!string.IsNullOrWhiteSpace(request.PagingParams.Name) ||
+                !string.IsNullOrEmpty(request.PagingParams.Alias))
             {
                 filter = author =>
                     (string.IsNullOrEmpty(request.PagingParams.Name) ||
@@ -38,10 +39,24 @@ public class GetAuthorListRequestHandler : IRequestHandler<GetAuthorListRequest,
                      author.Alias!.Contains(request.PagingParams.Alias!));
             }
 
+            string? orderBy = null;
+            if (!string.IsNullOrWhiteSpace(request.PagingParams.OrderBy))
+            {
+                orderBy = request.PagingParams.OrderBy.ToLower() switch
+                {
+                    "name" => nameof(Domain.Catalog.Author.FullName),
+                    "alias" => nameof(Domain.Catalog.Author.Alias),
+                    _ => nameof(Domain.Catalog.Author.FullName)
+                };
+            }
+
             var authors = await _unitOfWork.GetRepository<IAuthorRepository, Domain.Catalog.Author, Guid>()
-                .GetPagedAsync(filter: filter,
+                .GetPagedAsync(
+                    filter: filter,
                     pageNumber: request.PagingParams.PageNumber,
                     pageSize: request.PagingParams.PageSize,
+                    orderBy: orderBy,
+                    isAscending: request.PagingParams.IsAscending,
                     cancellationToken: cancellationToken);
             var totalCount = await _unitOfWork.GetRepository<IAuthorRepository, Domain.Catalog.Author, Guid>()
                 .CountAsync(filter: filter, cancellationToken: cancellationToken);

@@ -1,6 +1,5 @@
 ﻿namespace RadzenBook.Infrastructure.Mail;
 
-public class EmailTemplate
+public class EmailTemplateService
 {
-
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Linq.Dynamic.Core;
 using System.Reflection;
 using RadzenBook.Application.Common.Exceptions;
 using RadzenBook.Domain.Common.Contracts;
@@ -23,50 +24,6 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
     #endregion
 
     #region Query Methods
-
-    public virtual async Task<List<TEntity>> GetAsync(
-        Expression<Func<TEntity, bool>>? filter = null,
-        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
-        string? includeProperties = null,
-        bool isTracking = false,
-        CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            IQueryable<TEntity> query = DbSet;
-
-            if (filter != null)
-            {
-                query = await Task.FromResult(query.Where(filter));
-            }
-
-            if (includeProperties != null)
-            {
-                query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(query,
-                    (current, includeProperty) => current.Include(includeProperty));
-            }
-
-            if (orderBy != null)
-            {
-                query = await Task.FromResult(orderBy(query));
-            }
-            else
-            {
-                query = query.OrderBy(e => e.CreatedAt);
-            }
-
-            if (!isTracking)
-            {
-                query = query.AsNoTracking();
-            }
-
-            return await query.Where(e => e.IsDeleted == false).ToListAsync(cancellationToken);
-        }
-        catch (Exception e)
-        {
-            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
-        }
-    }
 
     public virtual async Task<TEntity?> GetByIdAsync(
         TKey id,
@@ -119,11 +76,10 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
         }
     }
 
-    public virtual async Task<List<TEntity>> GetPagedAsync(
-        int pageNumber,
-        int pageSize,
+    public virtual async Task<List<TEntity>> GetAsync(
         Expression<Func<TEntity, bool>>? filter = null,
-        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+        string? orderBy = null,
+        bool isAscending = true,
         string? includeProperties = null,
         bool isTracking = false,
         CancellationToken cancellationToken = default)
@@ -143,9 +99,56 @@ public class BaseRepository<TEntity, TKey> : IBaseRepository<TEntity, TKey> wher
                     (current, includeProperty) => current.Include(includeProperty));
             }
 
-            if (orderBy != null)
+            if (!string.IsNullOrWhiteSpace(orderBy))
             {
-                query = await Task.FromResult(orderBy(query));
+                query = isAscending ? query.OrderBy(orderBy) : query.OrderBy(orderBy + " descending");
+            }
+            else
+            {
+                query = query.OrderBy(e => e.CreatedAt);
+            }
+
+            if (!isTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            return await query.Where(e => e.IsDeleted == false).ToListAsync(cancellationToken);
+        }
+        catch (Exception e)
+        {
+            throw RepositoryException.Create(MethodBase.GetCurrentMethod()?.Name!, GetType().Name, e.Message, e);
+        }
+    }
+
+    public virtual async Task<List<TEntity>> GetPagedAsync(
+        int pageNumber,
+        int pageSize,
+        Expression<Func<TEntity, bool>>? filter = null,
+        string? orderBy = null,
+        bool isAscending = true,
+        string? includeProperties = null,
+        bool isTracking = false,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            IQueryable<TEntity> query = DbSet;
+
+            if (filter != null)
+            {
+                query = await Task.FromResult(query.Where(filter));
+            }
+
+            if (includeProperties != null)
+            {
+                query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(query,
+                    (current, includeProperty) => current.Include(includeProperty));
+            }
+
+            if (!string.IsNullOrWhiteSpace(orderBy))
+            {
+                query = isAscending ? query.OrderBy(orderBy) : query.OrderBy(orderBy + " descending");
             }
             else
             {
