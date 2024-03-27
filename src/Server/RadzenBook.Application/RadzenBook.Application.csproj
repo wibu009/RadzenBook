@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Sales\"/>
+        <Folder Include="Common\JobSchedule\"/>
     </ItemGroup>
 
 </Project>

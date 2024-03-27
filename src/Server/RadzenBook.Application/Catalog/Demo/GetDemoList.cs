@@ -10,14 +10,18 @@ public class GetDemoListRequestHandler : IRequestHandler<GetDemoListRequest, Res
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<GetDemoListRequestHandler> _logger;
+    private readonly IStringLocalizer _t;
 
     public GetDemoListRequestHandler(
         IUnitOfWork unitOfWork,
-        IMapper mapper, ILoggerFactory logger)
+        IMapper mapper,
+        ILoggerFactory logger,
+        IStringLocalizerFactory t)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _logger = logger.CreateLogger<GetDemoListRequestHandler>();
+        _t = t.Create(typeof(GetDemoListRequestHandler));
     }
 
     public async Task<Result<PaginatedList<DemoDto>>> Handle(GetDemoListRequest listRequest,

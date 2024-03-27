@@ -12,6 +12,6 @@ public interface IInfrastructureServiceManager
     ITokenService TokenService { get; }
     IUserAccessor UserAccessor { get; }
     IPhotoAccessor PhotoAccessor { get; }
-    IEmailSender EmailSender { get; }
+    IEmailSender SendGridEmailSender { get; }
     ICacheService LocalCacheService { get; }
 }

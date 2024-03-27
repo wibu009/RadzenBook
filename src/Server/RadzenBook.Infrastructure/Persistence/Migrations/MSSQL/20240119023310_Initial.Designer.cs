@@ -12,7 +12,7 @@ using RadzenBook.Infrastructure.Persistence;
 namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
 {
     [DbContext(typeof(RadzenBookDbContext))]
-    [Migration("20240111112109_Initial")]
+    [Migration("20240119023310_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -758,8 +758,9 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
+                    b.Property<string>("Currency")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -777,6 +778,11 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Quantity")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18,2)");

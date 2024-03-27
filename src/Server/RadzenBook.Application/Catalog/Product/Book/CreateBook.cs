@@ -3,18 +3,12 @@ using RadzenBook.Domain.Common.Enums;
 
 namespace RadzenBook.Application.Catalog.Product.Book;
 
-public class CreateBookRequest : IRequest<Result<Unit>>
+public class CreateBookRequest : CreateProductRequest
 {
-    public string? Title { get; set; }
-    public string? Description { get; set; }
     public string? ISBN { get; set; }
     public string? Language { get; set; }
     public string? Translator { get; set; }
     public int PageCount { get; set; }
-    public decimal ImportPrice { get; set; }
-    public decimal SalePrice { get; set; }
-    public CurrencyUnit Currency { get; set; }
-    public decimal UnitPrice { get; set; }
     public double Weight { get; set; }
     public double Width { get; set; }
     public double Height { get; set; }
@@ -24,21 +18,13 @@ public class CreateBookRequest : IRequest<Result<Unit>>
     public DateTime? PublishDate { get; set; }
     public Guid? AuthorId { get; set; }
     public List<Guid>? GenreIds { get; set; }
-    public List<IFormFile>? Images { get; set; }
     public Guid? PublisherId { get; set; }
-    public Guid CategoryId { get; set; }
 }
 
-public class CreateBookRequestValidator : CustomValidator<CreateBookRequest>
+public class CreateBookRequestValidator : CreateProductRequestValidator<CreateBookRequest>
 {
     public CreateBookRequestValidator(IStringLocalizer<CreateBookRequestValidator> t) : base(t)
     {
-        RuleFor(x => x.Title)
-            .NotEmpty().WithMessage(t["Title is required"])
-            .MaximumLength(200).WithMessage(t["Title must not exceed {0} characters", 200]);
-        RuleFor(x => x.Description)
-            .NotEmpty().WithMessage(t["Description is required"])
-            .MaximumLength(2500).WithMessage(t["Description must not exceed {0} characters", 2500]);
         RuleFor(x => x.ISBN)
             .NotEmpty().WithMessage(t["ISBN is required"])
             .MaximumLength(50).WithMessage(t["ISBN must not exceed {0} characters", 50]);
@@ -47,20 +33,6 @@ public class CreateBookRequestValidator : CustomValidator<CreateBookRequest>
             .MaximumLength(50).WithMessage(t["Language must not exceed {0} characters", 50]);
         RuleFor(x => x.Translator)
             .MaximumLength(50).WithMessage(t["Translator must not exceed {0} characters", 50]);
-        RuleFor(x => x.PageCount)
-            .NotEmpty().WithMessage(t["PageCount is required"])
-            .GreaterThan(0).WithMessage(t["PageCount must be greater than {0}", 0]);
-        RuleFor(x => x.ImportPrice)
-            .NotEmpty().WithMessage(t["ImportPrice is required"])
-            .GreaterThan(0).WithMessage(t["ImportPrice must be greater than {0}", 0]);
-        RuleFor(x => x.SalePrice)
-            .NotEmpty().WithMessage(t["SalePrice is required"])
-            .GreaterThan(0).WithMessage(t["SalePrice must be greater than {0}", 0]);
-        RuleFor(x => x.Currency)
-            .NotEmpty().WithMessage(t["Currency is required"]);
-        RuleFor(x => x.UnitPrice)
-            .NotEmpty().WithMessage(t["UnitPrice is required"])
-            .GreaterThan(0).WithMessage(t["UnitPrice must be greater than {0}", 0]);
         RuleFor(x => x.Weight)
             .NotEmpty().WithMessage(t["Weight is required"])
             .GreaterThan(0).WithMessage(t["Weight must be greater than {0}", 0]);
@@ -83,63 +55,44 @@ public class CreateBookRequestValidator : CustomValidator<CreateBookRequest>
             .NotEmpty().WithMessage(t["AuthorId is required"]);
         RuleFor(x => x.PublisherId)
             .NotEmpty().WithMessage(t["PublisherId is required"]);
-        RuleFor(x => x.CategoryId)
-            .NotEmpty().WithMessage(t["CategoryId is required"]);
         RuleFor(x => x.GenreIds)
             .NotEmpty().WithMessage(t["GenreIds is required"]);
-        RuleFor(x => x.Images)
-            .NotEmpty().WithMessage(t["Images is required"]);
     }
 }
 
-public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Result<Unit>>
+public class CreateBookRequestHandler : CreateProductRequestHandler<CreateBookRequest>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
-    private readonly IStringLocalizer _t;
-    private readonly IUserAccessor _userAccessor;
-    private readonly IPhotoAccessor _photoAccessor;
-    private readonly ILogger<CreateBookRequestHandler> _logger;
+    public CreateBookRequestHandler(IUnitOfWork unitOfWork, 
+        IMapper mapper, 
+        IStringLocalizerFactory t, 
+        IInfrastructureServiceManager infrastructureServiceManager, 
+        ILoggerFactory loggerFactory) 
+        : base(unitOfWork, mapper, t, infrastructureServiceManager, loggerFactory) { }
 
-    public CreateBookRequestHandler(
-        IUnitOfWork unitOfWork,
-        IMapper mapper,
-        IStringLocalizerFactory t,
-        IInfrastructureServiceManager infrastructureServiceManager,
-        ILoggerFactory loggerFactory)
-    {
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-        _logger = loggerFactory.CreateLogger<CreateBookRequestHandler>();
-        _t = t.Create(typeof(CreateBookRequestHandler));
-        _userAccessor = infrastructureServiceManager.UserAccessor;
-        _photoAccessor = infrastructureServiceManager.PhotoAccessor;
-    }
-
-    public async Task<Result<Unit>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
+    public override async Task<Result<Unit>> Handle(CreateBookRequest request, CancellationToken cancellationToken)
     {
         try
         {
             //Add product
-            var product = _mapper.Map<Domain.Catalog.Product>(request);
-            product.CreatedBy = _userAccessor.GetUsername();
-            product.ModifiedBy = _userAccessor.GetUsername();
-            await _unitOfWork.GetRepository<IProductRepository, Domain.Catalog.Product, Guid>()
+            var product = Mapper.Map<Domain.Catalog.Product>(request);
+            product.CreatedBy = UserAccessor.GetUsername();
+            product.ModifiedBy = UserAccessor.GetUsername();
+            await UnitOfWork.GetRepository<IProductRepository, Domain.Catalog.Product, Guid>()
                 .CreateAsync(product, cancellationToken);
 
             //Add book
-            var book = _mapper.Map<Domain.Catalog.Book>(request);
+            var book = Mapper.Map<Domain.Catalog.Book>(request);
             book.ProductId = product.Id;
-            book.CreatedBy = _userAccessor.GetUsername();
-            book.ModifiedBy = _userAccessor.GetUsername();
-            await _unitOfWork.GetRepository<IBookRepository, Domain.Catalog.Book, Guid>()
+            book.CreatedBy = UserAccessor.GetUsername();
+            book.ModifiedBy = UserAccessor.GetUsername();
+            await UnitOfWork.GetRepository<IBookRepository, Domain.Catalog.Book, Guid>()
                 .CreateAsync(book, cancellationToken);
 
             //Add images
-            var images = _photoAccessor.AddRangePhotoAsync(request.Images ?? new List<IFormFile>()).Result;
+            var images = PhotoAccessor.AddRangePhotoAsync(request.Images ?? new List<IFormFile>()).Result;
             if (images.Count != request.Images?.Count)
-                return Result<Unit>.Failure(_t["Image upload failed"]);
-            await _unitOfWork.GetRepository<IProductImageRepository, Domain.Catalog.ProductImage, string>()
+                return Result<Unit>.Failure(T["Image upload failed"]);
+            await UnitOfWork.GetRepository<IProductImageRepository, Domain.Catalog.ProductImage, string>()
                 .CreateRangeAsync(images.Select(x => new Domain.Catalog.ProductImage
                 {
                     Id = x.PublicId,
@@ -149,11 +102,11 @@ public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Resul
 
             //Add genres
             var genreIds = request.GenreIds ?? new List<Guid>();
-            var genres = await _unitOfWork.GetRepository<IGenreRepository, Domain.Catalog.Genre, Guid>()
+            var genres = await UnitOfWork.GetRepository<IGenreRepository, Domain.Catalog.Genre, Guid>()
                 .GetAsync(x => genreIds.Contains(x.Id), cancellationToken: cancellationToken);
             if (genres.Count != genreIds.Count)
-                return Result<Unit>.Failure(_t["Genre not found"]);
-            await _unitOfWork.GetRepository<IBookGenreRepository, BookGenre, Guid>()
+                return Result<Unit>.Failure(T["Genre not found"]);
+            await UnitOfWork.GetRepository<IBookGenreRepository, BookGenre, Guid>()
                 .CreateRangeAsync(genres.Select(x => new BookGenre
                 {
                     BookId = book.Id,
@@ -161,12 +114,12 @@ public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, Resul
                 }), cancellationToken);
 
             //Save changes
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
-            return Result<Unit>.Success(_t["Book created successfully"]);
+            await UnitOfWork.SaveChangesAsync(cancellationToken);
+            return Result<Unit>.Success(T["Book created successfully"]);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, e.Message);
+            Logger.LogError(e, e.Message);
             throw HandleRequestException.Create(nameof(Handle), nameof(CreateBookRequestHandler), e.Message, e);
         }
     }

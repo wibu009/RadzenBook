@@ -9,6 +9,8 @@ public class ProductConfig : IEntityTypeConfiguration<Product>
         builder.Property(x => x.ImportPrice).HasColumnType("decimal(18,2)");
         builder.Property(x => x.SalePrice).HasColumnType("decimal(18,2)");
         builder.Property(x => x.UnitPrice).HasColumnType("decimal(18,2)");
+        builder.Property(x => x.Currency).HasMaxLength(10);
+        builder.Property(x => x.Quantity).HasDefaultValue(0);
         builder.HasOne(x => x.Category)
             .WithMany(x => x.Products)
             .HasForeignKey(x => x.CategoryId);

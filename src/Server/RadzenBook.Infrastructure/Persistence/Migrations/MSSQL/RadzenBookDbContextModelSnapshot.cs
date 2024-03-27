@@ -756,8 +756,9 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
+                    b.Property<string>("Currency")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -775,6 +776,11 @@ namespace RadzenBook.Infrastructure.Persistence.Migrations.MSSQL
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Quantity")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18,2)");
